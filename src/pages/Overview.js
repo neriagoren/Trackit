@@ -10,7 +10,7 @@ class Overview extends React.Component {
 
     render () {
         return (
-            <div style={{marginLeft:"15%"}}>
+            <div style={{marginLeft:"17%"}}>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"flex-start"}}>
                     <UnresolvedBugsBoard />
                     <Stats />

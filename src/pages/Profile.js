@@ -8,7 +8,7 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <div style={{marginLeft:"15%", display:"flex", alignItems:"center", justifyContent:"flex-start"}}>
+            <div style={{marginLeft:"17%", display:"flex", justifyContent:"flex-start", height: "600px"}}>
                     <ProfileCard />
                     <Team />
             </div>

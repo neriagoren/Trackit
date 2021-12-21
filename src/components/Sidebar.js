@@ -6,6 +6,7 @@ import {AiOutlineClose, AiOutlineBars} from "react-icons/ai";
 import SubMenu from "./SubMenu";
 import {SidebarData} from "./SidebarData";
 import {IconContext} from "react-icons";
+import {FaUber} from "react-icons/fa";
 
 
 
@@ -26,44 +27,37 @@ const NavIcon = styled(NavLink)`
 
 const SidebarNav = styled.nav`
   background: #000000;
-  width: 15%;
-  height: 100vh;
+  width: 17%;
   display: flex;
   justify-content: center;
   position: fixed;
   top: 0;
-  left: ${({sidebar}) => (sidebar ? '0' : '-100%')};
+  bottom: 0;
+  overflow-y: auto;
+  left: 0;
   z-index: 10;
-`
+`;
 
 const SidebarWrap = styled.div`
   width: 100%;
-`
+`;
 const Sidebar = () => {
 
-    const [sidebar, setSidebar] = useState(false);
 
-    const showSidebar = () => setSidebar(!sidebar)
     return (
         <div>
             <IconContext.Provider value={{color:"white"}}>
 
-                <Nav>
-                    <NavIcon to = "#">
-                        <AiOutlineBars onClick={showSidebar} />
-                    </NavIcon>
-
-                </Nav>
 
 
-            <SidebarNav sidebar = {sidebar}>
-                <SidebarWrap>
-                    <NavIcon to = "#">
-                        <AiOutlineClose onClick={showSidebar}/>
-                    </NavIcon>
+            <SidebarNav >
+
+                <SidebarWrap >
+                    <h3 style={{color:"white"}}> Bug Tracker  </h3>
                     {SidebarData.map((item, index) => {
                         return <SubMenu item={item} key={index}/>
                     })}
+
                 </SidebarWrap>
             </SidebarNav>
             </IconContext.Provider>

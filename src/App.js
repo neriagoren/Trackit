@@ -37,15 +37,6 @@ class App extends React.Component{
 
                 <Sidebar />
 
-                <Header>
-                    <h1 style={{color: "white"}}> BUG TRACKER </h1>
-                    <div  style={{position:"absolute",display:"flex", right:"2%", color: "white"}}>
-                            <h3 style={{margin:"10px"}}> Sign out </h3>
-
-                            <h3 style={{margin:"10px"}}> <FaUser /> </h3>
-                    </div>
-                </Header>
-
 
                 <Route path={"/overview"} component={Overview} exact={true}/>
                 <Route path={"/"} component={Sign} exact={true}/>

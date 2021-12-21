@@ -62,8 +62,8 @@ export const SidebarData = [
         ]
     },
     {
-        title: "My Team",
-        path: "/team",
+        title: "My Department",
+        path: "/department",
         icon: <FaUsers />,
         iconClosed: <GoTriangleDown />,
         iconOpened: <GoTriangleUp />,

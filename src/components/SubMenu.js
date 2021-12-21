@@ -23,6 +23,11 @@ const SidebarLink = styled(NavLink)`
     background: gray;
 
   }
+  
+  @media screen and (max-width: 1400px) {
+    font-size: 17px;
+    height: 30px;
+  }
     
 `;
 
@@ -42,6 +47,10 @@ const DropdownLink = styled(NavLink)`
   &:hover {
     background: grey;
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 1400px) {
+    font-size: 15px;
   }
 `;
 const SubMenu = ({item}) => {

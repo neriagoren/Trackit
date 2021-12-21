@@ -5,7 +5,7 @@ class Messages extends React.Component {
 
     render () {
         return (
-            <div class={"page"}>
+            <div className={"page"}>
                 <h4>messages page</h4>
             </div>
         )

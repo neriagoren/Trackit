@@ -10,7 +10,7 @@ class Send extends React.Component {
 
     render () {
         return (
-                <div  style={{width:"40%", margin:"auto", marginTop:"20px"}}>
+                <div  style={{width:"40%", margin:"auto"}}>
                     <form action="/">
                         <div>
                             <h1>Send a Message</h1>
