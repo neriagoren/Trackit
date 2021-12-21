@@ -12,6 +12,8 @@ import {
 
 import {GoTriangleDown, GoTriangleUp} from "react-icons/go";
 import {HiOutlineDocumentReport} from "react-icons/hi";
+import {FiEdit, FiSettings} from "react-icons/fi";
+import {MdOutlineHeadsetMic} from "react-icons/md";
 
 export const SidebarData = [
     {
@@ -72,5 +74,24 @@ export const SidebarData = [
         icon: <FaUser />,
         iconClosed: <GoTriangleDown />,
         iconOpened: <GoTriangleUp />,
+    },
+    {
+        title: "Setting",
+        path: "/setting",
+        icon: <FiSettings />,
+        iconClosed: <GoTriangleDown />,
+        iconOpened: <GoTriangleUp />,
+        subNav: [
+            {
+                title: "Edit Profile",
+                path: "/setting/edit",
+                icon: <FiEdit />
+            },
+            {
+                title: "Contact Support",
+                path: "/setting/support",
+                icon: <MdOutlineHeadsetMic />
+            }
+        ]
     }
 ]

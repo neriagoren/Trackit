@@ -12,6 +12,8 @@ import Messages from "./pages/Messages";
 import Reports from "./pages/Reports";
 import Send from "./pages/Send";
 import Databases from "./pages/Databases";
+import Report from "./pages/Report";
+import Sign from "./pages/Sign";
 
 
 const Header = styled.div`
@@ -44,11 +46,14 @@ class App extends React.Component{
                     </div>
                 </Header>
 
+
                 <Route path={"/overview"} component={Overview} exact={true}/>
+                <Route path={"/"} component={Sign} exact={true}/>
                 <Route path={"/profile"} component={Profile} exact={true}/>
                 <Route path={"/messages"} component={Messages} exact={true}/>
                 <Route path={"/messages/send"} component={Send} exact={true}/>
                 <Route path={"/reports"} component={Reports} exact={true}/>
+                <Route path={"/reports/reportabug"} component={Report} exact={true}/>
                 <Route path={"/reports/databases"} component={Databases} exact={true}/>
 
 

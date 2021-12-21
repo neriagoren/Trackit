@@ -1,23 +1,54 @@
 import React from "react";
-import {Form} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 
 
 class Send extends React.Component {
 
+    state = {
+
+    }
+
     render () {
         return (
-            <div class={"page"}>
+                <div  style={{width:"40%", margin:"auto", marginTop:"20px"}}>
+                    <form action="/">
+                        <div>
+                            <h1>Send a Message</h1>
+                        </div>
+                        <div className="item">
+                            <p>Name</p>
+                            <div className="name-item">
+                                <input type="text" name="name" placeholder="First"/>
+                                <input type="text" name="name" placeholder="Last"/>
+                            </div>
+                        </div>
+                        <div className="contact-item">
+                            <div className="item">
+                                <p>Email</p>
+                                <input type="text" name="name"/>
+                            </div>
+                            <div className="item">
+                                <p>Phone</p>
+                                <input type="text" name="name"/>
+                            </div>
+                        </div>
+                        <div className="item">
+                            <p>Student Status</p>
+                            <input type="text" name="name"/>
+                        </div>
+                        <div className="item">
+                            <p>Roommate Preferences</p>
+                            <textarea rows="3" required></textarea>
+                        </div>
+
+                        <div className="btn-block">
+                            <button type="submit" href="/">APPLY</button>
+                        </div>
+                    </form>
+                </div>
 
 
-                        SEND
 
-
-                        <textarea placeholder={"Your message..."} />
-
-
-
-
-            </div>
         )
     }
 }

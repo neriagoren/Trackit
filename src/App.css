@@ -1,10 +1,7 @@
 .App {
   background-color: #faf9f4;
   text-align: center;
-  height:100vh;
-}
-
-body {
+  height: 100vh;
 }
 
 .board {
@@ -25,4 +22,70 @@ body {
   border-radius: 5px;
   box-shadow: 3px 3px 3px grey;
   height: 88vh;
+}
+
+form {
+  width: 100%;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 3px 3px 3px grey;
+  background: #fff;
+}
+input, textarea {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+input {
+  width: calc(100% - 10px);
+  padding: 5px;
+}
+textarea {
+  width: calc(100% - 12px);
+  padding: 5px;
+}
+.item:hover p, input:hover::placeholder {
+  color: red;
+}
+.item input:hover, .item textarea:hover {
+  border: 1px solid transparent;
+  box-shadow: 0 0 6px 0 red;
+  color: red;
+}
+.item {
+  position: relative;
+  margin: 10px 0;
+}
+.btn-block {
+  margin-top: 10px;
+  text-align: center;
+}
+button {
+  width: 150px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: black;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+button:hover {
+  background: red;
+}
+@media (min-width: 568px) {
+  .name-item, .contact-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .contact-item .item {
+    width: calc(50% - 8px);
+  }
+  .name-item input {
+    width: calc(50% - 20px);
+  }
+  .contact-item input {
+    width: calc(100% - 12px);
+  }
 }
