@@ -14,9 +14,14 @@ const SidebarLink = styled(NavLink)`
   font-size: 25px;
   
   &:hover {
-    background: #61dafb;
+    background: gray;
     border-left: 4px solid red;
     cursor:pointer;
+  }
+  
+  &:active {
+    background: gray;
+
   }
     
 `;
@@ -26,7 +31,6 @@ const SidebarLabel = styled.span`
 `;
 
 const DropdownLink = styled(NavLink)`
-  background: grey;
   height: 60px;
   padding-left: 3rem;
   display: flex;
@@ -36,7 +40,7 @@ const DropdownLink = styled(NavLink)`
   font-size: 20px;
   
   &:hover {
-    background: #61dafb;
+    background: grey;
     cursor: pointer;
   }
 `;
@@ -46,7 +50,7 @@ const SubMenu = ({item}) => {
     const showSubnav = () => setSubnav(!subnav)
     return (
         <div>
-            <SidebarLink to={item.path}  onClick={item.subNav && showSubnav}>
+            <SidebarLink to={item.path}  onClick={item.subNav && showSubnav} activeStyle={{ backgroundColor: "grey" }}>
                 <div>
                     {item.icon}
                     <SidebarLabel>
@@ -64,7 +68,7 @@ const SubMenu = ({item}) => {
             </SidebarLink>
             {subnav && item.subNav.map((item,index) => {
                 return (
-                    <DropdownLink to = {item.path}  key = {index}>
+                    <DropdownLink to = {item.path}  key = {index} activeStyle={{ backgroundColor: "red" }} >
                         {item.icon}
                         <SidebarLabel> {item.title} </SidebarLabel>
                     </DropdownLink>
