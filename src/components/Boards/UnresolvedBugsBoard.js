@@ -39,6 +39,51 @@ function UnresolvedBugsBoard(pros) {
                     <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
 
                 </tr>
+                <tr>
+                    <td>Thomas Brown</td>
+                    <td>19/12/21</td>
+                    <td>Button send not working</td>
+                    <td>1</td>
+                    <td>JAVA SCRIPT</td>
+                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
+
+                </tr>
+                <tr>
+                    <td>Thomas Brown</td>
+                    <td>19/12/21</td>
+                    <td>Button send not working</td>
+                    <td>1</td>
+                    <td>JAVA SCRIPT</td>
+                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
+
+                </tr>
+                <tr>
+                    <td>Thomas Brown</td>
+                    <td>19/12/21</td>
+                    <td>Button send not working</td>
+                    <td>1</td>
+                    <td>JAVA SCRIPT</td>
+                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
+
+                </tr>
+                <tr>
+                    <td>Thomas Brown</td>
+                    <td>19/12/21</td>
+                    <td>Button send not working</td>
+                    <td>1</td>
+                    <td>JAVA SCRIPT</td>
+                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
+
+                </tr>
+                <tr>
+                    <td>Thomas Brown</td>
+                    <td>19/12/21</td>
+                    <td>Button send not working</td>
+                    <td>1</td>
+                    <td>JAVA SCRIPT</td>
+                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
+
+                </tr>
             </table>
         </div>
     )

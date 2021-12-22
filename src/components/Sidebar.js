@@ -53,7 +53,7 @@ const Sidebar = () => {
             <SidebarNav >
 
                 <SidebarWrap >
-                    <h3 style={{color:"white"}}> Bug Tracker  </h3>
+                    <h2 style={{color:"white"}}> Bug Tracker  </h2>
                     {SidebarData.map((item, index) => {
                         return <SubMenu item={item} key={index}/>
                     })}

@@ -7,7 +7,7 @@ import {
     FaRegChartBar,
     FaRegEnvelope,
     FaRegPaperPlane,
-    FaRegEnvelopeOpen, FaRegListAlt, FaBug, FaUsers
+    FaRegEnvelopeOpen, FaRegListAlt, FaBug, FaUsers, FaListUl, FaBook
 } from "react-icons/fa";
 
 import {GoTriangleDown, GoTriangleUp} from "react-icons/go";
@@ -74,6 +74,20 @@ export const SidebarData = [
         icon: <FaUser />,
         iconClosed: <GoTriangleDown />,
         iconOpened: <GoTriangleUp />,
+        subNav: [
+            {
+                title: "My Tasks",
+                path: "/profile/tasks",
+                icon: <FaListUl />
+            }
+        ]
+    },
+    {
+        title: "Trackers Book",
+        path: "/book",
+        icon: <FaBook />,
+        iconClosed: <GoTriangleDown />,
+        iconOpened: <GoTriangleUp />
     },
     {
         title: "Setting",
