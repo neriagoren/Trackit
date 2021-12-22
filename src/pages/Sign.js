@@ -7,7 +7,7 @@ class Sign extends React.Component {
 
     render () {
         return (
-            <div  style={{width:"25%", margin:"auto", marginTop:"20px"}}>
+            <div style={{width:"25%", margin:"auto", marginTop:"20px", height:"100vh"}}>
                 <form action="/">
                     <div>
                         <h1>Sign</h1>

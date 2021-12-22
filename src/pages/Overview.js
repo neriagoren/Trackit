@@ -3,6 +3,7 @@ import Stats from "../components/Boards/Stats";
 import Team from "../components/Boards/Team";
 import UnresolvedBugsBoard from "../components/Boards/UnresolvedBugsBoard";
 import MessagesBoard from "../components/Boards/MessagesBoard";
+import CalendarBoard from "../components/Boards/CalendarBoard";
 
 
 class Overview extends React.Component {
@@ -13,12 +14,12 @@ class Overview extends React.Component {
             <div style={{marginLeft:"17%"}}>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"flex-start"}}>
                     <UnresolvedBugsBoard />
-                    <Stats />
+                    <CalendarBoard />
+
 
                 </div>
                 <div style={{display:"flex", alignItems:"center", justifyContent:"flex-start"}}>
-
-                    <Team />
+                    <Stats />
                     <MessagesBoard />
                 </div>
             </div>

@@ -6,7 +6,7 @@ import {AiOutlineClose, AiOutlineBars} from "react-icons/ai";
 import SubMenu from "./SubMenu";
 import {SidebarData} from "./SidebarData";
 import {IconContext} from "react-icons";
-import {FaUber} from "react-icons/fa";
+import {FaPowerOff, FaUber} from "react-icons/fa";
 
 
 
@@ -57,6 +57,10 @@ const Sidebar = () => {
                     {SidebarData.map((item, index) => {
                         return <SubMenu item={item} key={index}/>
                     })}
+
+                    <NavLink to={"/"}>
+                        <h2 style={{color:"white"}}> <FaPowerOff />  </h2>
+                    </NavLink>
 
                 </SidebarWrap>
             </SidebarNav>
