@@ -7,7 +7,7 @@ function Stats(props) {
 
     return (
 
-        <div class = {"board"} style={{width:"50%", height:"420px"}} >
+        <div class = {"board"} >
             <h3>
               Statistics
             </h3>

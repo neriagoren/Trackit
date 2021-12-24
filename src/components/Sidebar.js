@@ -2,28 +2,15 @@ import React, {useState} from "react";
 
 import {NavLink} from "react-router-dom";
 import styled from "styled-components";
-import {AiOutlineClose, AiOutlineBars} from "react-icons/ai";
 import SubMenu from "./SubMenu";
 import {SidebarData} from "./SidebarData";
 import {IconContext} from "react-icons";
-import {FaPowerOff, FaUber} from "react-icons/fa";
+import {FaPowerOff} from "react-icons/fa";
 
 
 
-const Nav = styled.div`
-  height: 80px;
-  position: absolute;
-  left: 0;
-`;
 
-const NavIcon = styled(NavLink)`
-  margin-left: 2rem;
-  font-size: 2rem;
-  height: 80px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
+
 
 const SidebarNav = styled.nav`
   background: #000000;

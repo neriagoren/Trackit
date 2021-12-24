@@ -3,8 +3,7 @@ import {
     FaUser,
     FaRegChartBar,
     FaRegEnvelope,
-    FaRegPaperPlane,
-    FaRegEnvelopeOpen, FaRegListAlt, FaBug, FaUsers, FaListUl, FaBook
+    FaRegListAlt, FaBug, FaUsers, FaListUl, FaBook
 } from "react-icons/fa";
 
 import {GoTriangleDown, GoTriangleUp} from "react-icons/go";

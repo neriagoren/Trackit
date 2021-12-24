@@ -13,8 +13,9 @@
   border: solid 1px white;
   border-radius: 5px;
   box-shadow: 3px 3px 3px grey;
-  height:350px;
+  height:420px;
   overflow-y: auto;
+  width: auto;
 }
 
 .page {
@@ -25,7 +26,7 @@
   border: solid 1px white;
   border-radius: 5px;
   box-shadow: 3px 3px 3px grey;
-  height: 600px;
+  height: auto;
 }
 
 

@@ -1,6 +1,4 @@
 import React from "react";
-import {FaFire} from "react-icons/fa";
-import {Button} from "react-bootstrap";
 
 class Report extends React.Component {
 

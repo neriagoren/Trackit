@@ -85,7 +85,7 @@ class UnresolvedBugsBoard extends React.Component{
     render() {
         return (
 
-            <div class={"board"} style={{width: "auto", height: "420px"}}>
+            <div class={"board"} >
                 <h3>
                     Unresolved Bugs
                 </h3>

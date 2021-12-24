@@ -50,7 +50,7 @@ class UnreadMessages extends React.Component {
     render() {
         return (
 
-            <div class = {"board"}  style={{width:"50%", height:"420px"}}>
+            <div class = {"board"} >
                 <h3>
                     Unread Messages
                 </h3>
