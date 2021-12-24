@@ -1,92 +1,105 @@
 import React from "react";
-import {AiFillCloseCircle} from "react-icons/ai";
+import DataTable from 'react-data-table-component';
+
+//const ExpandedComponent = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
+const ExpandedComponent = ({data}) => <div>
+    <pre> {data.description} </pre>
+</div>;
+const columns = [
+    {
+        name: 'reporter',
+        selector: row => row.reporter,
+    },
+    {
+        name: 'id',
+        selector: row => row.id,
+    },
+    {
+        name: 'date',
+        selector: row => row.date,
+    },
+    {
+        name: 'type',
+        selector: row => row.type,
+    },
+    {
+        name: 'urgency',
+        selector: row => row.urgency,
+    },
+];
+
+class UnresolvedBugsBoard extends React.Component{
+
+    state = {
+        data: [
+            {
+                id: 1,
+                reporter: "John Ham",
+                description: "This site looks bad buddy...",
+                type: "UI",
+                urgency: "MILD",
+                date: "20/2/21"
+            },
+            {
+                id: 1,
+                reporter: "John Ham",
+                description: "This site looks bad buddy...",
+                type: "UI",
+                urgency: "MILD",
+                date: "20/2/21"
+            },
+            {
+                id: 1,
+                reporter: "John Ham",
+                description: "This site looks bad buddy...",
+                type: "UI",
+                urgency: "MILD",
+                date: "20/2/21"
+            },
+            {
+                id: 1,
+                reporter: "John Ham",
+                description: "This site looks bad buddy...",
+                type: "UI",
+                urgency: "MILD",
+                date: "20/2/21"
+            },
+            {
+                id: 1,
+                reporter: "John Ham",
+                description: "This site looks bad buddy...",
+                type: "UI",
+                urgency: "MILD",
+                date: "20/2/21"
+            },
+
+        ]
+    }
+
+    componentDidMount() {
+        // update data and columns
+    }
 
 
-function UnresolvedBugsBoard(pros) {
 
-    return (
+    render() {
+        return (
 
-        <div class={"board"} style={{width: "auto"}}>
-            <h3>
-                Unresolved Bugs
-            </h3>
-            <p>
-                click on row to view more information
-            </p>
-            <table>
-                <tr>
-                    <th>Reported By</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>ID</th>
-                    <th>Type</th>
-                    <th>is Fixed?</th>
-                </tr>
-                <tr>
-                    <td>Henry Cavil</td>
-                    <td>21/12/21</td>
-                    <td>Issue with user display</td>
-                    <td>2</td>
-                    <td>UI</td>
-                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
-                </tr>
-                <tr>
-                    <td>Thomas Brown</td>
-                    <td>19/12/21</td>
-                    <td>Button send not working</td>
-                    <td>1</td>
-                    <td>JAVA SCRIPT</td>
-                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
+            <div class={"board"} style={{width: "auto", height: "420px"}}>
+                <h3>
+                    Unresolved Bugs
+                </h3>
 
-                </tr>
-                <tr>
-                    <td>Thomas Brown</td>
-                    <td>19/12/21</td>
-                    <td>Button send not working</td>
-                    <td>1</td>
-                    <td>JAVA SCRIPT</td>
-                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
+                <DataTable
+                    columns={columns}
+                    data={this.state.data}
+                    expandableRows
+                    expandableRowsComponent={ExpandedComponent}
+                />
 
-                </tr>
-                <tr>
-                    <td>Thomas Brown</td>
-                    <td>19/12/21</td>
-                    <td>Button send not working</td>
-                    <td>1</td>
-                    <td>JAVA SCRIPT</td>
-                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
-
-                </tr>
-                <tr>
-                    <td>Thomas Brown</td>
-                    <td>19/12/21</td>
-                    <td>Button send not working</td>
-                    <td>1</td>
-                    <td>JAVA SCRIPT</td>
-                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
-
-                </tr>
-                <tr>
-                    <td>Thomas Brown</td>
-                    <td>19/12/21</td>
-                    <td>Button send not working</td>
-                    <td>1</td>
-                    <td>JAVA SCRIPT</td>
-                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
-
-                </tr>
-                <tr>
-                    <td>Thomas Brown</td>
-                    <td>19/12/21</td>
-                    <td>Button send not working</td>
-                    <td>1</td>
-                    <td>JAVA SCRIPT</td>
-                    <td> <AiFillCloseCircle style={{color:"red"}}/> </td>
-
-                </tr>
-            </table>
-        </div>
-    )
+            </div>
+        );
+    }
 }
 
 export default UnresolvedBugsBoard;

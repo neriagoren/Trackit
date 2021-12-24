@@ -5,11 +5,11 @@ class Reports extends React.Component {
 
     render () {
         return (
-            <div class = {"board"}  style={{width:"auto", height:"auto"}}>
+            <div class = {"board"}  style={{width:"auto", height:"420px"}}>
 
                 <h4>  Events due </h4>
 
-                <Calendar/>
+                <Calendar />
 
             </div>
         )

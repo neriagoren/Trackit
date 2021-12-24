@@ -1,7 +1,8 @@
 import React from "react";
+import NavLink from "react-router-dom/es/NavLink";
 
 ////
-class Sign extends React.Component {
+class SignIn extends React.Component {
 
     state = {}
 
@@ -10,7 +11,7 @@ class Sign extends React.Component {
             <div style={{width:"25%", margin:"auto", marginTop:"20px", height:"100vh"}}>
                 <form action="/">
                     <div>
-                        <h1>Sign</h1>
+                        <h1>Sign in</h1>
                     </div>
                     <div className="item">
                         <div>
@@ -28,10 +29,25 @@ class Sign extends React.Component {
                     <div className="btn-block">
                         <button type="submit" href="/">Login </button>
                     </div>
+
+
+                    <div  style={{ paddingBottom:"10px", marginTop:"10px"}}>
+
+                        <div style={{ float:"left"}}>
+                            <NavLink to={"/signup"}> Create an account </NavLink>
+
+
+                        </div>
+                        <div style={{ float: "right"}}>
+                            <NavLink to={"/signup"}> Forgot password? </NavLink>
+
+                        </div>
+
+                    </div>
                 </form>
             </div>
         )
     }
 }
 
-export default Sign;
+export default SignIn;

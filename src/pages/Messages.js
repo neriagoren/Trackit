@@ -1,12 +1,22 @@
 import React from "react";
+import Send from "../components/Boards/Send";
+import Inbox from "../components/Boards/Inbox";
 
 
 class Messages extends React.Component {
 
+    state = {
+
+    }
+
     render () {
         return (
-            <div className={"page"}>
-                <h4>messages page</h4>
+            <div style={{marginLeft:"17%"}}>
+                <div style={{display:"flex"}}>
+                    <Send />
+                    <Inbox />
+                </div>
+
             </div>
         )
     }

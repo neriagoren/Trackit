@@ -1,9 +1,6 @@
 import React from "react";
 import {
     FaUser,
-    FaArrowUp,
-    FaHome,
-    FaArrowDown,
     FaRegChartBar,
     FaRegEnvelope,
     FaRegPaperPlane,
@@ -48,18 +45,6 @@ export const SidebarData = [
         icon: <FaRegEnvelope />,
         iconClosed: <GoTriangleDown />,
         iconOpened: <GoTriangleUp />,
-        subNav: [
-            {
-                title: "Inbox",
-                path: "/messages/inbox",
-                icon: <FaRegEnvelopeOpen />
-            },
-            {
-                title: "Send",
-                path: "/messages/send",
-                icon: <FaRegPaperPlane />
-            }
-        ]
     },
     {
         title: "My Department",

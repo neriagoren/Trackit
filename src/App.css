@@ -28,13 +28,7 @@
   height: 600px;
 }
 
-form {
-  width: 100%;
-  padding: 20px;
-  border-radius: 6px;
-  box-shadow: 3px 3px 3px grey;
-  background: #fff;
-}
+
 input, textarea {
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -118,7 +112,6 @@ table {
 .react-calendar {
   width: 400px;
   max-width: 100%;
-  background: #eee9e9;
   border-radius: 15px;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
@@ -158,11 +151,12 @@ table {
 }
 .react-calendar__navigation button {
   min-width: 44px;
-  background: black;
-  color: white;
   border-radius: 4px;
   padding:2px;
   margin: 1px;
+  background: none;
+  color: black;
+  font-weight:bold;
 }
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
@@ -239,3 +233,6 @@ table {
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;
 }
+
+
+

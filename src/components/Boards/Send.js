@@ -10,10 +10,10 @@ class Send extends React.Component {
 
     render () {
         return (
-                <div  style={{width:"40%", margin:"auto"}}>
+                <div  class={"board"} style={{width:"40%", height:"auto", padding:"25px"}}>
                     <form action="/">
                         <div>
-                            <h1>Send a Message</h1>
+                            <h3>Send a Message</h3>
                         </div>
                         <div className="item">
                             <p>Name</p>
@@ -33,11 +33,11 @@ class Send extends React.Component {
                             </div>
                         </div>
                         <div className="item">
-                            <p>Student Status</p>
+                            <p>Title</p>
                             <input type="text" name="name"/>
                         </div>
                         <div className="item">
-                            <p>Roommate Preferences</p>
+                            <p>Content</p>
                             <textarea rows="3" required></textarea>
                         </div>
 

@@ -1,20 +1,18 @@
 import React from "react";
+import Graph from "../Graph";
 
 
-function Stats(pros) {
+
+function Stats(props) {
 
     return (
 
-        <div class = {"board"} style={{width:"50%"}} >
+        <div class = {"board"} style={{width:"50%", height:"420px"}} >
             <h3>
               Statistics
             </h3>
-            <p>
-                Graph of number of bugs fixed per day
-            </p>
-            <p>
-                Charts of bugs reported
-            </p>
+
+            <Graph />
         </div>
     )
 }
