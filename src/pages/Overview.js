@@ -7,7 +7,6 @@ import CalendarBoard from "../components/Boards/CalendarBoard";
 
 class Overview extends React.Component {
 
-
     render () {
         return (
             <div style={{marginLeft:"17%"}}>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 import {NavLink} from "react-router-dom";
 import styled from "styled-components";
@@ -6,10 +6,6 @@ import SubMenu from "./SubMenu";
 import {SidebarData} from "./SidebarData";
 import {IconContext} from "react-icons";
 import {FaPowerOff} from "react-icons/fa";
-
-
-
-
 
 
 const SidebarNav = styled.nav`
@@ -34,8 +30,6 @@ const Sidebar = () => {
     return (
         <div>
             <IconContext.Provider value={{color:"white"}}>
-
-
 
             <SidebarNav >
 

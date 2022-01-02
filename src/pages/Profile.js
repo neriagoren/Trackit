@@ -5,7 +5,7 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <div style={{marginLeft:"17%", display:"flex", justifyContent:"flex-start", height: "600px"}}>
+            <div class={"board"}>
                     <ProfileCard />
             </div>
         )
