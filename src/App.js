@@ -1,5 +1,4 @@
 import './App.css';
-import Sidebar from "./components/Sidebar";
 import React from "react";
 import {BrowserRouter, Route} from "react-router-dom";
 import Overview from "./pages/Overview";
@@ -12,19 +11,15 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Support from "./pages/Support";
 import Department from "./pages/Department";
+import MiniDrawer from "./components/MiniDrawer";
 
-class App extends React.Component{
 
-    state = {
-
-    }
-
-    render() {
-        return (
-            <BrowserRouter>
+function App(){
+    return (
+        <BrowserRouter>
             <div className="App">
 
-                <Sidebar />
+                <MiniDrawer/>
 
                 <Route path={"/overview"} component={Overview} exact={true}/>
                 <Route path={"/"} component={SignIn} exact={true}/>
@@ -38,9 +33,8 @@ class App extends React.Component{
                 <Route path={"/setting/support"} component={Support} exact={true}/>
 
             </div>
-            </BrowserRouter>
-        );
-    }
+        </BrowserRouter>
+    );
 }
 
 export default App;
