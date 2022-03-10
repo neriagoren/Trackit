@@ -11,7 +11,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Support from "./pages/Support";
 import Department from "./pages/Department";
-import MiniDrawer from "./components/MiniDrawer";
+import ClippedDrawer from "./components/ClippedDrawer";
 
 
 function App(){
@@ -19,7 +19,7 @@ function App(){
         <BrowserRouter>
             <div className="App">
 
-                <MiniDrawer/>
+                <ClippedDrawer/>
 
                 <Route path={"/overview"} component={Overview} exact={true}/>
                 <Route path={"/"} component={SignIn} exact={true}/>
