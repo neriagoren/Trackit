@@ -9,14 +9,13 @@ class Overview extends React.Component {
 
     render () {
         return (
-            <div style={{marginLeft:"17%"}}>
-                <div style={{display:"flex"}}>
+            <div>
+                <div style={{display:"inline-flex"}}>
                     <UnresolvedBugsBoard />
                     <CalendarBoard />
 
-
                 </div>
-                <div style={{display:"flex"}}>
+                <div style={{display:"inline-flex"}}>
                     <Stats />
                     <UnreadMessages />
                 </div>

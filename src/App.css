@@ -1,9 +1,8 @@
 .App {
-  background-color: #dcdbd6;
-  text-align: center;
+  text-align: right;
   height: auto;
-  padding: 20px;
-
+  margin-right: 245px;
+  margin-top: 75px;
 }
 
 .board {
@@ -234,6 +233,3 @@ table {
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;
 }
-
-
-

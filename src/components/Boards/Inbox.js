@@ -1,26 +1,26 @@
 import React from "react";
 import DataTable from 'react-data-table-component';
 
-const ExpandedComponent = ({data}) => <div style={{textAlign:"left",fontSize:"12px", marginLeft:"5%"}}>
+const ExpandedComponent = ({data}) => <div style={{textAlign:"right",fontSize:"12px", marginRight:"5%"}}>
     <h4> {data.title} </h4>
     <p> {data.content} </p>
 </div>;
 const columns = [
     {
-        name: 'sender',
-        selector: row => row.sender,
+        name: 'תאריך',
+        selector: row => row.date,
     },
     {
-        name: 'department',
+        name: 'מחלקה',
         selector: row => row.department,
     },
     {
-        name: 'title',
+        name: 'כותרת',
         selector: row => row.title,
     },
     {
-        name: 'date',
-        selector: row => row.date,
+        name: "שולח",
+        selector: row => row.sender,
     },
 ];
 
@@ -30,9 +30,9 @@ class Inbox extends React.Component {
         data: [
             {
                 id: 1,
-                sender: "Mitchel Klein",
-                content: "This site looks bad buddy...",
-                title: "Hello There",
+                sender: "מיטשל קליין",
+                content: "היי מה נשמע",
+                title: "הודעה חשובה",
                 date: "20/2/21",
                 department: "IT"
             },
@@ -51,14 +51,15 @@ class Inbox extends React.Component {
         return (
 
             <div class = {"board"}  style={{width:"auto", height:"auto"}}>
-                <h3>
-                    Inbox
+                <h3  style={{textAlign:"center"}}>
+                    דואר נכנס
                 </h3>
                 <DataTable
                     columns={columns}
                     data={this.state.data}
                     expandableRows
                     expandableRowsComponent={ExpandedComponent}
+                    style={{textAlign:"right"}}
                 />
             </div>
         )
