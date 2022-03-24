@@ -5,11 +5,9 @@ import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {alpha, styled} from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -28,10 +26,10 @@ import {HiOutlineDocumentReport} from "react-icons/hi";
 import {FiEdit, FiSettings} from "react-icons/fi";
 import {MdOutlineHeadsetMic} from "react-icons/md";
 import NavLink from "react-router-dom/es/NavLink";
+import {useState} from "react";
 
 
 const drawerWidth = 240;
-
 
 const SidebarData = [
     {
@@ -164,6 +162,12 @@ const StyledIcon = styled(IconButton)(({ theme }) => ({
 
 export default function ClippedDrawer() {
 
+    const [selectedIndex, setSelectedIndex] = useState(0);
+
+    const handleListItemClick = (event, index) => {
+        setSelectedIndex(index);
+    };
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -246,7 +250,7 @@ export default function ClippedDrawer() {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor:"#2596be" }}>
                 <Toolbar>
 
 
@@ -314,26 +318,19 @@ export default function ClippedDrawer() {
                 <Box sx={{ overflow: 'auto'}}>
                     <List>
                         {SidebarData.map((item, index) => (
-                            <NavLink to = {item.path}  key = {index} activeStyle={{ color: "blue" }} style={{textDecoration:"none", color:"black"}}  >
-                                <ListItem button key={item.title}>
+                            <NavLink to = {item.path}  key = {index}  style={{textDecoration:"none"}}  >
+                                <ListItem button key={item.title}
+                                          selected={selectedIndex === index}
+                                          onClick={(event) => handleListItemClick(event, index)}
+                                          sx = {{color: selectedIndex === index ? "#2596be" : "black"}}
+                                >
                                     <ListItemText primary={item.title} sx={{textAlign:"center"}}/>
-                                    <ListItemIcon>
+                                    <ListItemIcon sx = {{color: selectedIndex === index ? "#2596be" : "black"}}>
                                         {item.icon}
                                     </ListItemIcon>
                                 </ListItem>
                             </NavLink>
 
-                        ))}
-                    </List>
-                    <Divider />
-                    <List>
-                        {['הגדרות', 'מחלקות', 'תקלות', 'כל מיני'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemText primary={text} sx={{textAlign:"center"}}/>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                            </ListItem>
                         ))}
                     </List>
                 </Box>

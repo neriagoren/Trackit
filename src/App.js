@@ -1,5 +1,6 @@
 import './App.css';
-import React from "react";
+import * as React from "react";
+import {useState} from "react";
 import {BrowserRouter, Route} from "react-router-dom";
 import Overview from "./pages/Overview";
 import Profile from "./pages/Profile";
@@ -8,29 +9,54 @@ import Reports from "./pages/Reports";
 import Databases from "./pages/Databases";
 import Report from "./pages/Report";
 import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
 import Support from "./pages/Support";
 import Department from "./pages/Department";
 import ClippedDrawer from "./components/ClippedDrawer";
+import {Redirect} from "react-router";
+import {Fab} from "@mui/material";
+import * as PropTypes from "prop-types";
+import SendIcon from '@mui/icons-material/Send';
 
+function NavigationIcon(props) {
+    return null;
+}
+
+NavigationIcon.propTypes = {sx: PropTypes.shape({mr: PropTypes.number})};
 
 function App(){
+
+    const [isLogged, setLogin] = useState(true);
+
     return (
         <BrowserRouter>
+
             <div className="App">
 
-                <ClippedDrawer/>
 
-                <Route path={"/overview"} component={Overview} exact={true}/>
-                <Route path={"/"} component={SignIn} exact={true}/>
-                <Route path={"/signup"} component={SignUp} exact={true}/>
-                <Route path={"/department"} component={Department} exact={true}/>
-                <Route path={"/profile"} component={Profile} exact={true}/>
-                <Route path={"/messages"} component={Messages} exact={true}/>
-                <Route path={"/reports"} component={Reports} exact={true}/>
-                <Route path={"/reports/reportabug"} component={Report} exact={true}/>
-                <Route path={"/reports/databases"} component={Databases} exact={true}/>
-                <Route path={"/setting/support"} component={Support} exact={true}/>
+                {
+                    isLogged ?
+                        <>
+                            <ClippedDrawer />
+                            <Fab variant="extended" sx ={{ "&:hover":{backgroundColor:"gray"} , backgroundColor:'#2596be', position:"absolute", right:"15px", bottom:"15px" ,zIndex: (theme) => theme.zIndex.drawer + 1}}>
+                               <p style={{color:'white'}}> שלח  הודעה  </p>
+                                <SendIcon  sx={{marginLeft:'10px', color:'white'}}/>
+                            </Fab>
+                            <Redirect to={"/overview"}/>
+                            <Route path={"/overview"} component={Overview} exact={true}/>
+                            <Route path={"/department"} component={Department} exact={true}/>
+                            <Route path={"/profile"} component={Profile} exact={true}/>
+                            <Route path={"/messages"} component={Messages} exact={true}/>
+                            <Route path={"/reports"} component={Reports} exact={true}/>
+                            <Route path={"/reports/reportabug"} component={Report} exact={true}/>
+                            <Route path={"/reports/databases"} component={Databases} exact={true}/>
+                            <Route path={"/setting/support"} component={Support} exact={true}/>
+                        </>
+                            :
+                        <>
+                            <Redirect to={"/"}/>
+                            <Route path={"/"}  component={SignIn}/>
+                        </>
+                }
 
             </div>
         </BrowserRouter>
