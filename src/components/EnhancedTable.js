@@ -86,10 +86,10 @@ const headCells = [
         label: 'כותרת הודעה',
     },
     {
-        id: 'calories',
+        id: 'date',
         numeric: true,
         disablePadding: false,
-        label: 'Calories',
+        label: 'תאריך',
     },
     {
         id: 'fat',
@@ -104,10 +104,10 @@ const headCells = [
         label: 'Carbs(g)',
     },
     {
-        id: 'protein',
+        id: 'sender',
         numeric: true,
         disablePadding: false,
-        label: 'Protein(g)',
+        label: 'שולח',
     },
 ];
 

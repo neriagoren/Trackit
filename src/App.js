@@ -30,14 +30,14 @@ function App(){
     return (
         <BrowserRouter>
 
-            <div className="App">
+            <div className="App" dir={"rtl"}>
 
 
                 {
                     isLogged ?
                         <>
                             <ClippedDrawer />
-                            <Fab variant="extended" sx ={{ "&:hover":{backgroundColor:"gray"} , backgroundColor:'#2596be', position:"absolute", right:"15px", bottom:"15px" ,zIndex: (theme) => theme.zIndex.drawer + 1}}>
+                            <Fab variant="extended" sx ={{ "&:hover":{backgroundColor:"gray"} , backgroundColor:'#2596be', position:"fixed", right:"15px", bottom:"15px" ,zIndex: (theme) => theme.zIndex.drawer + 1}}>
                                <p style={{color:'white'}}> שלח  הודעה  </p>
                                 <SendIcon  sx={{marginLeft:'10px', color:'white'}}/>
                             </Fab>
