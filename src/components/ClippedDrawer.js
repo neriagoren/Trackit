@@ -1,10 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -21,13 +19,13 @@ import {Route} from "react-router-dom";
 import Overview from "../pages/Overview";
 import Department from "../pages/Department";
 import Profile from "../pages/Profile";
-import Messages from "../pages/Messages";
 import Reports from "../pages/Reports";
 import Report from "../pages/Report";
 import Databases from "../pages/Databases";
 import Support from "../pages/Support";
 import {Divider} from "@mui/material";
 import MyAppBar from "./MyAppBar";
+import Inbox from "./Boards/Inbox";
 
 
 const drawerWidth = 240;
@@ -61,7 +59,7 @@ const SidebarData = [
     },
     {
         title: "הודעות",
-        path: "/messages",
+        path: "/inbox",
         icon: <FaRegEnvelope />,
         iconClosed: <GoTriangleDown />,
         iconOpened: <GoTriangleUp />,
@@ -164,13 +162,13 @@ export default function ClippedDrawer() {
                 </Box>
             </Drawer>
 
-            <Box sx={{  width:"100%", backgroundColor:"white", height:"100vh", overflowY:"auto", marginRight:"10px"}}>
+            <Box sx={{  width:"100%" ,mt:2, backgroundColor:"#f5f5f5", height:"100vh", marginRight:"10px"}}>
                 <Toolbar />
                 <Redirect to={"/overview"}/>
                 <Route path={"/overview"} component={Overview} exact={true}/>
                 <Route path={"/department"} component={Department} exact={true}/>
                 <Route path={"/profile"} component={Profile} exact={true}/>
-                <Route path={"/messages"} component={Messages} exact={true}/>
+                <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
                 <Route path={"/reports"} component={Reports} exact={true}/>
                 <Route path={"/reports/reportabug"} component={Report} exact={true}/>
                 <Route path={"/reports/databases"} component={Databases} exact={true}/>

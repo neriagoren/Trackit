@@ -2,15 +2,8 @@ import './App.css';
 import * as React from "react";
 import {useState} from "react";
 import {BrowserRouter, Route} from "react-router-dom";
-import Overview from "./pages/Overview";
-import Profile from "./pages/Profile";
-import Messages from "./pages/Messages";
-import Reports from "./pages/Reports";
-import Databases from "./pages/Databases";
-import Report from "./pages/Report";
+
 import SignIn from "./pages/SignIn";
-import Support from "./pages/Support";
-import Department from "./pages/Department";
 import ClippedDrawer from "./components/ClippedDrawer";
 import {Redirect} from "react-router";
 import {Fab} from "@mui/material";
@@ -40,7 +33,7 @@ function App(){
                             <ClippedDrawer />
                             {
                                 send ? <Fab onClick={handle} variant="extended" sx ={{ "&:hover":{backgroundColor:"gray"} , backgroundColor:'#2596be', position:"fixed", right:"15px", bottom:"15px" ,zIndex: (theme) => theme.zIndex.drawer + 1}}>
-                                    <p style={{color:'white'}}> שלח  הודעה  </p>
+                                    <p style={{color:'white'}}>  דיווח  </p>
                                     <SendIcon  sx={{marginRight:'5px', color:'white'}}/>
                                 </Fab>
                                     :

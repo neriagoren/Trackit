@@ -1,11 +1,13 @@
 .App {
   text-align: right;
   height: auto;
+  background-color: #f5f5f5;
 }
 
 html {
   direction: rtl;
   overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .board {
