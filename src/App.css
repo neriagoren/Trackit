@@ -1,8 +1,11 @@
 .App {
   text-align: right;
   height: auto;
-  margin-right: 245px;
-  margin-top: 75px;
+}
+
+html {
+  direction: rtl;
+  overflow-y: hidden;
 }
 
 .board {

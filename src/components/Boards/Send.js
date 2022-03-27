@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Form} from "react-bootstrap";
+import Box from "@mui/material/Box";
 
 
 class Send extends React.Component {
@@ -10,7 +11,7 @@ class Send extends React.Component {
 
     render () {
         return (
-                <div  class={"board"} style={{width:"40%", height:"auto", padding:"25px"}}>
+                <Box sx = {{margin:3}}>
                     <form action="/">
                         <div>
                             <h3>Send a Message</h3>
@@ -45,10 +46,7 @@ class Send extends React.Component {
                             <button type="submit" href="/">APPLY</button>
                         </div>
                     </form>
-                </div>
-
-
-
+                </Box>
         )
     }
 }

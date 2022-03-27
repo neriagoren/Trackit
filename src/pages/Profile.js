@@ -5,9 +5,11 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <div class={"board"}>
-                    <ProfileCard />
-            </div>
+            <>
+                <ProfileCard />
+                <ProfileCard />
+                <ProfileCard />
+            </>
         )
     }
 }

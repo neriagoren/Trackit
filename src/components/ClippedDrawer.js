@@ -16,6 +16,18 @@ import {FiEdit, FiSettings} from "react-icons/fi";
 import {MdOutlineHeadsetMic} from "react-icons/md";
 import NavLink from "react-router-dom/es/NavLink";
 import {useState} from "react";
+import {Redirect} from "react-router";
+import {Route} from "react-router-dom";
+import Overview from "../pages/Overview";
+import Department from "../pages/Department";
+import Profile from "../pages/Profile";
+import Messages from "../pages/Messages";
+import Reports from "../pages/Reports";
+import Report from "../pages/Report";
+import Databases from "../pages/Databases";
+import Support from "../pages/Support";
+import {Divider} from "@mui/material";
+import MyAppBar from "./MyAppBar";
 
 
 const drawerWidth = 240;
@@ -115,30 +127,9 @@ export default function ClippedDrawer() {
 
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex'}}>
             <CssBaseline />
-            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor:"#2596be" }}>
-                <Toolbar>
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{marginRight:"50px"}}>
-
-                        Track Kit
-                    </Typography>
-
-
-
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{marginRight:"125px"}}>
-
-                        {SidebarData[selectedIndex].title}
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-
+            <MyAppBar title = {SidebarData[selectedIndex].title}/>
             <Drawer
                 variant="permanent"
                 anchor="right"
@@ -168,8 +159,25 @@ export default function ClippedDrawer() {
 
                         ))}
                     </List>
+                    <Divider />
+
                 </Box>
             </Drawer>
+
+            <Box sx={{  width:"100%", backgroundColor:"white", height:"100vh", overflowY:"auto", marginRight:"10px"}}>
+                <Toolbar />
+                <Redirect to={"/overview"}/>
+                <Route path={"/overview"} component={Overview} exact={true}/>
+                <Route path={"/department"} component={Department} exact={true}/>
+                <Route path={"/profile"} component={Profile} exact={true}/>
+                <Route path={"/messages"} component={Messages} exact={true}/>
+                <Route path={"/reports"} component={Reports} exact={true}/>
+                <Route path={"/reports/reportabug"} component={Report} exact={true}/>
+                <Route path={"/reports/databases"} component={Databases} exact={true}/>
+                <Route path={"/setting/support"} component={Support} exact={true}/>
+
+            </Box>
+
         </Box>
     );
 }

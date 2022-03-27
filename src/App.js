@@ -14,14 +14,9 @@ import Department from "./pages/Department";
 import ClippedDrawer from "./components/ClippedDrawer";
 import {Redirect} from "react-router";
 import {Fab} from "@mui/material";
-import * as PropTypes from "prop-types";
 import SendIcon from '@mui/icons-material/Send';
+import MyAppBar from "./components/MyAppBar";
 
-function NavigationIcon(props) {
-    return null;
-}
-
-NavigationIcon.propTypes = {sx: PropTypes.shape({mr: PropTypes.number})};
 
 function App(){
 
@@ -64,3 +59,5 @@ function App(){
 }
 
 export default App;
+
+
