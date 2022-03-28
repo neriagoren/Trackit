@@ -5,13 +5,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import {
     Avatar,
-    Badge,
     Button,
     Checkbox,
     Chip,
-    Divider,
     Grid,
-    InputAdornment,
     ListItem,
     ListItemIcon,
     TextField
@@ -20,7 +17,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ScrollableFeed from 'react-scrollable-feed'
-import {AccountCircle} from "@mui/icons-material";
 
 
 

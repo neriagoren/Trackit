@@ -2,7 +2,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import * as React from "react";
-
+import IconButton from "@mui/material/IconButton";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function MyAppBar(props) {
     return (
@@ -25,6 +26,10 @@ export default function MyAppBar(props) {
 
                     {props.title}
                 </Typography>
+
+                <IconButton sx={{position:"fixed", left:50, color:"white"}}>
+                    <LogoutIcon />
+                </IconButton>
             </Toolbar>
         </AppBar>
     )

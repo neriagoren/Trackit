@@ -23,15 +23,17 @@ import Reports from "../pages/Reports";
 import Report from "../pages/Report";
 import Databases from "../pages/Databases";
 import Support from "../pages/Support";
-import {Divider} from "@mui/material";
+import {Badge, Divider} from "@mui/material";
 import MyAppBar from "./MyAppBar";
 import Inbox from "./Boards/Inbox";
+import Setting from "../pages/Setting";
 
 
 const drawerWidth = 240;
 
 const SidebarData = [
     {
+        id: "overview",
         title: "מבט כללי",
         path: "/overview",
         icon: <FaRegChartBar />,
@@ -39,6 +41,7 @@ const SidebarData = [
         iconOpened: <GoTriangleUp />,
     },
     {
+        id: "reports",
         title: "דוחות",
         path: "/reports",
         icon: <HiOutlineDocumentReport />,
@@ -58,6 +61,7 @@ const SidebarData = [
         ]
     },
     {
+        id: "messages",
         title: "הודעות",
         path: "/inbox",
         icon: <FaRegEnvelope />,
@@ -65,6 +69,7 @@ const SidebarData = [
         iconOpened: <GoTriangleUp />,
     },
     {
+        id: "department",
         title: "מחלקה שלי",
         path: "/department",
         icon: <FaUsers />,
@@ -72,6 +77,7 @@ const SidebarData = [
         iconOpened: <GoTriangleUp />,
     },
     {
+        id: "profile",
         title: "פרופיל",
         path: "/profile",
         icon: <FaUser />,
@@ -86,6 +92,7 @@ const SidebarData = [
         ]
     },
     {
+        id: "book",
         title: "Trackers Book",
         path: "/book",
         icon: <FaBook />,
@@ -93,6 +100,7 @@ const SidebarData = [
         iconOpened: <GoTriangleUp />
     },
     {
+        id:"setting",
         title: "הגדרות",
         path: "/setting",
         icon: <FiSettings />,
@@ -152,6 +160,17 @@ export default function ClippedDrawer() {
                                     </ListItemIcon>
                                     <ListItemText primary={item.title} sx={{textAlign:"right"}}/>
 
+                                    {
+                                        item.id === "messages" &&
+                                        <Badge badgeContent={4} color={"error"} />
+
+                                    }
+
+                                    {
+                                        item.id === "reports" &&
+                                        <Badge badgeContent={2} color={"error"} />
+
+                                    }
                                 </ListItem>
                             </NavLink>
 
@@ -172,7 +191,7 @@ export default function ClippedDrawer() {
                 <Route path={"/reports"} component={Reports} exact={true}/>
                 <Route path={"/reports/reportabug"} component={Report} exact={true}/>
                 <Route path={"/reports/databases"} component={Databases} exact={true}/>
-                <Route path={"/setting/support"} component={Support} exact={true}/>
+                <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
 
             </Box>
 
