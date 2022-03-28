@@ -1,13 +1,29 @@
-import React, {useEffect, useRef} from "react";
+import React from "react";
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import {Avatar, Badge, Button, Checkbox, Chip, Divider, Grid, ListItem, ListItemIcon, TextField} from "@mui/material";
+import {
+    Avatar,
+    Badge,
+    Button,
+    Checkbox,
+    Chip,
+    Divider,
+    Grid,
+    InputAdornment,
+    ListItem,
+    ListItemIcon,
+    TextField
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ScrollableFeed from 'react-scrollable-feed'
+import {AccountCircle} from "@mui/icons-material";
+
+
+
 const colors = ["#2596be", "orange", "red", "green", "pink"]
 
 const msg = [
@@ -21,10 +37,6 @@ const msg = [
     {title: "hi", body: "hello world", author:"אבנר"},
 ]
 export default function Inbox() {
-
-
-
-
     const [selectedIndex, setSelectedIndex] = React.useState(-1);
     const [checked, setChecked] = React.useState([]);
     const [selectSome, setSelectSome] = React.useState(false);
@@ -85,9 +97,10 @@ export default function Inbox() {
                 msg.map((item,index) => {
                     return(
                         <>
-                        <ListItem>
+                        <ListItem sx={{p:1}}>
                             {
-                                selectSome && <ListItemIcon onClick={handleToggle(index)}>
+                                selectSome &&
+                                <ListItemIcon onClick={handleToggle(index)}>
                                     <Checkbox
                                         edge="start"
                                         checked={checked.indexOf(index) !== -1}
@@ -107,10 +120,6 @@ export default function Inbox() {
 
                                 }
 
-
-
-
-
                             </ListItemButton>
                         </ListItem>
                         </>
@@ -122,7 +131,7 @@ export default function Inbox() {
             </Box>
         </Grid>
             <Grid item xs={6}>
-                        { selectedIndex !== -1 ?
+                        { selectedIndex !== -1 &&
                             <>
                             <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
 
@@ -145,7 +154,6 @@ export default function Inbox() {
                                                     שלום בוקר טוב
                                                 </Typography>
                                             </Box>
-
                                         </Box>
 
                                         <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
@@ -176,45 +184,7 @@ export default function Inbox() {
 
                                         </Box>
 
-                                    <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
 
-                                        <Box>
-                                            <AccountCircleIcon />
-
-                                        </Box>
-                                        <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
-                                            <Typography m={1} color={"white"}>
-                                                אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?
-                                            </Typography>
-                                        </Box>
-
-                                    </Box>
-                                    <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
-
-                                        <Box>
-                                            <AccountCircleIcon />
-
-                                        </Box>
-                                        <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
-                                            <Typography m={1} color={"white"}>
-                                                אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?
-                                            </Typography>
-                                        </Box>
-
-                                    </Box>
-                                    <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
-
-                                        <Box>
-                                            <AccountCircleIcon />
-
-                                        </Box>
-                                        <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
-                                            <Typography m={1} color={"white"}>
-                                                אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?
-                                            </Typography>
-                                        </Box>
-
-                                    </Box>
 
                                     </Box>
 
@@ -225,23 +195,22 @@ export default function Inbox() {
 
                                         </Box>
                                         <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
-                                            <Typography m={1} color={"black"}>
-                                                אני גרוש אחי, אתה לא זוכר שהיא בגדה בי איתך?
+                                            <Typography m={1} color={"black"} textAlign={"right"}>
+                                                 אין בעיה בוס! האישה והילדים בסדר כרגיל...
                                             </Typography>
                                         </Box>
 
                                     </Box>
                                     </ScrollableFeed>
                                 </Box>
+
+                                <Box sx={{p:1}}>
+                                    <TextField placeholder={"שלח הודעה..."} sx ={{width:"100%"}}/>
+                                </Box>
                             </Box>
 
-                                {/* <Box sx={{bgcolor: 'background.paper', width:"100%" }}>*/}
-                                {/*    <TextField id="outlined-basic"   variant={"filled"} sx={{width:"100%", padding:1}} />*/}
 
-                                {/*</Box>*/}
                             </>
-                            :
-                            <h3 style={{textAlign:"center"}}> מערכת מסרים 2022 </h3>
                         }
             </Grid>
         </Grid>
