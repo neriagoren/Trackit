@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import {Avatar, Button, Checkbox, Grid, ListItem, ListItemIcon, TextField} from "@mui/material";
+import {Avatar, Badge, Button, Checkbox, Chip, Divider, Grid, ListItem, ListItemIcon, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
-
+import Typography from "@mui/material/Typography";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ScrollableFeed from 'react-scrollable-feed'
 const colors = ["#2596be", "orange", "red", "green", "pink"]
 
 const msg = [
@@ -19,6 +21,8 @@ const msg = [
     {title: "hi", body: "hello world", author:"אבנר"},
 ]
 export default function Inbox() {
+
+
 
 
     const [selectedIndex, setSelectedIndex] = React.useState(-1);
@@ -43,14 +47,13 @@ export default function Inbox() {
     };
 
     const handleSelectSome = () => {
-        setSelectedIndex(-1);
         setSelectSome(!selectSome);
         setChecked([]);
     }
 
     return (
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-        <Grid item xs={5} >
+        <Grid item xs={4} >
             <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                 <ListSubheader sx={{borderRadius:"10px"}} component="div" id="nested-list-subheader">
                     רשימת שיחות
@@ -96,8 +99,18 @@ export default function Inbox() {
 
                             <ListItemButton selected={selectedIndex === index} onClick={(event) => handleClick(event,index)}  sx={{textAlign:"right"}}>
                                 <Avatar sx = {{marginLeft:2, color:"white", backgroundColor:colors[index%5]}}>{item.author[0]}</Avatar>
-                                <ListItemText primary={item.author} />
-                                <ListItemText primary={item.body.slice(0,20) + "..."} />
+                                <ListItemText primary={item.author}/>
+
+                                {
+                                    !selectSome &&
+                                    <Chip  label={ index + " הודעות חדשות" } />
+
+                                }
+
+
+
+
+
                             </ListItemButton>
                         </ListItem>
                         </>
@@ -111,22 +124,121 @@ export default function Inbox() {
             <Grid item xs={6}>
                         { selectedIndex !== -1 ?
                             <>
-                            <Box sx={{  bgcolor: 'background.paper',height:"400px",overflowY:"scroll", overflowX:"hidden"}}>
+                            <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
 
-                            <ListSubheader component="div" id="nested-list-subheader">
+
+                            <ListSubheader component="div" id="nested-list-subheader" sx={{borderRadius:"10px"}}>
                                 השיחה שלך ושל { msg[selectedIndex].author}
                             </ListSubheader>
 
-                            <Box>
+                                <Box sx={{height:"400px", overflowY:"scroll", borderRadius:"10px"}}>
+                                    <ScrollableFeed>
+                                <Box>
+                                        <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
 
-                                    TEXT
-                                </Box>
-                                </Box>
+                                            <Box>
+                                                <AccountCircleIcon />
 
-                            <Box sx={{bgcolor: 'background.paper', width:"100%" }}>
-                                    <TextField id="outlined-basic"   variant={"filled"} sx={{width:"100%", padding:1}} />
+                                            </Box>
+                                            <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
+                                                <Typography m={1} color={"white"}>
+                                                    שלום בוקר טוב
+                                                </Typography>
+                                            </Box>
 
+                                        </Box>
+
+                                        <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
+
+                                            <Box>
+                                                <AccountCircleIcon />
+
+                                            </Box>
+                                            <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
+                                                <Typography m={1} color={"black"}>
+                                                    היי מה קורה נריה?
+                                                </Typography>
+                                            </Box>
+
+                                        </Box>
+
+                                        <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
+
+                                            <Box>
+                                                <AccountCircleIcon />
+
+                                            </Box>
+                                            <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
+                                                <Typography m={1} color={"white"}>
+                                                        אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?
+                                                </Typography>
+                                            </Box>
+
+                                        </Box>
+
+                                    <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
+
+                                        <Box>
+                                            <AccountCircleIcon />
+
+                                        </Box>
+                                        <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
+                                            <Typography m={1} color={"white"}>
+                                                אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?
+                                            </Typography>
+                                        </Box>
+
+                                    </Box>
+                                    <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
+
+                                        <Box>
+                                            <AccountCircleIcon />
+
+                                        </Box>
+                                        <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
+                                            <Typography m={1} color={"white"}>
+                                                אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?
+                                            </Typography>
+                                        </Box>
+
+                                    </Box>
+                                    <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
+
+                                        <Box>
+                                            <AccountCircleIcon />
+
+                                        </Box>
+                                        <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
+                                            <Typography m={1} color={"white"}>
+                                                אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?
+                                            </Typography>
+                                        </Box>
+
+                                    </Box>
+
+                                    </Box>
+
+                                    <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
+
+                                        <Box>
+                                            <AccountCircleIcon />
+
+                                        </Box>
+                                        <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
+                                            <Typography m={1} color={"black"}>
+                                                אני גרוש אחי, אתה לא זוכר שהיא בגדה בי איתך?
+                                            </Typography>
+                                        </Box>
+
+                                    </Box>
+                                    </ScrollableFeed>
                                 </Box>
+                            </Box>
+
+                                {/* <Box sx={{bgcolor: 'background.paper', width:"100%" }}>*/}
+                                {/*    <TextField id="outlined-basic"   variant={"filled"} sx={{width:"100%", padding:1}} />*/}
+
+                                {/*</Box>*/}
                             </>
                             :
                             <h3 style={{textAlign:"center"}}> מערכת מסרים 2022 </h3>

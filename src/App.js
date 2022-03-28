@@ -32,11 +32,7 @@ function App(){
                         <>
                             <ClippedDrawer />
                             {
-                                send ? <Fab onClick={handle} variant="extended" sx ={{ "&:hover":{backgroundColor:"gray"} , backgroundColor:'#2596be', position:"fixed", right:"15px", bottom:"15px" ,zIndex: (theme) => theme.zIndex.drawer + 1}}>
-                                    <p style={{color:'white'}}>  דיווח  </p>
-                                    <SendIcon  sx={{marginRight:'5px', color:'white'}}/>
-                                </Fab>
-                                    :
+                                send ?
                                     <Box sx = {{boxShadow:"0px 0px 10px gray",  borderRadius:"15px", width:"240px", height:"500px", backgroundColor:"white", zIndex: (theme) => theme.zIndex.drawer + 1, position:"fixed", right:"15px", bottom:"15px"}}>
                                         <Box sx = {{margin:1}}>
                                             <CloseIcon  onClick={handle} sx ={{color:"#2596be"}}/>
@@ -45,10 +41,14 @@ function App(){
 
                                         </Box>
 
-                                        <Box>
-                                        </Box>
-
                                     </Box>
+                                    :
+
+                                    <Fab onClick={handle} variant="extended" sx ={{ "&:hover":{backgroundColor:"gray"} , backgroundColor:'#2596be', position:"fixed", right:"15px", bottom:"15px" ,zIndex: (theme) => theme.zIndex.drawer + 1}}>
+                                        <p style={{color:'white'}}>  דיווח  </p>
+                                        <SendIcon  sx={{marginRight:'5px', color:'white'}}/>
+                                    </Fab>
+
                             }
 
                         </>
