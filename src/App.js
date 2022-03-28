@@ -10,10 +10,12 @@ import SendIcon from '@mui/icons-material/Send';
 import Box from "@mui/material/Box";
 import CloseIcon from '@mui/icons-material/Close';
 
+import Login from "./pages/Login";
+
 
 function App(){
 
-    const [isLogged, setLogin] = useState(true);
+    const [isLogged, setLogin] = useState(false);
 
     const [send, setSend] = useState(false);
 
@@ -23,6 +25,7 @@ function App(){
     return (
         <BrowserRouter>
             <div className="App" dir={"rtl"}>
+
                 {
                     isLogged ?
                         <>
@@ -51,7 +54,7 @@ function App(){
                             :
                         <>
                             <Redirect to={"/"}/>
-                            <Route path={"/"}  component={SignIn}/>
+                            <Route path={"/"}  render={props => <Login  {...props} />} exact={true}/>
                         </>
                 }
 

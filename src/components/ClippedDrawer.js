@@ -181,7 +181,7 @@ export default function ClippedDrawer() {
                 </Box>
             </Drawer>
 
-            <Box sx={{  width:"100%" ,mt:2, backgroundColor:"#f5f5f5", height:"100vh", marginRight:"10px"}}>
+            <Box sx={{  width:"100%" ,pt:2, backgroundColor:"#f5f5f5", height:"100vh", marginRight:"10px"}}>
                 <Toolbar />
                 <Redirect to={"/overview"}/>
                 <Route path={"/overview"} component={Overview} exact={true}/>
