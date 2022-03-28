@@ -5,7 +5,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import {Button, TextField} from "@mui/material";
 
-export default function Login() {
+export default function Login(props) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -28,8 +28,8 @@ export default function Login() {
 
                 <Box>
                     <TextField placeholder={"שם משתמש"} sx ={{width:"100%", m:1}}/>
-                    <TextField placeholder={"סיסמא"} sx ={{width:"100%", m:1}}/>
-                    <Button sx={{width:"100%"}}> התחבר/י </Button>
+                    <TextField type = {"password"} placeholder={"סיסמא"} sx ={{width:"100%", m:1}}/>
+                    <Button sx={{width:"100%"}} onClick={()=>props.setL(true)}> התחבר/י </Button>
                     <Button sx={{width:"100%"}}> שכחתי סיסמא </Button>
                 </Box>
                 {response}

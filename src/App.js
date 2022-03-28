@@ -2,7 +2,6 @@ import './App.css';
 import * as React from "react";
 import {useState} from "react";
 import {BrowserRouter, Route} from "react-router-dom";
-import SignIn from "./pages/SignIn";
 import ClippedDrawer from "./components/ClippedDrawer";
 import {Redirect} from "react-router";
 import {Fab} from "@mui/material";
@@ -15,7 +14,7 @@ import Login from "./pages/Login";
 
 function App(){
 
-    const [isLogged, setLogin] = useState(false);
+    const [isLogged, setLogin] = useState(true);
 
     const [send, setSend] = useState(false);
 
@@ -29,10 +28,10 @@ function App(){
                 {
                     isLogged ?
                         <>
-                            <ClippedDrawer />
+                            <ClippedDrawer setL = {setLogin} />
                             {
                                 send ?
-                                    <Box sx = {{boxShadow:"0px 0px 10px gray",  borderRadius:"15px", width:"240px", height:"500px", backgroundColor:"white", zIndex: (theme) => theme.zIndex.drawer + 1, position:"fixed", right:"15px", bottom:"15px"}}>
+                                    <Box sx = {{boxShadow:"0px 0px 2px gray",  borderRadius:"15px", width:"240px", height:"500px", backgroundColor:"white", zIndex: (theme) => theme.zIndex.drawer + 1, position:"fixed", right:"15px", bottom:"15px"}}>
                                         <Box sx = {{margin:1}}>
                                             <CloseIcon  onClick={handle} sx ={{color:"#2596be"}}/>
 
@@ -54,7 +53,7 @@ function App(){
                             :
                         <>
                             <Redirect to={"/"}/>
-                            <Route path={"/"}  render={props => <Login  {...props} />} exact={true}/>
+                            <Route path={"/"}  render={props => <Login  {...props} setL={setLogin} />} exact={true}/>
                         </>
                 }
 

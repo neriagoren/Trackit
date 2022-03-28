@@ -2,6 +2,7 @@ import React from "react";
 
 import {Container, Grid} from "@mui/material";
 import Box from "@mui/material/Box";
+import ListSubheader from "@mui/material/ListSubheader";
 
 
 class Overview extends React.Component {
@@ -12,11 +13,18 @@ class Overview extends React.Component {
             <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6} >
                     <Box sx={{ height:"400px", bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
+                        <ListSubheader sx={{position:"static", borderRadius:"10px"}} component="div" id="nested-list-subheader">
+                          לוח עדכונים כללי
+                        </ListSubheader>
+
                     </Box>
                 </Grid>
 
                 <Grid item xs={5} >
                     <Box sx={{ height:"400px", bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
+                        <ListSubheader sx={{position:"static", borderRadius:"10px"}} component="div" id="nested-list-subheader">
+                            יומן שבועי
+                        </ListSubheader>
                     </Box>
                 </Grid>
 
@@ -34,7 +42,6 @@ class Overview extends React.Component {
             </Grid>
 
             </Container>
-
         )
     }
 }

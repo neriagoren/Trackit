@@ -22,11 +22,11 @@ import Profile from "../pages/Profile";
 import Reports from "../pages/Reports";
 import Report from "../pages/Report";
 import Databases from "../pages/Databases";
-import Support from "../pages/Support";
 import {Badge, Divider} from "@mui/material";
 import MyAppBar from "./MyAppBar";
 import Inbox from "./Boards/Inbox";
 import Setting from "../pages/Setting";
+import TrackerBook from "../pages/TrackerBook";
 
 
 const drawerWidth = 240;
@@ -122,7 +122,7 @@ const SidebarData = [
 ]
 
 
-export default function ClippedDrawer() {
+export default function ClippedDrawer(props) {
 
     const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -135,7 +135,7 @@ export default function ClippedDrawer() {
     return (
         <Box sx={{ display: 'flex'}}>
             <CssBaseline />
-            <MyAppBar title = {SidebarData[selectedIndex].title}/>
+            <MyAppBar title = {SidebarData[selectedIndex].title} setL = {props.setL}/>
             <Drawer
                 variant="permanent"
                 anchor="right"
@@ -192,6 +192,7 @@ export default function ClippedDrawer() {
                 <Route path={"/reports/reportabug"} component={Report} exact={true}/>
                 <Route path={"/reports/databases"} component={Databases} exact={true}/>
                 <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
+                <Route path={"/book"} render={props => <TrackerBook  {...props} />} exact={true}/>
 
             </Box>
 
