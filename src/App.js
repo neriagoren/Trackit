@@ -5,7 +5,6 @@ import {BrowserRouter, Route} from "react-router-dom";
 import ClippedDrawer from "./components/ClippedDrawer";
 import {Redirect} from "react-router";
 import Login from "./pages/Login";
-import SpeedDialComponent from "./components/SpeedDialComponent";
 
 function App(){
 
@@ -18,7 +17,6 @@ function App(){
                     isLogged ?
                         <>
                             <ClippedDrawer setL = {setLogin} />
-                            <SpeedDialComponent />
                         </>
                             :
                         <>

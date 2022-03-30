@@ -23,7 +23,7 @@ export default function DepartmentBoard() {
     };
 
     return (
-        <Box sx={{height:"400px", overflowY:"scroll", borderRadius:"10px"}}>
+        <Box sx={{height:"400px", overflowY:"auto", borderRadius:"10px"}}>
         <List
             sx={{ width: '100%'}}
             component="nav"
