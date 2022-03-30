@@ -23,14 +23,14 @@ import ScrollableFeed from 'react-scrollable-feed'
 const colors = ["#2596be", "orange", "red", "green", "pink"]
 
 const msg = [
-    {title: "הודעה", body: "היי אני צריך שתשלח לי דיווח עדכני", author:"נריה גורן"},
-    {title: "hi", body: "hello world", author:"מתן גורן"},
-    {title: "hi", body: "hello world", author:"רות גורן"},
-    {title: "hi", body: "hello world", author:"רות גורן"},
-    {title: "hi", body: "hello world", author:"אבנר"},
-    {title: "hi", body: "hello world", author:"אבנר"},
-    {title: "hi", body: "hello world", author:"אבנר"},
-    {title: "hi", body: "hello world", author:"אבנר"},
+    {title: "הודעה", body: "היי אני צריך שתשלח לי דיווח עדכני", author:"גיא לשם"},
+    {title: "hi", body: "hello world", author:"מרדכי רייף"},
+    {title: "hi", body: "hello world", author:"מנחם דומב"},
+    {title: "hi", body: "hello world", author:"אסתר בן דויד"},
+    {title: "hi", body: "hello world", author:"שי גבעתי"},
+    {title: "hi", body: "hello world", author:"ניר קורן"},
+    {title: "hi", body: "hello world", author:"אורנה"},
+    {title: "hi", body: "hello world", author:"חני נדלר"},
 ]
 export default function Inbox() {
     const [selectedIndex, setSelectedIndex] = React.useState(-1);

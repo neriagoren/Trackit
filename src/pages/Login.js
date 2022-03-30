@@ -15,12 +15,12 @@ export default function Login(props) {
 
 
     return (
-        <Box sx={{  backgroundColor:"#f5f5f5", height:"100vh",display:"flex",
+        <Box sx={{ backgroundColor:"#f5f5f5", height:"100vh",display:"flex",
             justifyContent:"center",
             alignItems:"center",}}>
             <Toolbar />
 
-            <Box sx={{backgroundColor:"background.paper", p:3, borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
+            <Box sx={{maxWidth:"500px", backgroundColor:"background.paper", p:3, borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                <Box sx={{justifyContent:"center", display:"flex", borderRadius:"10px", color:"white", backgroundColor:"#2596be"}}>
                 <h3> Track It </h3>
                </Box>
