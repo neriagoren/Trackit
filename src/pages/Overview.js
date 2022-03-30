@@ -3,6 +3,7 @@ import React from "react";
 import {Container, Grid} from "@mui/material";
 import Box from "@mui/material/Box";
 import ListSubheader from "@mui/material/ListSubheader";
+import Typography from "@mui/material/Typography";
 
 
 class Overview extends React.Component {
@@ -13,18 +14,17 @@ class Overview extends React.Component {
             <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6} >
                     <Box sx={{ height:"400px", bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
-                        <ListSubheader sx={{position:"static", borderRadius:"10px"}} component="div" id="nested-list-subheader">
-                          לוח עדכונים כללי
-                        </ListSubheader>
-
+                        <Typography color={"gray"} fontSize={"small"} p={1}>
+                            לוח עדכונים כללי
+                        </Typography>
                     </Box>
                 </Grid>
 
                 <Grid item xs={5} >
                     <Box sx={{ height:"400px", bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
-                        <ListSubheader sx={{position:"static", borderRadius:"10px"}} component="div" id="nested-list-subheader">
+                        <Typography color={"gray"} fontSize={"small"} p={1}>
                             יומן שבועי
-                        </ListSubheader>
+                        </Typography>
                     </Box>
                 </Grid>
 

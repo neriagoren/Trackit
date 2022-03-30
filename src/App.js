@@ -8,46 +8,22 @@ import {Fab} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import Box from "@mui/material/Box";
 import CloseIcon from '@mui/icons-material/Close';
-
 import Login from "./pages/Login";
-
+import SpeedDialComponent from "./components/SpeedDialComponent";
 
 function App(){
 
     const [isLogged, setLogin] = useState(true);
 
-    const [send, setSend] = useState(false);
 
-    const handle = () => {
-        setSend(!send)
-    }
     return (
         <BrowserRouter>
             <div className="App" dir={"rtl"}>
-
+                <SpeedDialComponent />
                 {
                     isLogged ?
                         <>
                             <ClippedDrawer setL = {setLogin} />
-                            {
-                                send ?
-                                    <Box sx = {{boxShadow:"0px 0px 2px gray",  borderRadius:"15px", width:"240px", height:"500px", backgroundColor:"white", zIndex: (theme) => theme.zIndex.drawer + 1, position:"fixed", right:"15px", bottom:"15px"}}>
-                                        <Box sx = {{margin:1}}>
-                                            <CloseIcon  onClick={handle} sx ={{color:"#2596be"}}/>
-
-                                            <h3 style ={{textAlign:"center"}}> שלח הודעה  </h3>
-
-                                        </Box>
-
-                                    </Box>
-                                    :
-
-                                    <Fab onClick={handle} variant="extended" sx ={{ "&:hover":{backgroundColor:"gray"} , backgroundColor:'#2596be', position:"fixed", right:"15px", bottom:"15px" ,zIndex: (theme) => theme.zIndex.drawer + 1}}>
-                                        <p style={{color:'white'}}>  דיווח  </p>
-                                        <SendIcon  sx={{marginRight:'5px', color:'white'}}/>
-                                    </Fab>
-
-                            }
 
                         </>
                             :
