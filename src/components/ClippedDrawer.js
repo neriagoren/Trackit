@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -14,13 +13,10 @@ import {Route} from "react-router-dom";
 import Overview from "../pages/Overview";
 import Department from "../pages/Department";
 import Profile from "../pages/Profile";
-import Reports from "../pages/Reports";
-import Report from "../pages/Report";
-import {Badge, Divider} from "@mui/material";
+import {Badge, Container, Divider} from "@mui/material";
 import MyAppBar from "./MyAppBar";
-import Inbox from "./Boards/Inbox";
+import Inbox from "../ChatSystem/Inbox";
 import Setting from "../pages/Setting";
-import TrackerBook from "../pages/TrackerBook";
 
 
 const drawerWidth = 240;
@@ -76,12 +72,6 @@ const SidebarData = [
         ]
     },
     {
-        id: "book",
-        title: "Trackers Book",
-        path: "/book",
-
-    },
-    {
         id:"setting",
         title: "הגדרות",
         path: "/setting",
@@ -113,8 +103,7 @@ export default function ClippedDrawer(props) {
 
 
     return (
-        <Box sx={{ display: 'flex'}}>
-            <CssBaseline />
+        <Box>
             <MyAppBar title = {SidebarData[selectedIndex].title} setL = {props.setL}/>
             <Drawer
                 variant="permanent"
@@ -161,18 +150,7 @@ export default function ClippedDrawer(props) {
                 </Box>
             </Drawer>
 
-            <Box sx={{  width:"100%" ,pt:2, backgroundColor:"#f5f5f5", height:"100vh", marginRight:"10px"}}>
-                <Toolbar />
-                <Redirect to={"/overview"}/>
-                <Route path={"/overview"} component={Overview} exact={true}/>
-                <Route path={"/department"} component={Department} exact={true}/>
-                <Route path={"/profile"} component={Profile} exact={true}/>
-                <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
-                <Route path={"/reports"} component={Reports} exact={true}/>
-                <Route path={"/reports/reportabug"} component={Report} exact={true}/>
-                <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
-                <Route path={"/book"} render={props => <TrackerBook  {...props} />} exact={true}/>
-            </Box>
+
         </Box>
     );
 }

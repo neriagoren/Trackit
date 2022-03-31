@@ -131,7 +131,6 @@ export default function Inbox() {
                             <>
                             <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
 
-
                             <ListSubheader component="div" id="nested-list-subheader" sx={{borderRadius:"10px"}}>
                                 השיחה שלך ושל { msg[selectedIndex].author}
                             </ListSubheader>
@@ -156,7 +155,6 @@ export default function Inbox() {
 
                                             <Box>
                                                 <AccountCircleIcon />
-
                                             </Box>
                                             <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
                                                 <Typography m={1} color={"black"}>
@@ -198,8 +196,6 @@ export default function Inbox() {
                                     <TextField placeholder={"שלח הודעה..."} sx ={{width:"100%"}}/>
                                 </Box>
                             </Box>
-
-
                             </>
                         }
             </Grid>
