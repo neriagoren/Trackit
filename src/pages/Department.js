@@ -29,9 +29,8 @@ class Department extends React.Component {
                                 שיחה קבוצתית של המחלקה
                             </ListSubheader>
 
-                            <Box sx={{height:"280px", overflowY:"scroll", borderRadius:"10px"}}>
+                            <Box sx={{height:"280px", overflowY:"auto"}}>
                                 <ScrollableFeed>
-                                    <Box>
                                         <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
 
                                             <Box>
@@ -56,10 +55,9 @@ class Department extends React.Component {
                                                     היי מה קורה נריה?
                                                 </Typography>
                                             </Box>
-
                                         </Box>
-                                        <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
 
+                                        <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
                                             <Box>
                                                 <AccountCircleIcon />
 
@@ -69,11 +67,9 @@ class Department extends React.Component {
                                                     היי בוקר טוב בוס!
                                                 </Typography>
                                             </Box>
-
                                         </Box>
 
                                         <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
-
                                             <Box>
                                                 <AccountCircleIcon />
 
@@ -83,12 +79,7 @@ class Department extends React.Component {
                                                     אני צריך שתשלחו לי את הדוחות שלכם מ- 2021 לפני ארוחת צהריים
                                                 </Typography>
                                             </Box>
-
                                         </Box>
-
-
-
-                                    </Box>
 
                                     <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
 
@@ -107,14 +98,12 @@ class Department extends React.Component {
 
                                         <Box>
                                             <AccountCircleIcon />
-
                                         </Box>
                                         <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
                                             <Typography m={1} color={"black"} textAlign={"right"}>
                                                 נשלח הרגע לאימייל שלך נריה
                                             </Typography>
                                         </Box>
-
                                     </Box>
                                 </ScrollableFeed>
                             </Box>

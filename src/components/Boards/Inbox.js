@@ -136,9 +136,9 @@ export default function Inbox() {
                                 השיחה שלך ושל { msg[selectedIndex].author}
                             </ListSubheader>
 
-                                <Box sx={{height:"400px", overflowY:"scroll", borderRadius:"10px"}}>
+                                <Box sx={{height:"400px", overflowY:"auto"}}>
                                     <ScrollableFeed>
-                                <Box>
+
                                         <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
 
                                             <Box>
@@ -177,12 +177,7 @@ export default function Inbox() {
                                                         אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?
                                                 </Typography>
                                             </Box>
-
                                         </Box>
-
-
-
-                                    </Box>
 
                                     <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
 
@@ -195,7 +190,6 @@ export default function Inbox() {
                                                  אין בעיה בוס! האישה והילדים בסדר כרגיל...
                                             </Typography>
                                         </Box>
-
                                     </Box>
                                     </ScrollableFeed>
                                 </Box>
