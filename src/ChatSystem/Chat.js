@@ -1,9 +1,12 @@
 import React from "react";
 
-export default function MyBubble(props) {
 
-    return(
+export default function Chat() {
+
+    return (
         <>
         </>
     )
 }
+
+

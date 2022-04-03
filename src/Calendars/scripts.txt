@@ -1,0 +1,72 @@
+
+ <TableContainer >
+            <Table sx={{ width:"100%"}} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell> </TableCell>
+                        <TableCell sx={{textAlign:"center"}}> שעה </TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {hours.map((row,index) => (
+                        <TableRow key={index.toString()}>
+                            <Event row={row} />
+                        </TableRow>
+                    ))}
+
+                </TableBody>
+            </Table>
+        </TableContainer>
+
+{
+                                    index === 0  &&
+                                    <>
+                                        <Box sx={{ height:"50%"}}>
+                                        </Box>
+                                        <Divider />
+                                        <Box sx={{backgroundColor:"#2596be", height:"50%"}}>
+                                        <Typography color={"white"} textAlign={"right"} fontWeight={"bold"} p={1}>
+                                        </Typography>
+                                    </Box>
+                                    </>
+                                }
+                                   {
+                                       index === 1 &&
+                                       <>
+                                           <Box sx={{backgroundColor:"#2596be", height:"100%"}}>
+
+                                           </Box>
+                                       </>
+                                   }
+                                {
+                                    index === 2 &&
+                                    <>
+                                        <Box sx={{backgroundColor:"#2596be", height:"50%"}}>
+
+                                        </Box>
+                                        <Box sx={{backgroundColor:"#2596be", height:"50%"}}>
+                                            <Typography color={"white"} textAlign={"left"} p={1}>
+                                                מיקום 6/210
+                                            </Typography>
+                                        </Box>
+                                    </>
+                                }
+                                   {
+                                       !(arr.includes(index)) &&
+                                       <>
+                                           <Box sx={{ height:"50%"}}>
+
+                                           </Box>
+                                           <Divider/>
+                                           <Box sx={{ height:"50%"}}>
+
+                                           </Box>
+                                       </>
+                                   }
+
+
+ <Box sx={{height:"50%"}} placeholder={row}>
+                                </Box>
+                                <Divider> {row}</Divider>
+                                <Box sx={{height:"50%"}}>
+                                </Box>

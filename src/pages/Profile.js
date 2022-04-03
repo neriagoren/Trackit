@@ -1,9 +1,8 @@
 import React from "react";
-import {Avatar, Chip, Container, Divider, Grid, ListItemIcon, MenuItem, Stack} from "@mui/material";
+import { Chip, Container, Divider, Grid, ListItemIcon, MenuItem, Stack} from "@mui/material";
 import Box from "@mui/material/Box";
-import ColorLensIcon from '@mui/icons-material/ColorLens';
 
-import MenuColor from "../MenuColor";
+import MenuColor from "../Components/MenuColor";
 import Typography from "@mui/material/Typography";
 
 export default function Profile(){

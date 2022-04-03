@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import {ColorLens} from "@mui/icons-material";
 
 
-
 export default function MenuColor() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);

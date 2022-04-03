@@ -1,18 +1,18 @@
 import React from "react";
-import {Container, Grid, TextField} from "@mui/material";
+import {Avatar, Badge, Container, Grid, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import ListSubheader from "@mui/material/ListSubheader";
 import ScrollableFeed from "react-scrollable-feed";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
-import DepartmentBoard from "../components/DepartmentBoard";
+import DepartmentBoard from "../Components/DepartmentBoard";
 
 class Department extends React.Component {
     render() {
         return (
             <Container sx ={{height:"100%", overflowY:"auto", paddingBottom:20, paddingTop:1}}>
                 <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid item xs={6} >
+                    <Grid item xs={5} >
                         <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                             <ListSubheader component="div" sx={{position:"static",borderRadius:"10px"}}>
                                לוח עדכונים
@@ -22,57 +22,60 @@ class Department extends React.Component {
                         </Box>
                     </Grid>
 
-                    <Grid item xs={5} >
+                    <Grid item xs={6} >
 
                         <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                             <ListSubheader component="div" id="nested-list-subheader" sx={{position:"static",borderRadius:"10px"}}>
                                 שיחה קבוצתית של המחלקה
                             </ListSubheader>
 
-                            <Box sx={{height:"280px", overflowY:"auto"}}>
+                            <Box sx={{height:"300px", overflowY:"auto"}}>
                                 <ScrollableFeed>
-                                        <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
-
-                                            <Box>
-                                                <AccountCircleIcon />
-
-                                            </Box>
-                                            <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
-                                                <Typography m={1} color={"white"}>
-                                                    שלום בוקר טוב לכולם
-                                                </Typography>
-                                            </Box>
+                                    <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
+                                        <Box sx={{m:1}}>
+                                            <Avatar sx={{height:20, width:20, backgroundColor:"green", fontSize:"small"}} > נ  </Avatar>
                                         </Box>
-
-                                        <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
-
-                                            <Box>
-                                                <AccountCircleIcon />
-
-                                            </Box>
-                                            <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
+                                        <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
+                                            <Typography m={1} color={"white"}>
+                                                שלום בוקר טוב לכולם
+                                            </Typography>
+                                        </Box>
+                                    </Box>
+                                    <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
+                                        <Box sx={{m:1}}>
+                                            <Avatar sx={{height:20, width:20, backgroundColor:"orange", fontSize:"small"}} > ק  </Avatar>
+                                        </Box>
+                                        <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
+                                            <Badge badgeContent={ "קווין ספיד"}
+                                                   anchorOrigin={{
+                                                       vertical: 'top',
+                                                       horizontal: 'right',
+                                                   }}>
                                                 <Typography m={1} color={"black"}>
                                                     היי מה קורה נריה?
                                                 </Typography>
-                                            </Box>
+                                            </Badge>
                                         </Box>
-
-                                        <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
-                                            <Box>
-                                                <AccountCircleIcon />
-
-                                            </Box>
+                                    </Box>
+                                    <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
+                                        <Box sx={{m:1}}>
+                                            <Avatar sx={{height:20, width:20, backgroundColor:"blue", fontSize:"small"}} > מ  </Avatar>
+                                        </Box>
                                             <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
-                                                <Typography m={1} color={"black"}>
-                                                    היי בוקר טוב בוס!
-                                                </Typography>
+                                                <Badge badgeContent={ "מיטשל קליין"}
+                                                       anchorOrigin={{
+                                                           vertical: 'top',
+                                                           horizontal: 'right',
+                                                       }}>
+                                                    <Typography m={1} color={"black"}>
+                                                        היי בוקר טוב בוס!
+                                                    </Typography>
+                                                </Badge>
                                             </Box>
                                         </Box>
-
                                         <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
-                                            <Box>
-                                                <AccountCircleIcon />
-
+                                            <Box sx={{m:1}}>
+                                                <Avatar sx={{height:20, width:20, backgroundColor:"green", fontSize:"small"}} > נ  </Avatar>
                                             </Box>
                                             <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
                                                 <Typography m={1} color={"white"}>
@@ -81,30 +84,38 @@ class Department extends React.Component {
                                             </Box>
                                         </Box>
 
-                                    <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
-
-                                        <Box>
-                                            <AccountCircleIcon />
-
+                                        <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
+                                            <Box sx={{m:1}}>
+                                                <Avatar sx={{height:20, width:20, backgroundColor:"blue", fontSize:"small"}} > מ  </Avatar>
+                                            </Box>
+                                            <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
+                                                <Badge badgeContent={ "מיטשל קליין"}
+                                                       anchorOrigin={{
+                                                           vertical: 'top',
+                                                           horizontal: 'right',
+                                                       }}>
+                                                    <Typography m={1} color={"black"} textAlign={"right"}>
+                                                        עובד על זה עכשיו!
+                                                    </Typography>
+                                                </Badge>
+                                            </Box>
                                         </Box>
-                                        <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
-                                            <Typography m={1} color={"black"} textAlign={"right"}>
-                                                עובד על זה עכשיו!
-                                            </Typography>
+                                        <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
+                                            <Box sx={{m:1}}>
+                                                <Avatar sx={{height:20, width:20, backgroundColor:"orange", fontSize:"small"}} > ק  </Avatar>
+                                            </Box>
+                                            <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
+                                                <Badge badgeContent={ "קווין ספיד"}
+                                                       anchorOrigin={{
+                                                           vertical: 'top',
+                                                           horizontal: 'right',
+                                                       }}>
+                                                    <Typography m={1} color={"black"} textAlign={"right"}>
+                                                        נשלח הרגע לאימייל שלך נריה
+                                                    </Typography>
+                                                </Badge>
+                                            </Box>
                                         </Box>
-
-                                    </Box>
-                                    <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
-
-                                        <Box>
-                                            <AccountCircleIcon />
-                                        </Box>
-                                        <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
-                                            <Typography m={1} color={"black"} textAlign={"right"}>
-                                                נשלח הרגע לאימייל שלך נריה
-                                            </Typography>
-                                        </Box>
-                                    </Box>
                                 </ScrollableFeed>
                             </Box>
 
