@@ -1,14 +1,7 @@
 import * as React from "react";
-import TableRow from "@mui/material/TableRow";
-import {Button, Divider, ListItem, TableCell, Tooltip} from "@mui/material";
-import TableHead from "@mui/material/TableHead";
-import Table from "@mui/material/Table";
-import TableContainer from "@mui/material/TableContainer";
-import TableBody from "@mui/material/TableBody";
+import {Button, Divider, ListItem} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Unit from "./Unit";
-import Event from "./Event";
 import List from "@mui/material/List";
 
 
@@ -18,15 +11,13 @@ const hours = [
     "20:00","21:00","22:00","23:00","00:00"
 ];
 
-
+const event = [4,8];
 
 const range = (start, end) => {
     return Array(parseInt(end) - parseInt(start) + 1).fill().map((_, idx) => parseInt(start) + idx)
 }
-const agenda = [0,2];
-const arr = [...range(agenda[0],agenda[1])];
 
-
+const indexes = [...range(0,33)];
 
 export default function Day() {
     return (
@@ -42,13 +33,15 @@ export default function Day() {
                 {">"}
             </Button>
         </Box>
-        <Box sx={{ height:"400px", overflowY:"auto", p:2, display:"flex", direction:"row"}}>
+
+            <Box sx={{ height:"400px", overflowY:"auto", pr:3,pl:3, display:"flex", direction:"row" }}>
             <List sx = {{width:"20%"}}>
                 {hours.map((hour,index) => (
                     <>
-                        <ListItem sx={{height:"50px", p:0}}>
+                        <ListItem sx={{height:"100px", p:0}}>
                             <Box sx={{ width:"25%", height:"100%", display: "flex",
                                 flexDirection: "column",
+                                mr:2,
                                 justifyContent: "center"}}>
                                 <Typography textAlign={"center"}>
                                     {hour}
@@ -56,31 +49,46 @@ export default function Day() {
                             </Box>
                         </ListItem>
                     </>
-
                 ))}
             </List>
+
             <List sx = {{width:"80%"}}>
-                {hours.map((hour,index) => (
-
-                    <ListItem sx={{height:"50px", p:0}}>
-                        <Box sx={{width:"100%"}}>
-                            <Box sx={{backgroundColor:  "lightblue" , height:"25px"}}>
+                {
+                    indexes.slice(0,event[0]).map((index) => (
+                    <ListItem key={index} sx={{height:"50px", p:0}}>
+                            <Box sx={{width:"100%" , height:"100%"}}>
+                                <Divider />
                             </Box>
-
-                            <Divider/>
-
-                            <Box sx={{backgroundColor: "lightblue" , height:"25px"}}>
-
-                            </Box>
-                        </Box>
-
                     </ListItem>
-
+                ))}
+                {
+                    indexes.slice(event[0],event[1]).map((index) => (
+                    <ListItem  key={index} sx={{height:"50px", p:0}}>
+                        <Box sx={{width:"100%", backgroundColor:  "#2596be" , height:"100%"}}>
+                            {
+                                index === event[0] &&
+                                <Typography color={"white"} textAlign={"right"} fontWeight={"bold"} mr={1}>
+                                    תגבור מבני נתונים
+                                </Typography>
+                            }
+                            {
+                                index+1 === event[1] &&
+                                        <Typography color={"white"} textAlign={"left"} ml={1} mt={ event[1]-event[0] === 1 ? 0 : 2 }>
+                                            מיקום 6/210
+                                        </Typography>
+                            }
+                        </Box>
+                    </ListItem>
+                ))}
+                {
+                    indexes.slice(event[1],34).map((index) => (
+                    <ListItem  key={index} sx={{height:"50px", p:0}}>
+                        <Box sx={{width:"100%", height:"100%"}}>
+                            <Divider />
+                        </Box>
+                    </ListItem>
                 ))}
             </List>
-
-
-
         </Box>
         </Box>
     )
