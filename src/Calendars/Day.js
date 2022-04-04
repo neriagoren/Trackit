@@ -11,8 +11,29 @@ const hours = [
     "20:00","21:00","22:00","23:00","00:00"
 ];
 
-const event = [4,8];
-const events = [[1,5], [6,9], [15,22]];
+
+const eventsArray = {
+        15: {
+        "date":"",
+        "start":15,
+        "end":26,
+        "title":"",
+        "location":""
+        },
+        2: {
+            "date":"",
+            "start":2,
+            "end":8,
+            "title":"",
+            "location":""
+        },
+};
+
+const sortedEventsKeys = Object.keys(eventsArray).sort(function(a, b){return a - b});
+
+
+// 0 and 34 indexes are out of selection
+const events = [[1,5], [15,26]];
 
 const range = (start, end) => {
     return Array(parseInt(end) - parseInt(start) + 1).fill().map((_, idx) => parseInt(start) + idx)
@@ -20,21 +41,18 @@ const range = (start, end) => {
 
 const indexes = [...range(0,33)];
 
-const finalDayFunc = () => {
-    let arr = [...range(0,(2*events.length)-1 )];
-    let day = [];
-    arr.map((index)=> (
-            index % 2 === 0 ?
-                day.push(events[index/2])
-                :
-                day.push([events[(index-1)/2][1],events[( index !== arr.length-1 ?  (index+1)/2 : events.length-1)][0]])
-        ))
-
-    return day;
-
+const createAgenda = () => {
+    let agenda = [];
+    events.map((event,index)=> {
+            index === 0 && agenda.unshift([0,events[0][0]])
+            agenda.push(event)
+            index < events.length-1 && agenda.push([events[index][1],events[index+1][0]])
+            index === events.length-1 && agenda.push([events[events.length-1][1],34])
+    })
+    return agenda;
 }
 
-const finalDay = finalDayFunc();
+const agenda = createAgenda();
 
 
 export default function Day() {
@@ -51,7 +69,6 @@ export default function Day() {
                 {">"}
             </Button>
         </Box>
-            {console.log(finalDay)}
             <Box sx={{ height:"400px", overflowY:"auto", pr:3,pl:3, display:"flex", direction:"row" }}>
             <List sx = {{width:"20%"}}>
                 {hours.map((hour,index) => (
@@ -72,18 +89,16 @@ export default function Day() {
 
             <List sx = {{width:"80%"}}>
                 {
-                    indexes.slice(0,events[0][0]).map((index) => (
-                        <ListItem key={index} sx={{height:"50px", p:0}}>
-                            <Box sx={{width:"100%" , height:"100%"}}>
-                                <Divider />
-                            </Box>
-                        </ListItem>))
-                }
-
-                {
-                    finalDay.map((event,index) => (
+                    agenda.map((event,index) => (
                             index % 2 === 0
                                 ?
+                                    indexes.slice(event[0],event[1]).map((index) => (
+                                    <ListItem  key={index} sx={{height:"50px", p:0}}>
+                                        <Box sx={{width: "100%", height: "100%"}}>
+                                            <Divider/>
+                                        </Box>
+                                    </ListItem>))
+                                :
                                 indexes.slice(event[0],event[1]).map((index) => (
                                     <ListItem  key={index} sx={{height:"50px", p:0}}>
                                         <Box sx={{width:"100%", backgroundColor:  "#2596be" , height:"100%"}}>
@@ -101,24 +116,8 @@ export default function Day() {
                                             }
                                         </Box>
                                     </ListItem>))
-                                :
-                                    indexes.slice(event[0],event[1]).map((index) => (
-                                    <ListItem  key={index} sx={{height:"50px", p:0}}>
-                                        <Box sx={{width: "100%", height: "100%"}}>
-                                            <Divider/>
-                                        </Box>
-                                    </ListItem>))
 
                         ))
-                }
-
-                {
-                    indexes.slice(events[events.length - 1][1], 34).map((index) => (
-                        <ListItem key={index} sx={{height: "50px", p: 0}}>
-                            <Box sx={{width: "100%", height: "100%"}}>
-                                <Divider/>
-                            </Box>
-                        </ListItem>))
                 }
             </List>
         </Box>
