@@ -3,6 +3,7 @@ import {Button, Divider, ListItem} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
+import dayjs from "dayjs";
 
 
 const hours = [
@@ -10,6 +11,11 @@ const hours = [
     "14:00","15:00","16:00","17:00","18:00","19:00",
     "20:00","21:00","22:00","23:00","00:00"
 ];
+
+const months = ["ינואר", "פברואר", "מרץ", "אפריל","מאי","יוני",
+"יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"];
+
+const days = ["יום ראשון", "יום שני", "יום שלישי", "יום רביעי" , "יום חמישי", "יום שישי" , "שבת"];
 
 const eventsArray = {
         "1": {
@@ -61,7 +67,6 @@ const createAgenda = () => {
 
 const agenda = createAgenda();
 
-
 export default function Day() {
     return (
         <Box>
@@ -70,7 +75,11 @@ export default function Day() {
                     {"<"}
                 </Button>
                 <Typography textAlign={"center"}>
-                    יום שני 4 אפריל
+                    {days[dayjs().get('day')] + " "}
+                    {dayjs().get('date') + " "}
+                    {months[dayjs().get('month')]}
+
+
                 </Typography>
                 <Button>
                     {">"}
@@ -127,8 +136,6 @@ export default function Day() {
                                             <Divider/>
                                         </Box>
                                     </ListItem>))
-
-
                         ))
                     }
                 </List>
