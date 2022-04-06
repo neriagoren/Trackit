@@ -4,17 +4,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import dayjs from "dayjs";
+import {useState} from "react";
 
 
-const hours = [
-   "08:00","09:00","10:00","11:00","12:00","13:00",
+const hours = ["08:00","09:00","10:00","11:00","12:00","13:00",
     "14:00","15:00","16:00","17:00","18:00","19:00",
-    "20:00","21:00","22:00","23:00","00:00"
-];
-
+    "20:00","21:00","22:00","23:00","00:00"];
 const months = ["ינואר", "פברואר", "מרץ", "אפריל","מאי","יוני",
 "יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"];
-
 const days = ["יום ראשון", "יום שני", "יום שלישי", "יום רביעי" , "יום חמישי", "יום שישי" , "שבת"];
 
 const eventsArray = {
@@ -68,6 +65,9 @@ const createAgenda = () => {
 const agenda = createAgenda();
 
 export default function Day() {
+
+    const [todayEvents, setTodayEvents] = useState({})
+
     return (
         <Box>
             <Box sx={{display: "flex", direction: "row", alignItems: "center", justifyContent: "center"}}>
@@ -78,7 +78,6 @@ export default function Day() {
                     {days[dayjs().get('day')] + " "}
                     {dayjs().get('date') + " "}
                     {months[dayjs().get('month')]}
-
 
                 </Typography>
                 <Button>
