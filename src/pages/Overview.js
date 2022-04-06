@@ -29,9 +29,7 @@ export default function Overview() {
                             <Day />
                     </Box>
                 </Grid>
-                <Grid item xs={5}>
 
-                </Grid>
                 <Grid item xs={4}>
                     <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
                         <Typography color={"gray"} fontSize={"small"} p={1}>
