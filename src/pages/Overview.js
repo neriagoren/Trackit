@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import DepartmentBoard from "../Components/DepartmentBoard";
 import Day from "../Calendars/Day";
 import Month from "../Calendars/Month";
+import GlobalBoard from "../Components/GlobalBoard";
 
 
 export default function Overview() {
@@ -34,7 +35,7 @@ export default function Overview() {
                         <Typography color={"gray"} fontSize={"small"} p={1}>
                             לוח עדכונים כללי
                         </Typography>
-                        <DepartmentBoard/>
+                        <GlobalBoard />
                     </Box>
                 </Grid>
 

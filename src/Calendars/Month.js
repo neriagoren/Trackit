@@ -123,14 +123,11 @@ export default function Month() {
                                     display: "flex",
                                     flexDirection: "column",
                                     justifyContent: "center",
-                                    border: datesOfEvents.includes(index-firstDay+1) && "2px solid #2596be" }}>
-
+                                    border: (datesOfEvents.includes(index-firstDay+1) && dayjs().get('month') === day.get('month'))  && "2px solid #2596be" }}>
 
                                     <Typography textAlign={"center"} color={(index-firstDay+1)===day.get('date') && "white"}  fontWeight={(index-firstDay+1===day.get('date')) ? "bold" : ""}>
                                         {index-firstDay+1}
                                     </Typography>
-
-
                                 </Box>
                             }
 

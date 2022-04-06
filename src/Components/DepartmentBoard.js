@@ -33,32 +33,31 @@ export default function DepartmentBoard() {
                 <ListItemIcon>
                     <CircleNotificationsIcon />
                 </ListItemIcon>
-                <ListItemText primary={<Typography fontWeight="bold" >
-                    הודעה חשובה!
+                <ListItemText primary={<Typography fontWeight="bold" color="gray">
+                    תזכורת לפני שנת מס
                 </Typography>}  />
                 {selectedIndex === 0 ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={selectedIndex === 0} timeout="auto"  unmountOnExit>
                 <Typography p={2}>
-                        הודעה חשובה מאוד! תודה על תשומת הלב שלכם.
+                    עובדים שיש להם זיכוי בנקודות מס, נא לעדכן את אורנה בחשב שכר.
                 </Typography>
             </Collapse>
-
 
             <ListItemButton onClick={(event) => handleClick(event,1)}  sx ={{textAlign:"right"}}>
 
                 <ListItemIcon>
                     <CircleNotificationsIcon />
                 </ListItemIcon>
-                <ListItemText primary={<Typography fontWeight="bold" >
-                    הודעה חשובה!
+                <ListItemText primary={<Typography fontWeight="bold" color={"black"} >
+                    פעילות הספרייה בתאריך 20/4/22
                 </Typography>}  />
 
                 {selectedIndex === 1 ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={selectedIndex === 1} timeout="auto"  unmountOnExit>
                 <Typography p={2}>
-                    הודעה חשובה מאוד! תודה על תשומת הלב שלכם.
+                        הספרייה תהיה פתוחה עד השעה 16:20 בעקבות יום הקנאביס
                 </Typography>
             </Collapse>
 
@@ -67,15 +66,15 @@ export default function DepartmentBoard() {
                 <ListItemIcon>
                     <CircleNotificationsIcon />
                 </ListItemIcon>
-                <ListItemText primary={<Typography fontWeight="bold" >
-                    הודעה חשובה!
+                <ListItemText primary={<Typography fontWeight="bold" color={"gray"} >
+                   מילוי טופס 101
                 </Typography>}  />
 
                 {selectedIndex === 2 ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={selectedIndex === 2} timeout="auto"  unmountOnExit>
                 <Typography p={2}>
-                    הודעה חשובה מאוד! תודה על תשומת הלב שלכם.
+                  עובדים חדשים, נא למלא טופס 101 ולהעביר לחשב שכר.
                 </Typography>
             </Collapse>
 
