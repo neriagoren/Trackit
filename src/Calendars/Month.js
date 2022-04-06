@@ -133,9 +133,6 @@ export default function Month() {
 
                         </Grid>
                     )) }
-
-
-
                 </Grid>
             </Box>
         </Box>

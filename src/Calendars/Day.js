@@ -5,7 +5,8 @@ import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import dayjs from "dayjs";
 import {useState} from "react";
-
+import arraySupport from 'dayjs/plugin/arraySupport';
+dayjs.extend(arraySupport)
 
 const hours = ["08:00","09:00","10:00","11:00","12:00","13:00",
     "14:00","15:00","16:00","17:00","18:00","19:00",
@@ -16,21 +17,21 @@ const days = ["יום ראשון", "יום שני", "יום שלישי", "יום
 
 const eventsArray = {
         "1": {
-        "date":"",
+        "date":[2022,6],
         "start":1,
         "end":2,
         "title":"תגבור במבני נתונים",
         "location":"4/203"
         },
         "4": {
-            "date":"",
+            "date":[2022,4],
             "start":4,
             "end":6,
             "title":"תגבור באלגוריתמים 1",
             "location":"6/210"
         },
         "7": {
-            "date":"",
+            "date":[2022,4,23],
             "start":7,
             "end":11,
             "title":"מבוא למדעי המחשב 1",
@@ -67,20 +68,32 @@ const agenda = createAgenda();
 export default function Day() {
 
     const [todayEvents, setTodayEvents] = useState({})
+    const [day, setDay] = useState(dayjs([dayjs().get('year'),dayjs().get('month'),dayjs().get('date')]))
+
+    const onClickNext = () => {
+        let d = day.add(1,'days')
+        setDay(d)
+    }
+
+    const onClickBefore = () => {
+        let d = day.subtract(1,'days')
+        setDay(d)
+    }
 
     return (
         <Box>
+            {dayjs().startOf('month').toString()}
             <Box sx={{display: "flex", direction: "row", alignItems: "center", justifyContent: "center"}}>
-                <Button>
+                <Button onClick={onClickBefore}>
                     {"<"}
                 </Button>
                 <Typography textAlign={"center"}>
-                    {days[dayjs().get('day')] + " "}
-                    {dayjs().get('date') + " "}
-                    {months[dayjs().get('month')]}
+                    {days[day.get('day')] + " "}
+                    {day.get('date') + " "}
+                    {months[day.get('month')]}
 
                 </Typography>
-                <Button>
+                <Button onClick={onClickNext}>
                     {">"}
                 </Button>
             </Box>
