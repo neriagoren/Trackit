@@ -2,7 +2,6 @@ import React from "react";
 import {Container, Grid} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import DepartmentBoard from "../Components/DepartmentBoard";
 import Day from "../Calendars/Day";
 import Month from "../Calendars/Month";
 import GlobalBoard from "../Components/GlobalBoard";
@@ -48,8 +47,6 @@ export default function Overview() {
                         </Box>
                     </Box>
                 </Grid>
-
-
             </Grid>
         </Container>
     )

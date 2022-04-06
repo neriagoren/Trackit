@@ -57,7 +57,7 @@ export default function GlobalBoard() {
                 </ListItemButton>
                 <Collapse in={selectedIndex === 1} timeout="auto"  unmountOnExit>
                     <Typography p={2}>
-                        הספרייה תהיה פתוחה עד השעה 16:20 בעקבות יום הקנאביס
+                        הספרייה תהיה פתוחה עד השעה 16:20 לרגל יום הקנאביס
                     </Typography>
                 </Collapse>
 
