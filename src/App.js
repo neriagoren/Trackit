@@ -38,15 +38,8 @@ export default function App() {
                     <CssBaseline/>
                     {
                         isLogged ?
-                            <Box sx={{display: "flex"}}>
+                            <Box sx={{overflowY:"auto", height:"100vh"}}>
                                 <ClippedDrawer setL={setLogin}/>
-                                <Box sx={{
-                                    width: "100%",
-                                    pt: 2,
-                                    backgroundColor: "#f5f5f5",
-                                    height: "100vh",
-                                    marginRight: "10px"
-                                }}>
                                     <Toolbar/>
                                     <Redirect to={"/overview"}/>
                                     <Route path={"/overview"} component={Overview} exact={true}/>
@@ -54,7 +47,6 @@ export default function App() {
                                     <Route path={"/profile"} component={Profile} exact={true}/>
                                     <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
                                     <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
-                                </Box>
                             </Box>
                             :
                             <>

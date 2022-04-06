@@ -6,7 +6,7 @@ import React from "react";
 export default function Setting() {
 
     return (
-        <Container sx ={{height:"100%", overflowY:"auto", paddingBottom:20, paddingTop:1}}>
+        <Container sx ={{paddingBottom:20, paddingTop:2}}>
             <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={6} >
                     <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>

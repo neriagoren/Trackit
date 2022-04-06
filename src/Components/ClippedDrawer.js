@@ -16,6 +16,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import GroupIcon from '@mui/icons-material/Group';
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import Typography from "@mui/material/Typography";
 
 const drawerWidth = 240;
 
@@ -103,6 +104,7 @@ export default function ClippedDrawer(props) {
     return (
         <Box>
             <MyAppBar title = {SidebarData[selectedIndex].title} setL = {props.setL}/>
+
             <Drawer
                 variant="permanent"
                 anchor="right"
@@ -113,7 +115,6 @@ export default function ClippedDrawer(props) {
                 }}
             >
                 <Toolbar />
-                <Box sx={{ overflow: 'auto'}}>
                     <List>
                         {SidebarData.map((item, index) => (
                             <NavLink to = {item.path}  key = {index}  style={{textDecoration:"none"}}  >
@@ -140,15 +141,14 @@ export default function ClippedDrawer(props) {
                                     }
                                 </ListItem>
                             </NavLink>
-
                         ))}
                     </List>
                     <Divider />
-
-                </Box>
+                    <Typography  fontWeight={"bold"}  color={"gray"} sx ={{position:"absolute", bottom:0, right:10}}>
+                       פיתוח האתר נריה גורן
+                    </Typography>
             </Drawer>
-
-
         </Box>
+
     );
 }

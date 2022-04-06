@@ -7,7 +7,7 @@ import {
     Avatar,
     Button,
     Checkbox,
-    Chip,
+    Chip, Container,
     Grid,
     ListItem,
     ListItemIcon,
@@ -56,9 +56,10 @@ export default function Inbox() {
     }
 
     return (
-        <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-        <Grid item xs={4} >
-            <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
+        <Box sx ={{paddingBottom:20, paddingTop:2, width:"100%", mr:"250px"}}>
+        <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid item xs={3} >
+            <Box sx={{bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                 <ListSubheader sx={{borderRadius:"10px"}} component="div" id="nested-list-subheader">
                     רשימת שיחות
                 </ListSubheader>
@@ -115,9 +116,9 @@ export default function Inbox() {
             </Box>
             </Box>
         </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
                         { selectedIndex !== -1 &&
-                            <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
+                            <Box sx={{bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
 
                             <ListSubheader component="div" id="nested-list-subheader" sx={{borderRadius:"10px"}}>
                                 השיחה שלך ושל { msg[selectedIndex].author}
@@ -166,5 +167,6 @@ export default function Inbox() {
                         }
             </Grid>
         </Grid>
+        </Box>
     );
 }

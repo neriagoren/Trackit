@@ -82,7 +82,6 @@ export default function Day() {
 
     return (
         <Box>
-            {dayjs().startOf('month').toString()}
             <Box sx={{display: "flex", direction: "row", alignItems: "center", justifyContent: "center"}}>
                 <Button onClick={onClickBefore}>
                     {"<"}
