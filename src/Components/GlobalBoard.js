@@ -12,10 +12,12 @@ import Box from "@mui/material/Box";
 
 
 const updates = [
-    {title:" תזכורת לפני שנת מס",body:"עובדים שיש להם זיכוי בנקודות מס, נא לעדכן את אורנה בחשב שכר.", read:false},
-    {title:"פעילות הספרייה בתאריך 20/4/22",body:"הספרייה תהיה פתוחה עד השעה 16:20 לרגל יום הקנאביס", read:false},
-    {title:"מילוי טופס 101",body:"עובדים חדשים, נא למלא טופס 101 ולהעביר לחשב שכר.",read:false}
+    {title:" תזכורת לפני שנת מס",body:"עובדים שיש להם זיכוי בנקודות מס, נא לעדכן את אורנה בחשב שכר. תודה רבה, הנהלת המכללה"},
+    {title:"הודעה חשובה ממדור שכר לימוד ",body:"הודעה חשובה ממדור שכר לימוד: סטודנט/ית המעוניין לשלם את התשלום החודשי באמצעי אחר מהוראת קבע- יסדיר תשלום לא יאוחר מה- 7.4.22, סטודנט/ית שהסדיר תשלום יראה הודעה זו כמבוטלת. המשלם בשובר מפיקדון – יש לוודא שהתשלום נקלט תוך 7 ימים עסקים באתר המכללה - מידע אישי - דף חשבון."},
+    {title:"מילוי טופס 101",body:"עובדים חדשים, נא למלא טופס 101 ולהעביר לחשב שכר. "},
+    {title:"סדנת העצמה אישית ",body:"סדנת העצמה אישית יוצאת לדרך! מצורף לכאן קובץ הסדנה, נא להרשם מראש."}
 ]
+
 
 export default function GlobalBoard() {
 
@@ -39,12 +41,22 @@ export default function GlobalBoard() {
                     updates.map((update,index) => (
                         <>
                             <ListItemButton onClick={(event) => handleClick(event,index)}  sx ={{textAlign:"right"}}>
-                                <ListItemIcon>
-                                    <CircleNotificationsIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={<Typography fontWeight="bold" color={update.read && "gray"}>
+                                <Box width={"100%"}>
+
+
+                                <ListItemText primary={<Typography fontWeight="bold" >
                                     {update.title}
-                                </Typography>}  />
+                                </Typography>} />
+
+                                    {
+                                        selectedIndex !== index &&
+                                        <ListItemText primary={<Typography  color={ "gray"}>
+                                            {update.body.slice(0,50) + "..."}
+                                        </Typography>} />
+                                    }
+
+                                </Box>
+
                                 {(selectedIndex === index) && (update.read = true) }
                                 {selectedIndex === index ? <ExpandLess /> : <ExpandMore />}
                             </ListItemButton>

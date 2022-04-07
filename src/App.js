@@ -40,14 +40,8 @@ export default function App() {
                         isLogged ?
                             <Box sx={{overflowY:"auto", height:"100vh"}}>
                                 <ClippedDrawer setL={setLogin}/>
-                                    <Toolbar/>
-                                    <Redirect to={"/overview"}/>
-                                    <Route path={"/overview"} component={Overview} exact={true}/>
-                                    <Route path={"/department"} component={Department} exact={true}/>
-                                    <Route path={"/profile"} component={Profile} exact={true}/>
-                                    <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
-                                    <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
                             </Box>
+
                             :
                             <>
                                 <Redirect to={"/"}/>

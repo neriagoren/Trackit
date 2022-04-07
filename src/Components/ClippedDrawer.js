@@ -17,7 +17,14 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import GroupIcon from '@mui/icons-material/Group';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import Typography from "@mui/material/Typography";
-
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import {Redirect} from "react-router";
+import {Route} from "react-router-dom";
+import Overview from "../pages/Overview";
+import Department from "../pages/Department";
+import Profile from "../pages/Profile";
+import Inbox from "../ChatSystem/Inbox";
+import Setting from "../pages/Setting";
 const drawerWidth = 240;
 
 const SidebarData = [
@@ -26,6 +33,12 @@ const SidebarData = [
         title: "מבט כללי",
         path: "/overview",
         icon: <AssessmentIcon />,
+    },
+    {
+        id: "create",
+        title: "צור אירוע",
+        path: "/createEvent",
+        icon: <EventAvailableIcon />,
     },
     {
         id: "reports",
@@ -102,7 +115,7 @@ export default function ClippedDrawer(props) {
 
 
     return (
-        <Box>
+        <Box sx={{ display: 'flex' }}>
             <MyAppBar title = {SidebarData[selectedIndex].title} setL = {props.setL}/>
 
             <Drawer
@@ -148,6 +161,15 @@ export default function ClippedDrawer(props) {
                        פיתוח האתר נריה גורן
                     </Typography>
             </Drawer>
+            <Box width={"100%"}>
+                <Toolbar/>
+                <Redirect to={"/overview"}/>
+                <Route path={"/overview"} component={Overview} exact={true}/>
+                <Route path={"/department"} component={Department} exact={true}/>
+                <Route path={"/profile"} component={Profile} exact={true}/>
+                <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
+                <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
+            </Box>
         </Box>
 
     );

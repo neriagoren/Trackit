@@ -10,9 +10,18 @@ import GlobalBoard from "../Components/GlobalBoard";
 
 export default function Overview() {
     return (
-        <Box sx={{paddingBottom: 20, paddingTop: 2, width:"100%", mr:"250px"}}>
+        <Container sx={{paddingBottom: 20, paddingTop: 2}}>
             <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}} >
                 <Grid item xs={5}>
+                    <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
+                        <Typography color={"gray"} fontSize={"small"} p={1}>
+                            יומן יומי
+                        </Typography>
+                        <Day />
+                    </Box>
+                </Grid>
+
+                <Grid item xs={6}>
                     <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
                     <Typography color={"gray"} fontSize={"small"} p={1}>
                             יומן חודשי
@@ -21,16 +30,9 @@ export default function Overview() {
                     </Box>
                 </Grid>
 
-                <Grid item xs={4}>
-                    <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
-                    <Typography color={"gray"} fontSize={"small"} p={1}>
-                            יומן יומי
-                        </Typography>
-                            <Day />
-                    </Box>
-                </Grid>
 
-                <Grid item xs={4}>
+
+                <Grid item xs={6}>
                     <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
                         <Typography color={"gray"} fontSize={"small"} p={1}>
                             לוח עדכונים כללי
@@ -49,7 +51,7 @@ export default function Overview() {
                     </Box>
                 </Grid>
             </Grid>
-        </Box>
+        </Container>
     )
 }
 

@@ -10,7 +10,7 @@ import DepartmentBoard from "../Components/DepartmentBoard";
 class Department extends React.Component {
     render() {
         return (
-            <Container sx ={{paddingBottom:20, paddingTop:2}}>
+            <Container sx ={{paddingBottom:20, paddingTop:2, mr:"240px"}}>
                 <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid item xs={5} >
                         <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>

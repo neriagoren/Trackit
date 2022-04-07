@@ -56,9 +56,9 @@ export default function Inbox() {
     }
 
     return (
-        <Box sx ={{paddingBottom:20, paddingTop:2, width:"100%", mr:"250px"}}>
+        <Container sx ={{paddingBottom:20, paddingTop:2}}>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={3} >
+        <Grid item xs={4} >
             <Box sx={{bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                 <ListSubheader sx={{borderRadius:"10px"}} component="div" id="nested-list-subheader">
                     רשימת שיחות
@@ -116,7 +116,7 @@ export default function Inbox() {
             </Box>
             </Box>
         </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
                         { selectedIndex !== -1 &&
                             <Box sx={{bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
 
@@ -167,6 +167,6 @@ export default function Inbox() {
                         }
             </Grid>
         </Grid>
-        </Box>
+        </Container>
     );
 }
