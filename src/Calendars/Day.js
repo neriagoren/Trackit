@@ -123,7 +123,11 @@ export default function Day() {
                                 ?
                                 indexes.slice(event[0], event[1]).map((index) => (
                                     <ListItem key={index} sx={{height: "50px", p: 0}}>
-                                        <Box sx={{width: "100%", backgroundColor: "#2596be", height: "100%"}}>
+                                        <Box sx={{width: "100%", backgroundColor: "#2596be", height: "100%",
+                                                borderRadius: index === event[0] && index+1 === event[1]
+                                                                ? "10px 10px 10px 10px" : index === event[0]
+                                                                ?  "10px 10px 0px 0px" : index + 1 === event[1]
+                                                                ? "0px 0px 10px 10px" :  "0px 0px 0px 0px"}}>
                                             {
                                                 index === event[0] &&
                                                 <Typography color={"white"} textAlign={"right"} fontWeight={"bold"}

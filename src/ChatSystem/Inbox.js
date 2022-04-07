@@ -8,7 +8,7 @@ import {
     Button,
     Checkbox,
     Chip, Container,
-    Grid,
+    Grid, Grow,
     ListItem,
     ListItemIcon,
     TextField
@@ -59,6 +59,10 @@ export default function Inbox() {
         <Container sx ={{paddingBottom:20, paddingTop:2}}>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={4} >
+            <Grow
+                in={true}
+                style={{transformOrigin: '0 0 0'}}
+                {...( {timeout: 500 })}>
             <Box sx={{bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                 <ListSubheader sx={{borderRadius:"10px"}} component="div" id="nested-list-subheader">
                     רשימת שיחות
@@ -104,7 +108,6 @@ export default function Inbox() {
                                 {
                                     !selectSome &&
                                     <Chip  label={ index + " הודעות חדשות" } />
-
                                 }
 
                             </ListItemButton>
@@ -115,9 +118,14 @@ export default function Inbox() {
         </List>
             </Box>
             </Box>
+            </Grow>
         </Grid>
             <Grid item xs={6}>
                         { selectedIndex !== -1 &&
+                        <Grow
+                            in={true}
+                            style={{transformOrigin: '0 0 0'}}
+                            {...( {timeout: 500 })}>
                             <Box sx={{bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
 
                             <ListSubheader component="div" id="nested-list-subheader" sx={{borderRadius:"10px"}}>
@@ -164,6 +172,7 @@ export default function Inbox() {
                                     <TextField placeholder={"שלח הודעה..."} sx ={{width:"100%"}}/>
                                 </Box>
                             </Box>
+                        </Grow>
                         }
             </Grid>
         </Grid>
