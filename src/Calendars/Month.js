@@ -46,7 +46,7 @@ export default function Month() {
                     {">"}
                 </Button>
             </Box>
-            <Box sx={{height: "auto", overflowY: "auto", pr: 3, pl: 3, pb:2}}>
+            <Box sx={{height: "460px", overflowY: "hidden", pr: 3, pl: 3, pb:2}}>
                 <Grid container spacing={2} columns={7} >
                     <Grid item xs={1}>
                         <Box sx={{backgroundColor:"#2596be", height:"50px", borderRadius:"10px", display: "flex",

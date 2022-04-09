@@ -25,6 +25,8 @@ import Department from "../pages/Department";
 import Profile from "../pages/Profile";
 import Inbox from "../ChatSystem/Inbox";
 import Setting from "../pages/Setting";
+import Create from "../pages/Create";
+import Reports from "../pages/Reports";
 const drawerWidth = 240;
 
 const SidebarData = [
@@ -37,7 +39,7 @@ const SidebarData = [
     {
         id: "create",
         title: "צור אירוע",
-        path: "/createEvent",
+        path: "/createevent",
         icon: <EventAvailableIcon />,
     },
     {
@@ -165,6 +167,8 @@ export default function ClippedDrawer(props) {
                 <Toolbar/>
                 <Redirect to={"/overview"}/>
                 <Route path={"/overview"} component={Overview} exact={true}/>
+                <Route path={"/createevent"} component={Create} exact={true}/>
+                <Route path={"/reports"} component={Reports} exact={true}/>
                 <Route path={"/department"} component={Department} exact={true}/>
                 <Route path={"/profile"} component={Profile} exact={true}/>
                 <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>

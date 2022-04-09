@@ -4,8 +4,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import dayjs from "dayjs";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import arraySupport from 'dayjs/plugin/arraySupport';
+import axios from "axios";
+
 dayjs.extend(arraySupport)
 
 const hours = ["08:00","09:00","10:00","11:00","12:00","13:00",
@@ -65,18 +67,27 @@ const createAgenda = () => {
 
 const agenda = createAgenda();
 
+
 export default function Day() {
 
     const [todayEvents, setTodayEvents] = useState({})
-    const [day, setDay] = useState(dayjs([dayjs().get('year'),dayjs().get('month'),dayjs().get('date')]))
+    const [day, setDay] = useState(dayjs())
+
+    useEffect(() => {
+        {
+            axios.get("http://worldtimeapi.org/api/timezone/Asia/Jerusalem").then((response) => {
+                console.log(response.data.utc_offset === "+03:00")
+            })
+        }
+    }, [])
 
     const onClickNext = () => {
-        let d = day.add(1,'days')
+        let d = day.add(1, 'days')
         setDay(d)
     }
 
     const onClickBefore = () => {
-        let d = day.subtract(1,'days')
+        let d = day.subtract(1, 'days')
         setDay(d)
     }
 
@@ -90,13 +101,12 @@ export default function Day() {
                     {days[day.get('day')] + " "}
                     {day.get('date') + " "}
                     {months[day.get('month')]}
-
                 </Typography>
                 <Button onClick={onClickNext}>
                     {">"}
                 </Button>
             </Box>
-            <Box sx={{height: "400px", overflowY: "auto", pr: 3, pl: 3, display: "flex", direction: "row"}}>
+            <Box sx={{height: "460px", overflowY: "auto", pr: 3, pl: 3, display: "flex", direction: "row"}}>
                 <List sx={{width: "20%"}}>
                     {hours.map((hour, index) => (
                         <>
@@ -117,42 +127,36 @@ export default function Day() {
                 </List>
 
                 <List sx={{width: "80%"}}>
-                    {
-                        agenda.map((event) => (
-                            Object.keys(eventsArray).includes(event[0].toString())
-                                ?
-                                indexes.slice(event[0], event[1]).map((index) => (
-                                    <ListItem key={index} sx={{height: "50px", p: 0}}>
-                                        <Box sx={{width: "100%", backgroundColor: "#2596be", height: "100%",
-                                                borderRadius: index === event[0] && index+1 === event[1]
-                                                                ? "10px 10px 10px 10px" : index === event[0]
-                                                                ?  "10px 10px 0px 0px" : index + 1 === event[1]
-                                                                ? "0px 0px 10px 10px" :  "0px 0px 0px 0px"}}>
-                                            {
-                                                index === event[0] &&
-                                                <Typography color={"white"} textAlign={"right"} fontWeight={"bold"}
-                                                            mr={1}>
-                                                    {eventsArray[event[0].toString()].title}
-                                                </Typography>
-                                            }
-                                            {
-                                                index + 1 === event[1] &&
-                                                <Typography color={"white"} textAlign={"left"} ml={1}
-                                                            mt={event[1] - event[0] === 1 ? 0 : 2}>
-                                                    {"מיקום " + eventsArray[event[0].toString()].location}
-                                                </Typography>
-                                            }
-                                        </Box>
-                                    </ListItem>))
-                                :
-                                indexes.slice(event[0], event[1]).map((index) => (
-                                    <ListItem key={index} sx={{height: "50px", p: 0}}>
-                                        <Box sx={{width: "100%", height: "100%"}}>
-                                            <Divider/>
-                                        </Box>
-                                    </ListItem>))
-                        ))
-                    }
+                    {agenda.map((event) => (Object.keys(eventsArray).includes(event[0].toString())
+                        ?
+                        indexes.slice(event[0], event[1]).map((index) => (
+                            <ListItem key={index} sx={{height: "50px", p: 0}}>
+                                <Box sx={{
+                                    width: "100%", backgroundColor: "#2596be", height: "100%",
+                                    borderRadius: index === event[0] && index + 1 === event[1]
+                                        ? "10px 10px 10px 10px" : index === event[0]
+                                            ? "10px 10px 0px 0px" : index + 1 === event[1]
+                                                ? "0px 0px 10px 10px" : "0px 0px 0px 0px"
+                                }}>
+                                    {index === event[0] &&
+                                        <Typography color={"white"} textAlign={"right"} fontWeight={"bold"}
+                                                    mr={1}>
+                                            {eventsArray[event[0].toString()].title}
+                                        </Typography>}
+                                    {index + 1 === event[1] &&
+                                        <Typography color={"white"} textAlign={"left"} ml={1}
+                                                    mt={event[1] - event[0] === 1 ? 0 : 2}>
+                                            {"מיקום " + eventsArray[event[0].toString()].location}
+                                        </Typography>}
+                                </Box>
+                            </ListItem>))
+                        :
+                        indexes.slice(event[0], event[1]).map((index) => (
+                            <ListItem key={index} sx={{height: "50px", p: 0}}>
+                                <Box sx={{width: "100%", height: "100%"}}>
+                                    <Divider/>
+                                </Box>
+                            </ListItem>))))}
                 </List>
             </Box>
         </Box>

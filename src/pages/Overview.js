@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Day from "../Calendars/Day";
 import Month from "../Calendars/Month";
 import GlobalBoard from "../Components/GlobalBoard";
+import UnreadMessages from "../Components/UnreadMessages";
 
 
 
@@ -65,8 +66,7 @@ export default function Overview() {
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 הודעות שלא נקראו
                             </Typography>
-                            <Box sx={{height: "400px", overflowY: "auto", borderRadius: "10px"}}>
-                            </Box>
+                            <UnreadMessages />
                         </Box>
                     </Grow>
                 </Grid>

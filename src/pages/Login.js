@@ -2,7 +2,7 @@ import {useState} from "react";
 import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {Button, TextField} from "@mui/material";
+import {Button, Grow, TextField} from "@mui/material";
 
 export default function Login(props) {
 
@@ -13,6 +13,10 @@ export default function Login(props) {
 
 
     return (
+        <Grow
+            in={true}
+            style={{transformOrigin: '0 0 0'}}
+            timeout={1500}>
         <Box sx={{
             backgroundColor: "#f5f5f5", height: "100vh", display: "flex",
             justifyContent: "center",
@@ -47,5 +51,6 @@ export default function Login(props) {
                 {response}
             </Box>
         </Box>
+        </Grow>
     )
 }

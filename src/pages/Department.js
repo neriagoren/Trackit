@@ -1,5 +1,5 @@
 import React from "react";
-import {Avatar, Badge, Container, Grid, TextField} from "@mui/material";
+import {Avatar, Badge, Container, Grid, Grow, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import ListSubheader from "@mui/material/ListSubheader";
 import ScrollableFeed from "react-scrollable-feed";
@@ -10,9 +10,13 @@ import DepartmentBoard from "../Components/DepartmentBoard";
 class Department extends React.Component {
     render() {
         return (
-            <Container sx ={{paddingBottom:20, paddingTop:2, mr:"240px"}}>
+            <Container sx={{paddingBottom: 20, paddingTop: 2}}>
                 <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid item xs={5} >
+                        <Grow
+                            in={true}
+                            style={{transformOrigin: '0 0 0'}}
+                            timeout={500}>
                         <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                             <ListSubheader component="div" sx={{position:"static",borderRadius:"10px"}}>
                                לוח עדכונים
@@ -20,10 +24,14 @@ class Department extends React.Component {
 
                             <DepartmentBoard />
                         </Box>
+                        </Grow>
                     </Grid>
 
                     <Grid item xs={6} >
-
+                        <Grow
+                            in={true}
+                            style={{transformOrigin: '0 0 0'}}
+                            timeout={1000}>
                         <Box sx={{ bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                             <ListSubheader component="div" id="nested-list-subheader" sx={{position:"static",borderRadius:"10px"}}>
                                 שיחה קבוצתית של המחלקה
@@ -123,22 +131,33 @@ class Department extends React.Component {
                                 <TextField placeholder={"שלח הודעה לכולם..."} sx ={{width:"100%"}}/>
                             </Box>
                         </Box>
+                        </Grow>
                     </Grid>
 
                     <Grid item xs={5} >
+                        <Grow
+                            in={true}
+                            style={{transformOrigin: '0 0 0'}}
+                            timeout={1500}>
                         <Box sx={{ height:"400px", bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                             <ListSubheader component="div" id="nested-list-subheader" sx={{position:"static",borderRadius:"10px"}}>
                                 נתונים
                             </ListSubheader>
                         </Box>
+                        </Grow>
                     </Grid>
 
                     <Grid item xs={6} >
+                        <Grow
+                            in={true}
+                            style={{transformOrigin: '0 0 0'}}
+                            timeout={2000}>
                         <Box sx={{ height:"400px", bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                             <ListSubheader component="div" id="nested-list-subheader" sx={{position:"static",borderRadius:"10px"}}>
                                 רשימת העובדים במחלקה
                             </ListSubheader>
                         </Box>
+                        </Grow>
                     </Grid>
                 </Grid>
             </Container>

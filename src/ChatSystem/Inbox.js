@@ -14,20 +14,18 @@ import {
     TextField
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import ScrollableFeed from 'react-scrollable-feed'
+import MyBubble from "./MyBubble";
+import OtherBubble from "./OtherBubble";
 
 const colors = ["#2596be", "orange", "red", "green", "pink"]
 
 const msg = [
     { author:"גיא לשם"},
     { author:"מרדכי רייף"},
-    { author:"מנחם דומב"},
     { author:"אסתר בן דויד"},
     { author:"שי גבעתי"},
-    { author:"ניר קורן"},
     { author:"אורנה"},
-    { author:"חני נדלר"},
 ]
 export default function Inbox() {
     const [selectedIndex, setSelectedIndex] = React.useState(-1);
@@ -56,126 +54,102 @@ export default function Inbox() {
     }
 
     return (
-        <Container sx ={{paddingBottom:20, paddingTop:2}}>
-        <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={4} >
-            <Grow
-                in={true}
-                style={{transformOrigin: '0 0 0'}}
-                {...( {timeout: 500 })}>
-            <Box sx={{bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
-                <ListSubheader sx={{borderRadius:"10px"}} component="div" id="nested-list-subheader">
-                    רשימת שיחות
-                </ListSubheader>
-                {
-                    selectSome
-                        ?
-                        <Box>
-                            <span style={{marginRight:15}}> נבחרו {checked.length} שיחות  </span>
-                            <Button onClick ={handleSelectSome}> סגור בחירה מרובה </Button>
+        <Container sx={{paddingBottom: 20, paddingTop: 2}}>
+            <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
+                <Grid item xs={4}>
+                    <Grow
+                        in={true}
+                        style={{transformOrigin: '0 0 0'}}
+                        timeout={500}>
+                        <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
+                            <ListSubheader sx={{borderRadius: "10px"}} component="div" id="nested-list-subheader">
+                                רשימת שיחות
+                            </ListSubheader>
                             {
-                                checked.length > 0 &&
-                                <Button> מחק </Button>
+                                selectSome
+                                    ?
+                                    <Box>
+                                        <span style={{marginRight: 15}}> נבחרו {checked.length} שיחות  </span>
+                                        <Button onClick={handleSelectSome}> סגור בחירה מרובה </Button>
+                                        {
+                                            checked.length > 0 &&
+                                            <Button> מחק </Button>
+                                        }
+                                    </Box>
+                                    :
+                                    <Box>
+                                        <Button onClick={handleSelectSome}> בחירה מרובה </Button>
+                                    </Box>
                             }
+                            <Box sx={{height: "400px", overflowY: "scroll", borderRadius: "10px"}}>
+                                <List component="nav">
+                                    {
+                                        msg.map((item, index) => {
+                                            return (
+                                                <ListItem sx={{p: 1}}>
+                                                    {
+                                                        selectSome &&
+                                                        <ListItemIcon onClick={handleToggle(index)}>
+                                                            <Checkbox
+                                                                edge="start"
+                                                                checked={checked.indexOf(index) !== -1}
+                                                                tabIndex={-1}
+                                                                disableRipple
+                                                            />
+                                                        </ListItemIcon>
+                                                    }
+
+                                                    <ListItemButton selected={selectedIndex === index}
+                                                                    onClick={(event) => handleClick(event, index)}
+                                                                    sx={{textAlign: "right"}}>
+                                                        <Avatar sx={{
+                                                            marginLeft: 2,
+                                                            color: "white",
+                                                            backgroundColor: colors[index % 5]
+                                                        }}>{item.author[0]}</Avatar>
+                                                        <ListItemText primary={item.author}/>
+
+                                                        {
+                                                            !selectSome &&
+                                                            <Chip label={index + " הודעות חדשות"}/>
+                                                        }
+
+                                                    </ListItemButton>
+                                                </ListItem>
+                                            )
+                                        })
+                                    }
+                                </List>
+                            </Box>
                         </Box>
-                        :
-                        <Box>
-                            <Button onClick ={handleSelectSome}> בחירה מרובה </Button>
-                        </Box>
-                }
-            <Box sx={{height:"400px", overflowY:"scroll", borderRadius:"10px"}}>
-            <List component="nav">
-            {
-                msg.map((item,index) => {
-                    return(
-                        <ListItem sx={{p:1}}>
-                            {
-                                selectSome &&
-                                <ListItemIcon onClick={handleToggle(index)}>
-                                    <Checkbox
-                                        edge="start"
-                                        checked={checked.indexOf(index) !== -1}
-                                        tabIndex={-1}
-                                        disableRipple
-                                    />
-                                </ListItemIcon>
-                            }
-
-                            <ListItemButton selected={selectedIndex === index} onClick={(event) => handleClick(event,index)}  sx={{textAlign:"right"}}>
-                                <Avatar sx = {{marginLeft:2, color:"white", backgroundColor:colors[index%5]}}>{item.author[0]}</Avatar>
-                                <ListItemText primary={item.author}/>
-
-                                {
-                                    !selectSome &&
-                                    <Chip  label={ index + " הודעות חדשות" } />
-                                }
-
-                            </ListItemButton>
-                        </ListItem>
-                    )
-                })
-            }
-        </List>
-            </Box>
-            </Box>
-            </Grow>
-        </Grid>
-            <Grid item xs={6}>
-                        { selectedIndex !== -1 &&
+                    </Grow>
+                </Grid>
+                <Grid item xs={6}>
+                    {selectedIndex !== -1 &&
                         <Grow
                             in={true}
                             style={{transformOrigin: '0 0 0'}}
-                            {...( {timeout: 500 })}>
-                            <Box sx={{bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
-
-                            <ListSubheader component="div" id="nested-list-subheader" sx={{borderRadius:"10px"}}>
-                                השיחה שלך ושל { msg[selectedIndex].author}
-                            </ListSubheader>
-
-                                <Box sx={{height:"400px", overflowY:"auto"}}>
+                            timeout = {500}>
+                            <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
+                                <ListSubheader component="div" id="nested-list-subheader" sx={{borderRadius: "10px"}}>
+                                    השיחה שלך ושל {msg[selectedIndex].author}
+                                </ListSubheader>
+                                <Box sx={{height: "400px", overflowY: "auto"}}>
                                     <ScrollableFeed>
-                                        <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
-                                            <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
-                                                <Typography m={1} color={"white"}>
-                                                    שלום בוקר טוב
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-
-                                        <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
-                                            <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
-                                                    <Typography m={1} color={"black"}>
-                                                        היי מה קורה נריה?
-                                                    </Typography>
-                                            </Box>
-                                        </Box>
-
-                                        <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
-                                            <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
-                                                <Typography m={1} color={"white"}>
-                                                        אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-
-                                    <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
-                                        <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
-                                            <Typography m={1} color={"black"} textAlign={"right"}>
-                                                    אין בעיה בוס! האישה והילדים בסדר כרגיל...
-                                            </Typography>
-                                        </Box>
-                                    </Box>
+                                        <MyBubble text={"שלום בוקר טוב"}/>
+                                        <OtherBubble text={"היי מה קורה נריה?"}/>
+                                        <MyBubble  text={"אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?"}/>
+                                        <OtherBubble text={"אין בעיה בוס! האישה והילדים בסדר כרגיל..."}/>
                                     </ScrollableFeed>
                                 </Box>
-
-                                <Box sx={{p:1}}>
-                                    <TextField placeholder={"שלח הודעה..."} sx ={{width:"100%"}}/>
+                                <Box sx={{p: 1}}>
+                                    <TextField placeholder={"שלח הודעה..."} sx={{width: "100%"}}/>
                                 </Box>
                             </Box>
                         </Grow>
-                        }
+                    }
+                </Grid>
             </Grid>
-        </Grid>
         </Container>
     );
 }
