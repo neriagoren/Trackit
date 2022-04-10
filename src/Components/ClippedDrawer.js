@@ -117,7 +117,7 @@ export default function ClippedDrawer(props) {
 
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex' , overflowY:"auto", height:"100vh"}}>
             <MyAppBar title = {SidebarData[selectedIndex].title} setL = {props.setL}/>
 
             <Drawer

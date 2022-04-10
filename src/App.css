@@ -1,10 +1,9 @@
 .App {
   text-align: right;
   background-color: #f5f5f5;
+  direction: rtl;
 }
 
 html {
   direction: rtl;
-  overflow-y: hidden;
-  overflow-x: hidden;
 }

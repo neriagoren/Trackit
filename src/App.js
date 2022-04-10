@@ -8,13 +8,6 @@ import Login from "./pages/Login";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {blueGrey} from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Overview from "./pages/Overview";
-import Department from "./pages/Department";
-import Profile from "./pages/Profile";
-import Inbox from "./ChatSystem/Inbox";
-import Setting from "./pages/Setting";
 
 
 const theme = createTheme({
@@ -34,14 +27,11 @@ export default function App() {
     return (
         <BrowserRouter>
             <ThemeProvider theme={theme}>
-                <div className="App" dir={"rtl"}>
+                <div className="App">
                     <CssBaseline/>
                     {
                         isLogged ?
-                            <Box sx={{overflowY:"auto", height:"100vh"}}>
-                                <ClippedDrawer setL={setLogin}/>
-                            </Box>
-
+                            <ClippedDrawer setL={setLogin}/>
                             :
                             <>
                                 <Redirect to={"/"}/>
