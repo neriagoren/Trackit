@@ -7,28 +7,22 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function MyAppBar(props) {
     return (
-        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor:"#2596be"}}>
+        <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: "#2596be"}}>
             <Toolbar>
                 <Typography
                     variant="h6"
                     component="div"
-                    sx={{marginRight:"50px"}}>
-
+                    sx={{marginRight: "50px"}}>
                     Track Kit
                 </Typography>
-
-
-
                 <Typography
                     variant="h6"
                     component="div"
-                    sx={{marginRight:"125px"}}>
-
+                    sx={{marginRight: "125px"}}>
                     {props.title}
                 </Typography>
-
-                <IconButton sx={{position:"fixed", left:50, color:"white"}}>
-                    <LogoutIcon onClick={() => props.setL(() => false)} />
+                <IconButton sx={{position: "fixed", left: 50, color: "white"}}>
+                    <LogoutIcon onClick={() => props.setL(() => false)}/>
                 </IconButton>
             </Toolbar>
         </AppBar>
