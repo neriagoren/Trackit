@@ -81,7 +81,7 @@ export default function Inbox() {
                                         <Button onClick={handleSelectSome}> בחירה מרובה </Button>
                                     </Box>
                             }
-                            <Box sx={{height: "400px", overflowY: "scroll", borderRadius: "10px"}}>
+                            <Box sx={{height: "400px", overflowY: "scroll"}}>
                                 <List component="nav">
                                     {
                                         msg.map((item, index) => {
