@@ -57,11 +57,6 @@ const SidebarData = [
         icon: <SummarizeIcon />,
         subNav: [
             {
-                title: "דיווח תקלה",
-                path: "/reports/reportabug",
-
-            },
-            {
                 title: "מסד נתונים",
                 path: "/reports/databases",
             }
