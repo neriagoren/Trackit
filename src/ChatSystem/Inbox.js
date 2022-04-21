@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -15,8 +15,7 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import ScrollableFeed from 'react-scrollable-feed'
-import MyBubble from "./MyBubble";
-import OtherBubble from "./OtherBubble";
+import ChatBubble from "./ChatBubble";
 
 const colors = ["#2596be", "orange", "red", "green", "pink"]
 
@@ -136,10 +135,10 @@ export default function Inbox() {
                                 </ListSubheader>
                                 <Box sx={{height: "400px", overflowY: "auto"}}>
                                     <ScrollableFeed>
-                                        <MyBubble text={"שלום בוקר טוב"}/>
-                                        <OtherBubble text={"היי מה קורה נריה?"}/>
-                                        <MyBubble  text={"אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?"}/>
-                                        <OtherBubble text={"אין בעיה בוס! האישה והילדים בסדר כרגיל..."}/>
+                                        <ChatBubble who={true} text={"שלום בוקר טוב"}/>
+                                        <ChatBubble who={false} text={"היי מה קורה נריה?"}/>
+                                        <ChatBubble  who={true} text={"אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?"}/>
+                                        <ChatBubble who={false} text={"אין בעיה בוס! האישה והילדים בסדר כרגיל..."}/>
                                     </ScrollableFeed>
                                 </Box>
                                 <Box sx={{p: 1}}>

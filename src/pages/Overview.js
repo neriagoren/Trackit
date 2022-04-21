@@ -1,18 +1,38 @@
-import React from "react";
-import {Container, Grid, Grow} from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {Button, Container, Grid, Grow} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Day from "../Calendars/Day";
 import Month from "../Calendars/Month";
 import GlobalBoard from "../Components/GlobalBoard";
 import UnreadMessages from "../Components/UnreadMessages";
-
-
+import axios from "axios";
 
 export default function Overview() {
+
+    const [text, setText] = useState({})
+
+    const clicked = ()=>{
+
+        axios.post("http://localhost:8989/users", {username:"neria", password:"password"}
+        ).then(res => {
+            console.log(res.data);
+        }).catch(error => {
+            console.error('There was an error!', error);
+        });
+
+        // let data = new FormData();
+        // data.append("name", "matan");
+        // data.append("password", "value");
+        //
+        // axios.post("http://localhost:8989/users", data)
+        //     .then((response) => {
+        //         console.log("success");
+        //     })
+    }
+
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
-
             <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
                 <Grid item xs={5}>
                     <Grow
@@ -23,6 +43,10 @@ export default function Overview() {
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 יומן יומי
                             </Typography>
+                            <Button onClick={clicked}>
+                                CLICK
+                            </Button>
+                            {JSON.stringify(text)}
                             <Day/>
                         </Box>
                     </Grow>

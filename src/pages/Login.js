@@ -12,6 +12,19 @@ export default function Login(props) {
     const [isValid, setIsValid] = useState(null);
 
 
+    const handleUsernameChange = (e) => {
+        let username = e.target.value;
+        setUsername(() => username);
+    }
+
+
+    const handlePasswordChange = (e) => {
+        let password = e.target.value;
+        setPassword(() => password);
+    }
+
+    const hasRequiredDetails = username === "" || password === ""
+
     return (
         <Grow
             in={true}
@@ -43,9 +56,9 @@ export default function Login(props) {
                 <h3> התחברות למערכת </h3>
 
                 <Box>
-                    <TextField placeholder={"שם משתמש"} sx={{width: "100%", m: 1}}/>
-                    <TextField type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
-                    <Button sx={{width: "100%"}} onClick={() => props.setL(true)}> התחבר/י </Button>
+                    <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{width: "100%", m: 1}}/>
+                    <TextField onChange={handlePasswordChange} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
+                    <Button disabled={hasRequiredDetails} sx={{width: "100%"}} onClick={() => props.setL(true)}> התחבר/י </Button>
                     <Button sx={{width: "100%"}}> שכחתי סיסמא </Button>
                 </Box>
                 {response}

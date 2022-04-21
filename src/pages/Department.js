@@ -3,7 +3,6 @@ import {Avatar, Badge, Container, Grid, Grow, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import ListSubheader from "@mui/material/ListSubheader";
 import ScrollableFeed from "react-scrollable-feed";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
 import DepartmentBoard from "../Components/DepartmentBoard";
 

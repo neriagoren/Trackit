@@ -111,9 +111,7 @@ const SidebarData = [
 export default function App() {
 
     const [isLogged, setLogin] = useState(true);
-
     const [selectedIndex, setSelectedIndex] = useState(0);
-
 
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
