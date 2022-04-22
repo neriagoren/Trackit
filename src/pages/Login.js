@@ -3,6 +3,7 @@ import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import {Button, Grow, TextField} from "@mui/material";
+import axios from "axios";
 
 export default function Login(props) {
 
@@ -11,6 +12,16 @@ export default function Login(props) {
     const [response, setResponse] = useState("");
     const [isValid, setIsValid] = useState(null);
 
+    const onLoginClick = () => {
+        axios.get("http://localhost:8989/login", {
+            params : {
+                username:username,
+                password:password
+            }
+        }).then(res => {
+            props.setL(() => res.data)
+        })
+    }
 
     const handleUsernameChange = (e) => {
         let username = e.target.value;
@@ -58,7 +69,7 @@ export default function Login(props) {
                 <Box>
                     <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{width: "100%", m: 1}}/>
                     <TextField onChange={handlePasswordChange} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
-                    <Button disabled={hasRequiredDetails} sx={{width: "100%"}} onClick={() => props.setL(true)}> התחבר/י </Button>
+                    <Button disabled={hasRequiredDetails} sx={{width: "100%"}} onClick={onLoginClick}> התחבר/י </Button>
                     <Button sx={{width: "100%"}}> שכחתי סיסמא </Button>
                 </Box>
                 {response}

@@ -21,8 +21,8 @@ export default function MyAppBar(props) {
                     sx={{marginRight: "125px"}}>
                     {props.title}
                 </Typography>
-                <IconButton sx={{position: "fixed", left: 50, color: "white"}}>
-                    <LogoutIcon onClick={() => props.setL(() => false)}/>
+                <IconButton onClick={() => props.setL(() => false)} sx={{position: "fixed", left: 50, color: "white"}}>
+                    <LogoutIcon />
                 </IconButton>
             </Toolbar>
         </AppBar>

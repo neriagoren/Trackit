@@ -25,8 +25,8 @@ import GroupIcon from "@mui/icons-material/Group";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Login from "./pages/Login";
+import { FamilyRestroomRounded } from '@mui/icons-material';
 
-// test commit!
 
 const theme = createTheme({
     direction: 'rtl',
@@ -111,7 +111,7 @@ const SidebarData = [
 
 export default function App() {
 
-    const [isLogged, setLogin] = useState(true);
+    const [isLogged, setLogin] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     const handleListItemClick = (event, index) => {
