@@ -4,6 +4,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import {Button, Grow, TextField} from "@mui/material";
 import axios from "axios";
+import Typography from "@mui/material/Typography";
 
 export default function Login(props) {
 
@@ -19,13 +20,19 @@ export default function Login(props) {
                 password:password
             }
         }).then(res => {
-            props.setL(() => res.data)
+            if(res.data) {
+                props.setL(() => res.data);
+            }
+            else {
+                setResponse(()=> "המשתמש לא קיים!")
+            }
         })
     }
 
     const handleUsernameChange = (e) => {
         let username = e.target.value;
         setUsername(() => username);
+        setResponse(() => "");
     }
 
 
@@ -71,8 +78,11 @@ export default function Login(props) {
                     <TextField onChange={handlePasswordChange} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
                     <Button disabled={hasRequiredDetails} sx={{width: "100%"}} onClick={onLoginClick}> התחבר/י </Button>
                     <Button sx={{width: "100%"}}> שכחתי סיסמא </Button>
+                    <Typography color={"red"} textAlign={"center"}>
+                        {response}
+                    </Typography>
                 </Box>
-                {response}
+                
             </Box>
         </Box>
         </Grow>
