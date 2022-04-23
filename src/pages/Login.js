@@ -5,6 +5,8 @@ import Box from "@mui/material/Box";
 import {Button, Grow, TextField} from "@mui/material";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
+import Cookies from "universal-cookie";
+import Fade from '@mui/material/Fade';
 
 export default function Login(props) {
 
@@ -21,6 +23,8 @@ export default function Login(props) {
             }
         }).then(res => {
             if(res.data) {
+                const cookies = new Cookies();
+                cookies.set("trackit_COOKIE", "TOKENTOKENTOKEN")
                 props.setL(() => res.data);
             }
             else {
@@ -44,10 +48,7 @@ export default function Login(props) {
     const hasRequiredDetails = username === "" || password === ""
 
     return (
-        <Grow
-            in={true}
-            style={{transformOrigin: '0 0 0'}}
-            timeout={1500}>
+        <Fade in={true}>
         <Box sx={{
             backgroundColor: "#f5f5f5", height: "100vh", display: "flex",
             justifyContent: "center",
@@ -85,6 +86,6 @@ export default function Login(props) {
                 
             </Box>
         </Box>
-        </Grow>
+        </Fade>
     )
 }

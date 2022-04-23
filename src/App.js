@@ -1,6 +1,6 @@
 import './App.css';
 import * as React from "react";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {BrowserRouter, Route} from "react-router-dom";
 import ClippedDrawer from "./Components/ClippedDrawer";
 import {Redirect} from "react-router";
@@ -25,8 +25,8 @@ import GroupIcon from "@mui/icons-material/Group";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Login from "./pages/Login";
-import { FamilyRestroomRounded } from '@mui/icons-material';
-
+import Cookies from "universal-cookie";
+import useIsMounted from './hooks/useIsMounted';
 
 const theme = createTheme({
     direction: 'rtl',
@@ -113,10 +113,26 @@ export default function App() {
 
     const [isLogged, setLogin] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [token, setToken] = useState("");
+    const [state, stateUpdate] = useState(false);
+
+    const isMounted = useIsMounted();
 
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
     };
+
+    useEffect(() => {
+        if (isMounted) {
+            console.log("checking for cookies")
+            const cookies = new Cookies();
+            if (cookies.get("trackit_COOKIE")) {
+                setLogin(() => true);
+                setToken(() => cookies.get("trackit_COOKIE"));
+            }
+        }
+    }, [isMounted]);
+
 
     return (
         <BrowserRouter>
