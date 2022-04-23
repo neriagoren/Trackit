@@ -15,22 +15,34 @@ export default function Login(props) {
     const [response, setResponse] = useState("");
     const [isValid, setIsValid] = useState(null);
 
-    const onLoginClick = () => {
+    const create = () => {
+        axios.post("http://localhost:8989/users", {username: username, password:password}).then(
+            (res) => {
+                setResponse(() => res.data);
+            }
+        )
+    }
+
+    const Login = () => {
         axios.get("http://localhost:8989/login", {
             params : {
                 username:username,
                 password:password
             }
         }).then(res => {
-            if(res.data) {
+            if(res.data !== "") {
                 const cookies = new Cookies();
-                cookies.set("trackit_COOKIE", "TOKENTOKENTOKEN")
-                props.setL(() => res.data);
+                cookies.set("trackit_COOKIE", res.data)
+                props.setL(() => true);
             }
             else {
                 setResponse(()=> "המשתמש לא קיים!")
             }
         })
+    }
+
+    const forgot = () => {
+        setResponse(() => "צור קשר עם תמיכה טכנית")
     }
 
     const handleUsernameChange = (e) => {
@@ -77,8 +89,10 @@ export default function Login(props) {
                 <Box>
                     <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{width: "100%", m: 1}}/>
                     <TextField onChange={handlePasswordChange} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
-                    <Button disabled={hasRequiredDetails} sx={{width: "100%"}} onClick={onLoginClick}> התחבר/י </Button>
-                    <Button sx={{width: "100%"}}> שכחתי סיסמא </Button>
+                    <Button disabled={hasRequiredDetails} sx={{width: "100%"}} onClick={Login}> התחבר/י </Button>
+                    <Button  onClick = {forgot} sx={{width: "100%"}}> שכחתי סיסמא </Button>
+                    <Button onClick = {create} sx={{width: "100%"}}> צור חשבון </Button>
+                
                     <Typography color={"red"} textAlign={"center"}>
                         {response}
                     </Typography>
