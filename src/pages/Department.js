@@ -1,13 +1,37 @@
 import React from "react";
-import {Avatar, Badge, Container, Grid, Grow, TextField} from "@mui/material";
+import { useState } from "react";
+import {Avatar, Badge, Container, Divider, Grid, Grow, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import ListSubheader from "@mui/material/ListSubheader";
-import ScrollableFeed from "react-scrollable-feed";
 import Typography from "@mui/material/Typography";
 import DepartmentBoard from "../Components/DepartmentBoard";
+import ScrollableFeed from "react-scrollable-feed";
 
-class Department extends React.Component {
-    render() {
+
+                        
+export default function Department() {
+
+
+    const [messages, setMessages] = useState([  {author:1,message: "שלום בוקר טוב לכולם"},
+    {author: 2, message: "היי מה קורה נריה?"},
+    {author: 2, message: "היי מה קורה נריה?"},
+    {author: 2, message: "היי מה קורה נריה?"},
+    {author: 2, message: "היי מה קורה נריה?"},
+    {author: 2, message: "היי מה קורה נריה?"}
+    ]);
+
+
+    /*
+    useEffect
+
+    axios.get("/department-messages", {params: {token:token}}).then( response =>
+        {
+            setMessages(() => response.data)
+
+        })
+
+    */
+
         return (
             <Container sx={{paddingBottom: 20, paddingTop: 2}}>
                 <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -38,91 +62,46 @@ class Department extends React.Component {
 
                             <Box sx={{height:"300px", overflowY:"auto"}}>
                                 <ScrollableFeed>
-                                    <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
-                                        <Box sx={{m:1}}>
-                                            <Avatar sx={{height:20, width:20, backgroundColor:"green", fontSize:"small"}} > נ  </Avatar>
-                                        </Box>
-                                        <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
-                                            <Typography m={1} color={"white"}>
-                                                שלום בוקר טוב לכולם
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
-                                        <Box sx={{m:1}}>
-                                            <Avatar sx={{height:20, width:20, backgroundColor:"orange", fontSize:"small"}} > ק  </Avatar>
-                                        </Box>
-                                        <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
-                                            <Badge badgeContent={ "קווין ספיד"}
-                                                   anchorOrigin={{
-                                                       vertical: 'top',
-                                                       horizontal: 'right',
-                                                   }}>
-                                                <Typography m={1} color={"black"}>
-                                                    היי מה קורה נריה?
-                                                </Typography>
-                                            </Badge>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
-                                        <Box sx={{m:1}}>
-                                            <Avatar sx={{height:20, width:20, backgroundColor:"blue", fontSize:"small"}} > מ  </Avatar>
-                                        </Box>
-                                            <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
-                                                <Badge badgeContent={ "מיטשל קליין"}
-                                                       anchorOrigin={{
-                                                           vertical: 'top',
-                                                           horizontal: 'right',
-                                                       }}>
-                                                    <Typography m={1} color={"black"}>
-                                                        היי בוקר טוב בוס!
-                                                    </Typography>
-                                                </Badge>
-                                            </Box>
-                                        </Box>
-                                        <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
-                                            <Box sx={{m:1}}>
-                                                <Avatar sx={{height:20, width:20, backgroundColor:"green", fontSize:"small"}} > נ  </Avatar>
-                                            </Box>
-                                            <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
-                                                <Typography m={1} color={"white"}>
-                                                    אני צריך שתשלחו לי את הדוחות שלכם מ- 2021 לפני ארוחת צהריים
-                                                </Typography>
-                                            </Box>
-                                        </Box>
+                                    <Box sx ={{p:2}}>
+                                    <Divider sx ={{color:"gray"}}> יום רביעי 9 אפריל </Divider>
 
-                                        <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
-                                            <Box sx={{m:1}}>
-                                                <Avatar sx={{height:20, width:20, backgroundColor:"blue", fontSize:"small"}} > מ  </Avatar>
-                                            </Box>
-                                            <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
-                                                <Badge badgeContent={ "מיטשל קליין"}
-                                                       anchorOrigin={{
-                                                           vertical: 'top',
-                                                           horizontal: 'right',
-                                                       }}>
-                                                    <Typography m={1} color={"black"} textAlign={"right"}>
-                                                        עובד על זה עכשיו!
-                                                    </Typography>
-                                                </Badge>
-                                            </Box>
-                                        </Box>
-                                        <Box sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
-                                            <Box sx={{m:1}}>
-                                                <Avatar sx={{height:20, width:20, backgroundColor:"orange", fontSize:"small"}} > ק  </Avatar>
-                                            </Box>
-                                            <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
-                                                <Badge badgeContent={ "קווין ספיד"}
-                                                       anchorOrigin={{
-                                                           vertical: 'top',
-                                                           horizontal: 'right',
-                                                       }}>
-                                                    <Typography m={1} color={"black"} textAlign={"right"}>
-                                                        נשלח הרגע לאימייל שלך נריה
-                                                    </Typography>
-                                                </Badge>
-                                            </Box>
-                                        </Box>
+                                    </Box>
+                                    {
+                                        messages.map(msg =>  (
+                                                msg.author === 1 ?
+                                                    <Box sx={{display:"flex", flexDirection:"row", padding:1, verticalAlign:"baseline"}}>
+                                                        <Box sx={{m:1}}>
+                                                            <Avatar sx={{height:20, width:20, backgroundColor:"green", fontSize:"small"}} > {msg.author[0]}  </Avatar>
+                                                        </Box>
+                                                        <Box sx={{backgroundColor:"#2596be", borderRadius:"15px"}}>
+                                                            <Typography m={1} color={"white"}>
+                                                                {msg.message}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                :
+                                                <Box  sx={{display:"flex", flexDirection:"row-reverse", padding:1, textAlign:"left"}}>
+                                                    <Box sx={{m:1}}>
+                                                        <Avatar sx={{height:20, width:20, backgroundColor:"orange", fontSize:"small"}} > {msg.author[0]}  </Avatar>
+                                                    </Box>
+                                                    <Box sx={{backgroundColor:"#f5f5f5", borderRadius:"15px"}}>
+                                                        <Badge badgeContent={msg.author}
+                                                            anchorOrigin={{
+                                                                vertical: 'top',
+                                                                horizontal: 'right',
+                                                            }}>
+                                                            <Typography m={1} color={"black"}>
+                                                                {msg.message}
+                                                            </Typography>
+                                                        </Badge>
+                                                    </Box>
+                                                </Box>
+                                        ))
+                                    }     
+                                     <Box sx ={{p:2}}>
+                                    <Divider sx ={{color:"gray"}}> היום </Divider>
+
+                                    </Box> 
                                 </ScrollableFeed>
                             </Box>
 
@@ -161,7 +140,6 @@ class Department extends React.Component {
                 </Grid>
             </Container>
         )
-    }
+    
 }
 
-export default Department;
