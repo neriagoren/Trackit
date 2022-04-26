@@ -110,7 +110,7 @@ export default function Day() {
                 <List sx={{width: "20%"}}>
                     {hours.map((hour, index) => (
                         <>
-                            <ListItem sx={{height: "100px", p: 0}}>
+                            <ListItem key= {index} sx={{height: "100px", p: 0}}>
                                 <Box sx={{
                                     width: "25%", height: "100%", display: "flex",
                                     flexDirection: "column",

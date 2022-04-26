@@ -70,13 +70,6 @@ const SidebarData = [
         icon: <ChatIcon />,
     },
     {
-        id: "department",
-        title: "מחלקה שלי",
-        path: "/department",
-        icon: <GroupIcon />
-
-    },
-    {
         id: "profile",
         title: "פרופיל",
         path: "/profile",
@@ -144,7 +137,7 @@ export default function App() {
                     {
                         isLogged ?
                             <Box sx={{display: 'flex', overflowY: "auto", height: "100vh"}}>
-                                <MyAppBar title={SidebarData[selectedIndex].title} setL={setLogin}/>
+                                <MyAppBar setL={setLogin}/>
                                 <ClippedDrawer SidebarData={SidebarData} selectedIndex={selectedIndex}
                                                handleListItemClick={handleListItemClick}/>
                                 <Box width={"100%"}>
@@ -153,7 +146,6 @@ export default function App() {
                                     <Route path={"/overview"} component={Overview} exact={true}/>
                                     <Route path={"/createevent"} component={Create} exact={true}/>
                                     <Route path={"/reports"} component={Reports} exact={true}/>
-                                    <Route path={"/department"} component={Department} exact={true}/>
                                     <Route path={"/profile"} component={Profile} exact={true}/>
                                     <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
                                     <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>

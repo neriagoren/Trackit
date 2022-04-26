@@ -5,8 +5,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import NavLink from "react-router-dom/es/NavLink";
 import {Badge, Divider} from "@mui/material";
+import { NavLink } from 'react-router-dom';
 
 import Typography from "@mui/material/Typography";
 

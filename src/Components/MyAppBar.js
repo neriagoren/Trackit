@@ -23,14 +23,9 @@ export default function MyAppBar(props) {
                     variant="h6"
                     component="div"
                     sx={{marginRight: "50px"}}>
-                    Track Kit
+                    מערכת תגבורים - המכללה האקדמית אשקלון
                 </Typography>
-                <Typography
-                    variant="h6"
-                    component="div"
-                    sx={{marginRight: "125px"}}>
-                    {props.title}
-                </Typography>
+                
                 <IconButton onClick={logout} sx={{position: "fixed", left: 50, color: "white"}}>
                     <LogoutIcon />
                 </IconButton>

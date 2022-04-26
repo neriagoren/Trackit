@@ -1,20 +1,29 @@
 import {Container, FormControl, Grow, InputLabel, ListItem, Select} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import React from "react";
+import React, { useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
-
-
-
-const courses = ["אלגברה ליניארית 2", "אלגוריתמים 2", "1 אלגברה ליניארית", "מבני נתונים", "אלגוריתמים 1"]
+import axios from 'axios';
 
 export default function Create() {
 
-    const [age, setAge] = React.useState('');
+    const [courses, setCourses] = React.useState([]);
+
+    const [course, setCourse] = React.useState("");
+
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setCourse(event.target.value);
     };
+
+    useEffect(() => {
+        axios.get("http://localhost:8989/courses").then(response => {
+            setCourses(() => response.data)
+        })
+    },[])
+
+
+
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
             <Grow
@@ -28,19 +37,16 @@ export default function Create() {
 
 
                 <Box sx={{height: "400px", overflowY: "scroll", p:1}}>
-                    <Typography>
-                        בחר קורס:
-                    </Typography>
-                    <FormControl sx={{}}  >
+                    <FormControl sx={{width:"30%"}}>
+                    <InputLabel>בחר קורס</InputLabel>
                         <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
+                            value={course}
                             onChange={handleChange}>
+
                             {
                                 courses.map((course, index) => {
                                     return(
-                                    <MenuItem value={index}> {course} </MenuItem>
+                                    <MenuItem value={index}> {course.name} </MenuItem>
                                     )})
                             }
 
@@ -49,6 +55,7 @@ export default function Create() {
                     <Typography>
                         בחר תאריך ושעה:
                     </Typography>
+                
                 </Box>
 
             </Box>
