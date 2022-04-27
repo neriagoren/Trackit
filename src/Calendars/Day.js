@@ -7,15 +7,10 @@ import dayjs from "dayjs";
 import {useEffect, useState} from "react";
 import arraySupport from 'dayjs/plugin/arraySupport';
 import axios from "axios";
+import {hoursAgenda, months, days} from  '../Resources/constants'
 
 dayjs.extend(arraySupport)
 
-const hours = ["08:00","09:00","10:00","11:00","12:00","13:00",
-    "14:00","15:00","16:00","17:00","18:00","19:00",
-    "20:00","21:00","22:00","23:00","00:00"];
-const months = ["ינואר", "פברואר", "מרץ", "אפריל","מאי","יוני",
-"יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"];
-const days = ["יום ראשון", "יום שני", "יום שלישי", "יום רביעי" , "יום חמישי", "יום שישי" , "שבת"];
 
 const eventsArray = {
         "1": {
@@ -108,7 +103,7 @@ export default function Day() {
             </Box>
             <Box sx={{height: "460px", overflowY: "auto", pr: 3, pl: 3, display: "flex", direction: "row"}}>
                 <List sx={{width: "20%"}}>
-                    {hours.map((hour, index) => (
+                    {hoursAgenda.map((hour, index) => (
                         <>
                             <ListItem key= {index} sx={{height: "100px", p: 0}}>
                                 <Box sx={{

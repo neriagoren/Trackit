@@ -4,8 +4,6 @@ import {useState, useEffect} from "react";
 import {BrowserRouter, Route} from "react-router-dom";
 import ClippedDrawer from "./Components/ClippedDrawer";
 import {Redirect} from "react-router";
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {blueGrey} from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
 import MyAppBar from "./Components/MyAppBar";
 import Box from "@mui/material/Box";
@@ -13,96 +11,16 @@ import Toolbar from "@mui/material/Toolbar";
 import Overview from "./pages/Overview";
 import Create from "./pages/Create";
 import Reports from "./pages/Reports";
-import Department from "./pages/Department";
 import Profile from "./pages/Profile";
 import Inbox from "./ChatSystem/Inbox";
 import Setting from "./pages/Setting";
-import AssessmentIcon from "@mui/icons-material/Assessment";
-import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import SummarizeIcon from "@mui/icons-material/Summarize";
-import ChatIcon from "@mui/icons-material/Chat";
-import GroupIcon from "@mui/icons-material/Group";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
-import SettingsIcon from "@mui/icons-material/Settings";
 import Login from "./pages/Login";
 import Cookies from "universal-cookie";
 import useIsMounted from './hooks/useIsMounted';
-
-const theme = createTheme({
-    direction: 'rtl',
-    palette: {
-        primary: {
-            main: blueGrey[500],
-        },
-    },
-});
+import {theme, SidebarData} from './Resources/constants';
+import {ThemeProvider} from '@mui/material/styles';
 
 
-const SidebarData = [
-    {
-        id: "overview",
-        title: "מבט כללי",
-        path: "/overview",
-        icon: <AssessmentIcon />,
-    },
-    {
-        id: "create",
-        title: "צור אירוע",
-        path: "/createevent",
-        icon: <EventAvailableIcon />,
-    },
-    {
-        id: "reports",
-        title: "דוחות",
-        path: "/reports",
-        icon: <SummarizeIcon />,
-        subNav: [
-            {
-                title: "מסד נתונים",
-                path: "/reports/databases",
-            }
-        ]
-    },
-    {
-        id: "messages",
-        title: "הודעות",
-        path: "/inbox",
-        icon: <ChatIcon />,
-    },
-    {
-        id: "profile",
-        title: "פרופיל",
-        path: "/profile",
-        icon: <AssignmentIndIcon />,
-        subNav: [
-            {
-                title: "משימות שלי",
-                path: "/profile/tasks",
-
-            }
-        ]
-    },
-    {
-        id:"setting",
-        title: "הגדרות",
-        path: "/setting",
-        icon: <SettingsIcon />,
-        subNav: [
-            {
-                title: "ערוך פרופיל",
-                path: "/setting/edit",
-
-            },
-            {
-                title: "תמיכה טכנית",
-                path: "/setting/support",
-
-            }
-        ]
-    }
-]
-
-// test
 
 export default function App() {
 

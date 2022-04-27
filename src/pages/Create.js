@@ -3,22 +3,18 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import React, {useState,  useEffect } from "react";
 import axios from 'axios';
-
-
-const hours = ["08","09","10","11","12","13","14",
-                "15","16","17","18","19","20","21","22","23"];
-
-const minutes = ["00", "15", "30", "45"];
+import {hours, minutes} from '../Resources/constants';
 
 export default function Create() {
 
-    const [courses, setCourses]         = useState([]);
-    const [course, setCourse]           = useState("");
-    const [startTime , setStartTime]    = useState("");
-    const [startHour, setStartHour]     = useState("");
-    const [startMinute, setStartMinute] = useState("");
-    const [endHour, setEndHour]         = useState("");
-    const [endMinute, setEndMinute]     = useState("");
+    const [courses, setCourses]                   = useState([]);
+    const [course, setCourse]                     = useState("");
+    const [startHour, setStartHour]               = useState("");
+    const [startMinute, setStartMinute]           = useState("");
+    const [endHour, setEndHour]                   = useState("");
+    const [endMinute, setEndMinute]               = useState("");
+    const [students, setStudents]                 = useState([]);
+    const [selectedStudents, setSelectedStudents] = useState([]);
 
     const onHourChange = (event) => {
         if (event.target.id === "start") {
@@ -27,7 +23,7 @@ export default function Create() {
         else {
             setEndHour(() => event.target.value)
         }
-    }
+    };
 
     const onMinuteChange = (event) => {
         if (event.target.id === "start") {
@@ -36,7 +32,7 @@ export default function Create() {
         else {
             setEndMinute(() => event.target.value)
         }
-    }
+    };
 
     const handleCourse = (event) => {
         setCourse(event.target.value);
@@ -48,8 +44,6 @@ export default function Create() {
             setCourses(() => response.data)
         })
     },[])
-
-
 
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
