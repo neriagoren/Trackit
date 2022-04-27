@@ -58,6 +58,7 @@ export default function App() {
                                 <ClippedDrawer SidebarData={SidebarData} selectedIndex={selectedIndex}
                                                handleListItemClick={handleListItemClick}/>
                                 <Box width={"100%"}>
+
                                     <Toolbar/>
                                     <Redirect to={"/overview"}/>
                                     <Route path={"/overview"} component={Overview} exact={true}/>

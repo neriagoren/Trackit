@@ -6,8 +6,6 @@ import Day from "../Calendars/Day";
 import Month from "../Calendars/Month";
 import GlobalBoard from "../Components/GlobalBoard";
 import UnreadMessages from "../Components/UnreadMessages";
-import axios from "axios";
-
 export default function Overview() {
 
     return (
@@ -23,6 +21,7 @@ export default function Overview() {
                                 יומן יומי
                             </Typography>
                             <Day/>
+
                         </Box>
                     </Grow>
                 </Grid>
