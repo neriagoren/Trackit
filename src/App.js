@@ -109,7 +109,6 @@ export default function App() {
     const [isLogged, setLogin] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [token, setToken] = useState("");
-    const [state, stateUpdate] = useState(false);
 
     const isMounted = useIsMounted();
 
