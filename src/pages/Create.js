@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 
 export default function Create() {
 
-    const [courses, setCourses] = useState([]);
+    const [courses, setCourses] = useState(["אלגברה לינארית", "חשבון דיפרנציאלי ואינטגרלי", "מתמטיקה בדידה", "מבוא למדעי המחשב"]);
     const [course, setCourse] = useState(-1);
     const [startHour, setStartHour] = useState(-1);
     const [startMinute, setStartMinute] = useState(-1);
@@ -82,7 +82,7 @@ export default function Create() {
                                 <option disabled={"true"} value="desc">בחר קורס</option>
                                 {
                                     courses.map((course) => (
-                                        <option onClick={handleCourse}  value={course.name}> {course.name} </option>
+                                        <option onClick={handleCourse}  value={/* course.name*/ course }> {/*course.name*/ course} </option>
                                     ))
                                 }
                             </select>
