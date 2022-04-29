@@ -57,7 +57,7 @@ export default function Create() {
                 </Typography>
 
                     <div>
-                        {"בקורס: "}
+
 
                     <select name="courses" id="courses" required defaultValue={"desc"} class="select">
                         <option disabled={"true"} value="desc">בחר קורס</option>
@@ -73,7 +73,7 @@ export default function Create() {
                     </div>
                     
                     <div>
-                        {"בתאריך: "}
+
 
                     <input type={"date"} min="2022-04-27"  class="select"/>   
 
@@ -83,49 +83,58 @@ export default function Create() {
 
                     <div>
                     
-                    {"משעה: "}
 
-                    <select name="hours" id="hours" required defaultValue={"desc"}  class="select" disabled={startHour === ""}>
-                        <option disabled={"true"} value="desc"> בחר דקות </option>
-                        {
-                            minutes.map(minute => (
-                                <option onClick={onMinuteChange}  id="start" value={minute}> {minute} </option>
-                            ))
-                        }
-                    </select>
+                    <div>
 
-                    <select name="hours" id="hours" required defaultValue={"desc"}  class="select">
-                        <option disabled={"true"} value="desc"> בחר שעה </option>
 
-                        {
-                            hours.map(hour => (
-                              <option onClick={onHourChange} id="start" value={hour}>{hour}</option>    
-                            ))
-                        }
-                    </select>
+                        <select name="hours" id="hours" required defaultValue={"desc"} className="select"
+                                disabled={startHour === ""}>
+                            <option disabled={"true"} value="desc"> בחר דקות</option>
+                            {
+                                minutes.map(minute => (
+                                    <option onClick={onMinuteChange} id="start" value={minute}> {minute} </option>
+                                ))
+                            }
+                        </select>
 
-                    {" עד "}
+                        <select name="hours" id="hours" required defaultValue={"desc"} className="select">
+                            <option disabled={"true"} value="desc"> בחר שעה</option>
+
+                            {
+                                hours.map(hour => (
+                                    <option onClick={onHourChange} id="start" value={hour}>{hour}</option>
+                                ))
+                            }
+                        </select>
+
+                    </div>
+
 
                    
 
-                    <select required defaultValue={"desc"}  class="select" disabled={endHour ===""}>
-                        <option disabled={"true"} value="desc"> בחר דקות </option>
-                        {
-                            minutes.map(minute => (
-                                <option onClick={onMinuteChange} id="end" disabled={startHour === endHour && parseInt(minute) <= parseInt(startMinute)} value={minute}> {minute} </option>
-                            ))
-                        }
-                    </select>
+                   <div>
+                       <select required defaultValue={"desc"} className="select" disabled={endHour === ""}>
+                           <option disabled={"true"} value="desc"> בחר דקות</option>
+                           {
+                               minutes.map(minute => (
+                                   <option onClick={onMinuteChange} id="end"
+                                           disabled={startHour === endHour && parseInt(minute) <= parseInt(startMinute)}
+                                           value={minute}> {minute} </option>
+                               ))
+                           }
+                       </select>
 
-                    <select  required defaultValue={"desc"}  class="select" disabled={startMinute === ""}>
-                    <option disabled={"true"} value="desc"> בחר שעה </option>
-                    {
-                            hours.map(hour => (
-                              <option onClick={onHourChange} id="end" disabled={parseInt(hour) < parseInt(startHour)} value={hour}>{hour}</option>    
-                            ))
-                        }
-                        
-                    </select>
+                       <select required defaultValue={"desc"} className="select" disabled={startMinute === ""}>
+                           <option disabled={"true"} value="desc"> בחר שעה</option>
+                           {
+                               hours.map(hour => (
+                                   <option onClick={onHourChange} id="end"
+                                           disabled={parseInt(hour) < parseInt(startHour)} value={hour}>{hour}</option>
+                               ))
+                           }
+
+                       </select>
+                   </div>
 
                     </div>
                 
