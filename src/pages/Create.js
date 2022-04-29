@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import React, {useState,  useEffect } from "react";
 import axios from 'axios';
 import {hours, minutes} from '../Resources/constants';
+import dayjs from "dayjs";
 
 export default function Create() {
 
@@ -15,6 +16,8 @@ export default function Create() {
     const [endMinute, setEndMinute] = useState(-1);
     const [students, setStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
+    const [date, setDate] = useState("");
+    const today =dayjs().get('year') + "-" + ((dayjs().get('month') + 1) < 10 ? "0" + (dayjs().get('month') + 1) : (dayjs().get('month') + 1) ) + "-" + dayjs().get('date');
 
     const onHourChange = (event) => {
         if (event.target.id === "start") {
@@ -37,14 +40,14 @@ export default function Create() {
     };
 
 
-    useEffect(() => {
-        axios.get("http://localhost:8989/courses").then(response => {
-            setCourses(() => response.data)
-        })
-    }, [])
+    // useEffect(() => {
+    //     axios.get("http://localhost:8989/courses").then(response => {
+    //         setCourses(() => response.data)
+    //     })
+    // }, [])
 
     useEffect(() => {
-        if (startHour > endHour) {
+        if (startHour > endHour && endHour !== -1) {
             setEndHour(() => -1);
             setEndMinute(() => -1);
         }
@@ -53,9 +56,11 @@ export default function Create() {
                 setEndMinute(() => -1)
             }
         }
-    }, [startHour, endHour, startMinute, endMinute])
+    }, [startHour])
 
-
+    const handleDate = (event) => {
+        setDate(() => event.target.value )
+    }
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
             <Grow
@@ -71,12 +76,10 @@ export default function Create() {
                     <Typography color={"gray"} fontSize={"small"} p={1}>
                         צור אירוע
                     </Typography>
-
                     <Box>
                         <Box>
                             <select name="courses" id="courses" required defaultValue={"desc"} className="select">
                                 <option disabled={"true"} value="desc">בחר קורס</option>
-
                                 {
                                     courses.map((course) => (
                                         <option onClick={handleCourse}  value={course.name}> {course.name} </option>
@@ -84,24 +87,17 @@ export default function Create() {
                                 }
                             </select>
                         </Box>
-
-
                         <Box>
-
-
-                            <input type={"date"} min="2022-04-27" className="select"/>
-
+                            <input onChange={handleDate} type={"date"} min={today} className="select"/>
                         </Box>
 
                         <Box>
-
-
                             <select name="minutes" id="minutes" required defaultValue={-1} className="select"
                                     disabled={startHour === -1}>
                                 <option disabled={"true"} value={-1}> בחר דקות</option>
                                 {
                                     minutes.map(minute => (
-                                        <option onClick={onMinuteChange} id="start" value={parseInt(minute)}> {minute} </option>
+                                        <option onClick={onMinuteChange} id="start" value={(minute)}> {minute} </option>
                                     ))
                                 }
                             </select>
@@ -111,11 +107,10 @@ export default function Create() {
 
                                 {
                                     hours.map(hour => (
-                                        <option onClick={onHourChange} id="start" value={parseInt(hour)}>{hour}</option>
+                                        <option onClick={onHourChange} id="start" value={(hour)}>{hour}</option>
                                     ))
                                 }
                             </select>
-
                         </Box>
 
 
@@ -124,21 +119,23 @@ export default function Create() {
                                 <option selected={endMinute === -1} disabled={"true"} value={-1}> בחר דקות</option>
                                 {
                                     minutes.map(minute => (
-                                        <option onClick={onMinuteChange} id="end"
-                                                disabled={startHour === endHour && parseInt(minute) <= startMinute}
-                                                value={parseInt(minute)}> {minute} </option>
+                                        <option
+                                            onClick={onMinuteChange}
+                                            id="end"
+                                            disabled={startHour === endHour && (minute) <= startMinute}
+                                            value={(minute)}> {minute} </option>
                                     ))
                                 }
                             </select>
-
                             <select required defaultValue={-1} className="select" disabled={startMinute === -1}>
                                 <option selected={endHour === -1} disabled={"true"} value={-1}> בחר שעה</option>
                                 {
                                     hours.map(hour => (
                                         <option
-                                            onClick={onHourChange} id="end"
-                                                disabled={parseInt(hour) < (startHour)}
-                                                value={parseInt(hour)}>{hour}</option>
+                                            onClick={onHourChange}
+                                            id="end"
+                                            disabled={hour < startHour}
+                                            value={(hour)}> {hour} </option>
                                     ))
                                 }
 
@@ -154,16 +151,15 @@ export default function Create() {
                         </Box>
                         <Box dir={"ltr"}>
                             {
-                                startHour + ":" + startMinute
+                                startHour + ":" + ( startMinute === 0 ?  "00" : startMinute)
                             }
                             <br/>
                             {
-                                endHour + ":" + endMinute
+                                endHour + ":" + ( endMinute === 0 ?  "00" : endMinute)
                             }
                         </Box>
-
+                        {date}
                     </Box>
-
                 </Box>
             </Grow>
         </Container>
