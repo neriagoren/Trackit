@@ -1,4 +1,4 @@
-import {Container, Grow} from "@mui/material";
+import {Button, Container, Grow} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import React, {useState,  useEffect } from "react";
@@ -8,11 +8,11 @@ import {hours, minutes} from '../Resources/constants';
 export default function Create() {
 
     const [courses, setCourses] = useState([]);
-    const [course, setCourse] = useState("");
-    const [startHour, setStartHour] = useState("");
-    const [startMinute, setStartMinute] = useState("");
-    const [endHour, setEndHour] = useState("");
-    const [endMinute, setEndMinute] = useState("");
+    const [course, setCourse] = useState(-1);
+    const [startHour, setStartHour] = useState(-1);
+    const [startMinute, setStartMinute] = useState(-1);
+    const [endHour, setEndHour] = useState(-1);
+    const [endMinute, setEndMinute] = useState(-1);
     const [students, setStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
 
@@ -43,6 +43,19 @@ export default function Create() {
         })
     }, [])
 
+    useEffect(() => {
+        if (startHour > endHour) {
+            setEndHour(() => -1);
+            setEndMinute(() => -1);
+        }
+        else {
+            if (startHour === endHour && startMinute >= endMinute) {
+                setEndMinute(() => -1)
+            }
+        }
+    }, [startHour, endHour, startMinute, endMinute])
+
+
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
             <Grow
@@ -66,8 +79,7 @@ export default function Create() {
 
                                 {
                                     courses.map((course) => (
-
-                                        <option onClick={handleCourse} value={course.name}> {course.name} </option>
+                                        <option onClick={handleCourse}  value={course.name}> {course.name} </option>
                                     ))
                                 }
                             </select>
@@ -84,22 +96,22 @@ export default function Create() {
                         <Box>
 
 
-                            <select name="hours" id="hours" required defaultValue={"desc"} className="select"
-                                    disabled={startHour === ""}>
-                                <option disabled={"true"} value="desc"> בחר דקות</option>
+                            <select name="minutes" id="minutes" required defaultValue={-1} className="select"
+                                    disabled={startHour === -1}>
+                                <option disabled={"true"} value={-1}> בחר דקות</option>
                                 {
                                     minutes.map(minute => (
-                                        <option onClick={onMinuteChange} id="start" value={minute}> {minute} </option>
+                                        <option onClick={onMinuteChange} id="start" value={parseInt(minute)}> {minute} </option>
                                     ))
                                 }
                             </select>
 
-                            <select name="hours" id="hours" required defaultValue={"desc"} className="select">
-                                <option disabled={"true"} value="desc"> בחר שעה</option>
+                            <select  name="hours" id="hours" required defaultValue={-1} className="select" >
+                                <option disabled={"true"} value={-1}> בחר שעה</option>
 
                                 {
                                     hours.map(hour => (
-                                        <option onClick={onHourChange} id="start" value={hour}>{hour}</option>
+                                        <option onClick={onHourChange} id="start" value={parseInt(hour)}>{hour}</option>
                                     ))
                                 }
                             </select>
@@ -108,28 +120,46 @@ export default function Create() {
 
 
                         <Box>
-                            <select required defaultValue={"desc"} className="select" disabled={endHour === ""}>
-                                <option disabled={"true"} value="desc"> בחר דקות</option>
+                            <select required defaultValue={-1} className="select" disabled={endHour === -1} >
+                                <option selected={endMinute === -1} disabled={"true"} value={-1}> בחר דקות</option>
                                 {
                                     minutes.map(minute => (
                                         <option onClick={onMinuteChange} id="end"
-                                                disabled={startHour === endHour && parseInt(minute) <= parseInt(startMinute)}
-                                                value={minute}> {minute} </option>
+                                                disabled={startHour === endHour && parseInt(minute) <= startMinute}
+                                                value={parseInt(minute)}> {minute} </option>
                                     ))
                                 }
                             </select>
 
-                            <select required defaultValue={"desc"} className="select" disabled={startMinute === ""}>
-                                <option disabled={"true"} value="desc"> בחר שעה</option>
+                            <select required defaultValue={-1} className="select" disabled={startMinute === -1}>
+                                <option selected={endHour === -1} disabled={"true"} value={-1}> בחר שעה</option>
                                 {
                                     hours.map(hour => (
-                                        <option onClick={onHourChange} id="end"
-                                                disabled={parseInt(hour) < parseInt(startHour)}
-                                                value={hour}>{hour}</option>
+                                        <option
+                                            onClick={onHourChange} id="end"
+                                                disabled={parseInt(hour) < (startHour)}
+                                                value={parseInt(hour)}>{hour}</option>
                                     ))
                                 }
 
                             </select>
+                        </Box>
+
+                        <Box sx={{p:2}}>
+                            <Button sx={{fontSize:"18px", color:"white" , backgroundColor:"#2596be", '&:hover': {
+                                    color:"#2596be"
+                                }}}>
+                                צור אירוע
+                            </Button>
+                        </Box>
+                        <Box dir={"ltr"}>
+                            {
+                                startHour + ":" + startMinute
+                            }
+                            <br/>
+                            {
+                                endHour + ":" + endMinute
+                            }
                         </Box>
 
                     </Box>
