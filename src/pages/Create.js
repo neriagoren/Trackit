@@ -1,4 +1,4 @@
-import {Button, Container, Grow} from "@mui/material";
+import {Button, Container, Grow, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import React, {useState,  useEffect } from "react";
@@ -17,7 +17,13 @@ export default function Create() {
     const [students, setStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [date, setDate] = useState("");
+    const [location, setLocation] = useState("");
+
     const today =dayjs().get('year') + "-" + ((dayjs().get('month') + 1) < 10 ? "0" + (dayjs().get('month') + 1) : (dayjs().get('month') + 1) ) + "-" + dayjs().get('date');
+
+    const onLocationChange = (event) => {
+        setLocation(() => event.target.value)
+    }
 
     const onHourChange = (event) => {
         if (event.target.id === "start") {
@@ -68,7 +74,6 @@ export default function Create() {
                 style={{transformOrigin: '0 0 0'}}
                 timeout={500}>
                 <Box sx={{
-                    height: "600px",
                     bgcolor: 'background.paper',
                     borderRadius: "10px",
                     boxShadow: "0px 0px 2px gray"
@@ -76,7 +81,7 @@ export default function Create() {
                     <Typography color={"gray"} fontSize={"small"} p={1}>
                         צור אירוע
                     </Typography>
-                    <Box>
+                    <Box sx={{overflowY :"auto" , height:"600px"}}>
                         <Box>
                             <select name="courses" id="courses" required defaultValue={"desc"} className="select">
                                 <option disabled={"true"} value="desc">בחר קורס</option>
@@ -142,6 +147,10 @@ export default function Create() {
                             </select>
                         </Box>
 
+                        <Box>
+                            <input type={"text"} onChange={onLocationChange} placeholder={"מיקום האירוע"} className={"select"} />
+                        </Box>
+
                         <Box sx={{p:2}}>
                             <Button sx={{fontSize:"18px", color:"white" , backgroundColor:"#2596be", '&:hover': {
                                     color:"#2596be"
@@ -150,15 +159,17 @@ export default function Create() {
                             </Button>
                         </Box>
                         <Box dir={"ltr"}>
-                            {
-                                startHour + ":" + ( startMinute === 0 ?  "00" : startMinute)
-                            }
+                            {startHour + ":" + ( startMinute === 0 ?  "00" : startMinute)}
                             <br/>
-                            {
-                                endHour + ":" + ( endMinute === 0 ?  "00" : endMinute)
-                            }
+                            {endHour + ":" + ( endMinute === 0 ?  "00" : endMinute)}
+                            <br/>
+                            {date}
+                            <br/>
+                            {location}
+                            <br/>
+                            {"אחרי הזנת תאריך ושעות לבצע בדיקה אם זה פנוי!"}
                         </Box>
-                        {date}
+
                     </Box>
                 </Box>
             </Grow>
