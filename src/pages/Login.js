@@ -82,8 +82,9 @@ export default function Login(props) {
                     color: "white",
                     backgroundColor: "#2596be"
                 }}>
-                    <h3> Track It </h3>
+                    <h3> מערכת תגבורים - המכללה האקדמית אשקלון </h3>
                 </Box>
+
                 <h3> התחברות למערכת </h3>
 
                 <Box>

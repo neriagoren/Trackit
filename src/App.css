@@ -9,7 +9,19 @@ html {
 }
 
 .select {
+  margin: 10px;
+  font-size: 18px;
+  color: grey;
+  padding: 15px;
   background-color: white;
   border-radius: 5px;
-  border: 1px solid gray;
+  border: 2px solid #2596be;
+}
+
+.select:disabled {
+  border-color: grey;
+}
+
+#end:disabled {
+  color: lightgray;
 }
