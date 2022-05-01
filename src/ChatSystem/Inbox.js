@@ -17,7 +17,6 @@ import Box from "@mui/material/Box";
 import ScrollableFeed from 'react-scrollable-feed'
 import ChatBubble from "./ChatBubble";
 
-const colors = ["#2596be", "orange", "red", "green", "pink"]
 
 const msg = [
     { author:"גיא לשם"},
@@ -104,7 +103,7 @@ export default function Inbox() {
                                                         <Avatar sx={{
                                                             marginLeft: 2,
                                                             color: "white",
-                                                            backgroundColor: colors[index % 5]
+                                                            backgroundColor: "#2596be"
                                                         }}>{item.author[0]}</Avatar>
                                                         <ListItemText primary={item.author}/>
 
