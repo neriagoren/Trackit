@@ -1,8 +1,7 @@
 import React from "react";
-import {Chip, Container, Divider, Grid, Grow, ListItemIcon, MenuItem, Stack} from "@mui/material";
+import {Chip, Container, Avatar, Grid, Grow, Stack} from "@mui/material";
 import Box from "@mui/material/Box";
 
-import MenuColor from "../Components/MenuColor";
 import Typography from "@mui/material/Typography";
 
 export default function Profile() {
@@ -26,7 +25,8 @@ export default function Profile() {
                                 מידע אישי
                             </Typography>
                             <Stack spacing={1} sx={{display: "flex", alignItems: "center"}}>
-                                <MenuColor/>
+                                <Avatar sx={{ width: 50, height: 50 , backgroundColor:"#2596be"}}> נ </Avatar>
+        
                                 <Chip label={"נריה גורן"} size={"medium"}/>
                             </Stack>
                             <Stack spacing={1} sx={{display: "flex", alignItems: "start", p: 2}}>
