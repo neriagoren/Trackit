@@ -65,6 +65,8 @@ const createAgenda = () => {
 const agenda = createAgenda();
 
 
+// Rendering a given date...
+
 export default function Day(props) {
 
     const [todayEvents, setTodayEvents] = useState({})

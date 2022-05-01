@@ -9,13 +9,16 @@ import DayGrid from "./DayGrid";
 
 dayjs.extend(arraySupport)
 
+
+// props.date for selected date...
+//  like Day - it renders a given date
 export default function Month(props) {
 
     const [datesOfEvents, setDatesOfEvents] = useState([4,9,12,27]);
 
     const [currentDay, setCurrentDay] = useState(dayjs())
 
-    
+    // const [selectedDay, setSelectedDay] = useState(currentDay)
 
     // the number of day of first day of month (0-6)
     const [firstDay, setFirstDay] = useState(currentDay.date(1).day())
