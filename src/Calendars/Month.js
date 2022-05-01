@@ -14,6 +14,9 @@ dayjs.extend(arraySupport)
 //  like Day - it renders a given date
 export default function Month(props) {
 
+    // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours
+
+
     const [datesOfEvents, setDatesOfEvents] = useState([4,9,12,27]);
 
     const [currentDay, setCurrentDay] = useState(dayjs())

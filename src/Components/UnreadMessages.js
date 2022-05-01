@@ -13,9 +13,9 @@ import {Avatar, Button, Grow, TextField} from "@mui/material";
 export default function UnreadMessages() {
 
     const [unreadMessages, setMessages] = React.useState([
-        {sender:"מארק קליין",body:"היי נריה אני חייב שתתקשר אליי בהקדם", color:"orange"},
-        {sender:"אורי רוזנברג",body:"אתה עסוק היום?", color:"lightblue"},
-        {sender:"קארל ליברמן",body:"רוצה ללכת בצהריים לאכול בורגר אחי?", color:"lightgreen"},
+        {sender:"מארק קליין",body:"היי נריה אני חייב שתתקשר אליי בהקדם"},
+        {sender:"אורי רוזנברג",body:"אתה עסוק היום?"},
+        {sender:"קארל ליברמן",body:"רוצה ללכת בצהריים לאכול בורגר אחי?"},
     ])
     const [selectedIndex, setSelectedIndex] = React.useState(-1);
     const [reply, setReply] = React.useState(false)
@@ -45,7 +45,7 @@ export default function UnreadMessages() {
                     unreadMessages.map((message, index) => (
                         <>
                             <ListItemButton onClick={(event) => handleClick(event, index)} sx={{textAlign: "right"}}>
-                                <Avatar sx={{ml: 1, backgroundColor: message.color}}> {message.sender[0]} </Avatar>
+                                <Avatar sx={{ml: 1, backgroundColor: "#2596be"}}> {message.sender[0]} </Avatar>
                                 <Box width={"100%"}>
 
 

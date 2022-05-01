@@ -69,6 +69,9 @@ const agenda = createAgenda();
 
 export default function Day(props) {
 
+    // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours
+
+    
     const [todayEvents, setTodayEvents] = useState({})
     const [day, setDay] = useState(props.date)
 

@@ -8,7 +8,15 @@ import {hours, minutes} from '../Resources/constants';
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
 
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+
+
+dayjs.extend(customParseFormat)
+
+
 export default function Create() {
+
+    // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours
 
     const [courses, setCourses] = useState(["אלגברה לינארית", "חשבון דיפרנציאלי ואינטגרלי", "מתמטיקה בדידה", "מבוא למדעי המחשב"]);
     const [course, setCourse] = useState(-1);
@@ -18,10 +26,23 @@ export default function Create() {
     const [endMinute, setEndMinute] = useState(-1);
     const [students, setStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(null);
     const [location, setLocation] = useState("");
 
-    const today =dayjs().get('year') + "-" + ((dayjs().get('month') + 1) < 10 ? "0" + (dayjs().get('month') + 1) : (dayjs().get('month') + 1) ) + "-" + dayjs().get('date');
+    const [dateParsed, setDateParsed] = useState("");
+
+
+    const today = dayjs().get('year') + "-" + ((dayjs().get('month') + 1) < 10 ? "0" + (dayjs().get('month') + 1) : (dayjs().get('month') + 1) ) + "-" + ((dayjs().get('date') < 10) ? "0" + dayjs().get('date') : dayjs().get('date'));
+
+
+    useEffect(()=> {
+        if (date !== null) {
+        setDateParsed(() => date.get('year') + "-" + ((date.get('month') + 1) < 10 ? "0" + (date.get('month') + 1) : (date.get('month') + 1) ) + "-" + ((date.get('date') < 10) ? "0" + date.get('date') : date.get('date')))
+            
+        }
+    }, [date])
+
+    
 
     const onLocationChange = (event) => {
         setLocation(() => event.target.value)
@@ -56,8 +77,17 @@ export default function Create() {
 
     
     const handleDate = (event) => {
-        setDate(() => event.target.value )
+        if (event.target.value == "") {
+            setDate(() => null)
+            setDateParsed(() => "")
+        }
+        else {
+            setDate(() => dayjs(event.target.value, "YYYY-MM-DD"))
+        }
+
     }
+
+    
 
     useEffect(() => {
 
@@ -75,6 +105,7 @@ export default function Create() {
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
             <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
             <Grid item xs={6}>
+
             <Grow
                 in={true}
                 style={{transformOrigin: '0 0 0'}}
@@ -99,9 +130,8 @@ export default function Create() {
                             </select>
                         </Box>
                         <Box>
-                            <input onChange={handleDate} type={"date"} min={today} className="select"/>
+                            <input value={dateParsed} onChange={handleDate} type={"date"} min={today} className="select"/>
                         </Box>
-
                         <Box>
                             <select required defaultValue={-1} className="select"
                                     disabled={startHour === -1}>
@@ -169,7 +199,10 @@ export default function Create() {
                             <br/>
                             {endHour + ":" + ( endMinute === 0 ?  "00" : endMinute)}
                             <br/>
-                            {date}
+                            {
+                                date != null &&
+                                date.toString()
+                            }
                             <br/>
                             {location}
                             <br/>
@@ -180,10 +213,27 @@ export default function Create() {
             </Grow>
             </Grid>
             <Grid item xs={5}>
-            {
-                            date !== "" &&
-                            <Day date={dayjs(date,"YYYY-MM-DD")}/>
-            }
+            
+                        <Box sx={{bgcolor: 'background.paper' , borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
+                        
+                        
+
+                            {
+                           
+                                date !== null ?
+
+                                 <Day date={date} setDate={setDate}/>
+
+                        :
+                                <Box sx={{p:2}}>
+                                     <Typography fontWeight={"bold"} color={"gray"}>
+                                         בחר תאריך כדי לבדוק את האג'נדה היומית שלך
+                                    </Typography>
+                                </Box>
+                                
+                            }
+                        </Box>
+            
             </Grid>
             </Grid>
         </Container>
