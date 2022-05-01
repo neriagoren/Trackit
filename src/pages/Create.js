@@ -3,8 +3,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import React, {useState,  useEffect } from "react";
 import axios from 'axios';
+import Day from "../Calendars/Day";
 import {hours, minutes} from '../Resources/constants';
 import dayjs from "dayjs";
+import { Grid } from "@mui/material";
 
 export default function Create() {
 
@@ -52,23 +54,27 @@ export default function Create() {
     //     })
     // }, [])
 
-    useEffect(() => {
-        if (startHour > endHour && endHour !== -1) {
-            setEndHour(() => -1);
-            setEndMinute(() => -1);
-        }
-        else {
-            if (startHour === endHour && startMinute >= endMinute) {
-                setEndMinute(() => -1)
-            }
-        }
-    }, [startHour])
-
+    
     const handleDate = (event) => {
         setDate(() => event.target.value )
     }
+
+    useEffect(() => {
+
+        if (startHour > endHour) {
+            setEndHour(() => -1)
+            setEndMinute(() => -1)
+        }
+        else if (startHour == endHour && startMinute >= endMinute) {
+            setEndMinute(() => -1)
+        }
+
+    }, [startHour, startMinute])
+
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
+            <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
+            <Grid item xs={6}>
             <Grow
                 in={true}
                 style={{transformOrigin: '0 0 0'}}
@@ -97,7 +103,7 @@ export default function Create() {
                         </Box>
 
                         <Box>
-                            <select name="minutes" id="minutes" required defaultValue={-1} className="select"
+                            <select required defaultValue={-1} className="select"
                                     disabled={startHour === -1}>
                                 <option disabled={"true"} value={-1}> בחר דקות</option>
                                 {
@@ -107,12 +113,12 @@ export default function Create() {
                                 }
                             </select>
 
-                            <select  name="hours" id="hours" required defaultValue={-1} className="select" >
+                            <select  required defaultValue={-1} className="select" >
                                 <option disabled={"true"} value={-1}> בחר שעה</option>
 
                                 {
                                     hours.map(hour => (
-                                        <option onClick={onHourChange} id="start" value={(hour)}>{hour}</option>
+                                        <option onClick={onHourChange} id="start" value={hour}>{hour}</option>
                                     ))
                                 }
                             </select>
@@ -128,7 +134,7 @@ export default function Create() {
                                             onClick={onMinuteChange}
                                             id="end"
                                             disabled={startHour === endHour && (minute) <= startMinute}
-                                            value={(minute)}> {minute} </option>
+                                            value={minute}> {minute} </option>
                                     ))
                                 }
                             </select>
@@ -140,7 +146,7 @@ export default function Create() {
                                             onClick={onHourChange}
                                             id="end"
                                             disabled={hour < startHour}
-                                            value={(hour)}> {hour} </option>
+                                            value={hour}> {hour} </option>
                                     ))
                                 }
 
@@ -169,10 +175,17 @@ export default function Create() {
                             <br/>
                             {"אחרי הזנת תאריך ושעות לבצע בדיקה אם זה פנוי!"}
                         </Box>
-
                     </Box>
                 </Box>
             </Grow>
+            </Grid>
+            <Grid item xs={5}>
+            {
+                            date !== "" &&
+                            <Day date={dayjs(date,"YYYY-MM-DD")}/>
+            }
+            </Grid>
+            </Grid>
         </Container>
     )
 }

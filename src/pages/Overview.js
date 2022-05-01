@@ -6,7 +6,12 @@ import Day from "../Calendars/Day";
 import Month from "../Calendars/Month";
 import GlobalBoard from "../Components/GlobalBoard";
 import UnreadMessages from "../Components/UnreadMessages";
+import dayjs from "dayjs";
+
+
 export default function Overview() {
+
+    const [date, setDate] = useState(dayjs());
 
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
@@ -20,7 +25,7 @@ export default function Overview() {
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 יומן יומי
                             </Typography>
-                            <Day/>
+                            <Day date = {date} setDate={setDate}/>
 
                         </Box>
                     </Grow>
@@ -35,7 +40,7 @@ export default function Overview() {
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 יומן חודשי
                             </Typography>
-                            <Month/>
+                            <Month date={date} setDate={setDate}/>
                         </Box>
                     </Grow>
                 </Grid>

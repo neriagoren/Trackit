@@ -1,37 +1,44 @@
 import * as React from "react";
-import {Badge, Button, Divider, Grid, ListItem} from "@mui/material";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import {Badge, Button, Grid, Typography, Box} from "@mui/material";
 import dayjs from "dayjs";
 import arraySupport from 'dayjs/plugin/arraySupport';
-import {useState} from "react";
+import {useState, useEffect} from "react";
+import {months, abbDays} from "../Resources/constants";
+import DayGrid from "./DayGrid";
 
-
-const datesOfEvents = [4,9,12,27];
-
-const months = ["ינואר", "פברואר", "מרץ", "אפריל","מאי","יוני",
-    "יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"];
 
 dayjs.extend(arraySupport)
 
-export default function Month() {
+export default function Month(props) {
 
+    const [datesOfEvents, setDatesOfEvents] = useState([4,9,12,27]);
 
-    const [day, setDay] = useState(dayjs())
-    const [firstDay, setFirstDay] = useState(day.date(1).day())
+    const [currentDay, setCurrentDay] = useState(dayjs())
+
+    
+
+    // the number of day of first day of month (0-6)
+    const [firstDay, setFirstDay] = useState(currentDay.date(1).day())
 
 
     const onClickNext = () => {
-        let d = dayjs([day.get('year'),day.get('month')+1,1])
-        setDay(d)
+        let d = dayjs([props.date.get('year'),props.date.get('month')+1,1])
+        props.setDate(() => d);
         setFirstDay(d.date(1).day())
     }
 
     const onClickBefore = () => {
-        let d = dayjs([day.get('year'),day.get('month')-1,1])
-        setDay(d)
+        let d = dayjs([props.date.get('year'),props.date.get('month')-1,1])
+        props.setDate(() => d);
         setFirstDay(d.date(1).day())
     }
+
+    const handleDayClick = (date) => {
+        let d = dayjs([props.date.get('year'), props.date.get('month'), date]);
+        props.setDate(() => d);
+    }
+
+
 
     return (
         <Box>
@@ -39,100 +46,45 @@ export default function Month() {
                 <Button onClick={onClickBefore}>
                     {"<"}
                 </Button>
-                <Typography textAlign={"center"}>
-                    { months[day.get('month')] + " " + day.get('year').toString() }
-                </Typography>
+                <Button>
+                        { months[props.date.get('month')] + " " + props.date.get('year').toString() }
+                </Button>
+              
                 <Button onClick={onClickNext}>
                     {">"}
                 </Button>
             </Box>
             <Box sx={{height: "460px", overflowY: "hidden", pr: 3, pl: 3, pb:2}}>
                 <Grid container spacing={2} columns={7} >
-                    <Grid item xs={1}>
-                        <Box sx={{backgroundColor:"#2596be", height:"50px", borderRadius:"10px", display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center"}}>
-                            <Typography textAlign={"center"} color={"white"}>
-                                א
-                            </Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Box sx={{backgroundColor:"#2596be", height:"50px", borderRadius:"10px", display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center"}}>
-                            <Typography textAlign={"center"} color={"white"}>
-                               ב
-                            </Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Box sx={{backgroundColor:"#2596be", height:"50px", borderRadius:"10px", display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center"}}>
-                            <Typography textAlign={"center"} color={"white"}>
-                                ג
-                            </Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Box sx={{backgroundColor:"#2596be", height:"50px", borderRadius:"10px", display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center"}}>
-                            <Typography textAlign={"center"} color={"white"}>
-                                ד
-                            </Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Box sx={{backgroundColor:"#2596be", height:"50px", borderRadius:"10px", display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center"}}>
-                            <Typography textAlign={"center"} color={"white"}>
-                                ה
-                            </Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Box sx={{backgroundColor:"#2596be", height:"50px", borderRadius:"10px", display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center"}}>
-                            <Typography textAlign={"center"} color={"white"}>
-                                ו
-                            </Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Box sx={{backgroundColor:"#2596be", height:"50px", borderRadius:"10px", display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center"}}>
-                            <Typography textAlign={"center"} color={"white"}>
-                                ש
-                            </Typography>
-                        </Box>
-                    </Grid>
-
-                    { [...Array(firstDay + day.daysInMonth())].map((i,index) => (
+                    {
+                        abbDays.map(day => {
+                           return (
+                            <DayGrid day={day}/>
+                           )
+                        })
+                    }
+                    {[...Array(firstDay + props.date.daysInMonth())].map((i,index) => (
                         <Grid item xs={1}>
                             {
                                 index >= firstDay &&
-                                <Box sx={{
-                                    backgroundColor:(index-firstDay+1)===day.get('date') ? "lightblue": "#f5f5f5",
+                                <Box 
+                                    onClick ={() => handleDayClick(index - firstDay + 1)}
+                                    sx={{
+                                    backgroundColor:((index-firstDay+1)===currentDay.get('date') && props.date.get('month') === currentDay.get('month'))? "lightblue":   index-firstDay + 1 === props.date.get('date') ? "yellow" : "#f5f5f5",
                                     height:"50px",
                                     borderRadius:"10px",
                                     display: "flex",
                                     flexDirection: "column",
                                     justifyContent: "center",
-                                    border: (datesOfEvents.includes(index-firstDay+1) && dayjs().get('month') === day.get('month'))  && "2px solid #2596be" }}>
+                                    border: (datesOfEvents.includes(index-firstDay+1) && dayjs().get('month') === props.date.get('month'))  && "2px solid #2596be" }}>
 
-                                    <Typography textAlign={"center"} color={(index-firstDay+1)===day.get('date') && "white"}  fontWeight={(index-firstDay+1===day.get('date')) ? "bold" : ""}>
+                                    <Typography textAlign={"center"} color={((index-firstDay+1)===currentDay.get('date') && props.date.get('month') === currentDay.get('month')) && "white"}  fontWeight={((index-firstDay+1)===currentDay.get('date') && props.date.get('month') === currentDay.get('month') || index-firstDay + 1 === props.date.get('date')) ? "bold" : ""}>
                                         {index-firstDay+1}
                                     </Typography>
                                 </Box>
                             }
-
-                        </Grid>
-                    )) }
+                        </Grid>))
+                    }
                 </Grid>
             </Box>
         </Box>

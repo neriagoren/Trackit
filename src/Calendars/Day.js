@@ -6,31 +6,33 @@ import List from "@mui/material/List";
 import dayjs from "dayjs";
 import {useEffect, useState} from "react";
 import arraySupport from 'dayjs/plugin/arraySupport';
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import axios from "axios";
 import {hoursAgenda, months, days} from  '../Resources/constants'
 
-dayjs.extend(arraySupport)
 
+dayjs.extend(arraySupport)
+dayjs.extend(customParseFormat)
 
 const eventsArray = {
-        "1": {
+        "2": {
         "date":[2022,6],
-        "start":1,
-        "end":2,
+        "start":2,
+        "end":4,
         "title":"תגבור במבני נתונים",
         "location":"4/203"
         },
-        "4": {
+        "8": {
             "date":[2022,4],
-            "start":4,
-            "end":6,
+            "start":8,
+            "end":12,
             "title":"תגבור באלגוריתמים 1",
             "location":"6/210"
         },
-        "7": {
+        "14": {
             "date":[2022,4,23],
-            "start":7,
-            "end":11,
+            "start":14,
+            "end":22,
             "title":"מבוא למדעי המחשב 1",
             "location":"אולם הגפן"
         },
@@ -40,8 +42,8 @@ const eventsArray = {
 const range = (start, end) => {
     return Array(parseInt(end) - parseInt(start) + 1).fill().map((_, idx) => parseInt(start) + idx)
 }
-// 0 and 34 indexes are out of selection
-const indexes = [...range(0,33)];
+// 0 and 66 indexes are out of selection
+const indexes = [...range(0,65)];
 
 const createAgenda = () => {
     let sortedEventsKeys = Object.keys(eventsArray).sort(function(a, b){return a - b});
@@ -56,34 +58,40 @@ const createAgenda = () => {
 
     })
     agenda.unshift([0,events[0][0]]);
-    agenda.push([events[events.length-1][1],34]);
+    agenda.push([events[events.length-1][1],66]);
     return agenda;
 }
 
 const agenda = createAgenda();
 
 
-export default function Day() {
+export default function Day(props) {
 
     const [todayEvents, setTodayEvents] = useState({})
-    const [day, setDay] = useState(dayjs())
+    const [day, setDay] = useState(props.date)
 
     useEffect(() => {
-        {
-            axios.get("http://worldtimeapi.org/api/timezone/Asia/Jerusalem").then((response) => {
-                console.log(response.data.utc_offset === "+03:00")
-            })
-        }
-    }, [])
+        
+            setDay(() => props.date)
+        
+    }, [props.date])
+
+    // useEffect(() => {
+    //     {
+    //         axios.get("http://worldtimeapi.org/api/timezone/Asia/Jerusalem").then((response) => {
+    //             console.log(response.data.utc_offset === "+03:00")
+    //         })
+    //     }
+    // }, [])
 
     const onClickNext = () => {
         let d = day.add(1, 'days')
-        setDay(d)
+        props.setDate(() => d)
     }
 
     const onClickBefore = () => {
         let d = day.subtract(1, 'days')
-        setDay(d)
+        props.setDate(() => d)
     }
 
     return (
@@ -92,11 +100,11 @@ export default function Day() {
                 <Button onClick={onClickBefore}>
                     {"<"}
                 </Button>
-                <Typography textAlign={"center"}>
+                <Button>
                     {days[day.get('day')] + " "}
                     {day.get('date') + " "}
                     {months[day.get('month')]}
-                </Typography>
+                </Button>
                 <Button onClick={onClickNext}>
                     {">"}
                 </Button>
@@ -122,10 +130,12 @@ export default function Day() {
                 </List>
 
                 <List sx={{width: "80%"}}>
-                    {agenda.map((event) => (Object.keys(eventsArray).includes(event[0].toString())
+                    {agenda.map((event) => (
+                        
+                        Object.keys(eventsArray).includes(event[0].toString())
                         ?
                         indexes.slice(event[0], event[1]).map((index) => (
-                            <ListItem key={index} sx={{height: "50px", p: 0}}>
+                            <ListItem key={index} sx={{height: "25px", p: 0}}>
                                 <Box sx={{
                                     width: "100%", backgroundColor: "#2596be", height: "100%",
                                     borderRadius: index === event[0] && index + 1 === event[1]
@@ -138,16 +148,17 @@ export default function Day() {
                                                     mr={1}>
                                             {eventsArray[event[0].toString()].title}
                                         </Typography>}
-                                    {index + 1 === event[1] &&
+                                    
+                                    {index + 1=== event[1] &&
                                         <Typography color={"white"} textAlign={"left"} ml={1}
-                                                    mt={event[1] - event[0] === 1 ? 0 : 2}>
+                                                    >
                                             {"מיקום " + eventsArray[event[0].toString()].location}
                                         </Typography>}
                                 </Box>
                             </ListItem>))
                         :
                         indexes.slice(event[0], event[1]).map((index) => (
-                            <ListItem key={index} sx={{height: "50px", p: 0}}>
+                            <ListItem key={index} sx={{height: "25px", p: 0}}>
                                 <Box sx={{width: "100%", height: "100%"}}>
                                     <Divider/>
                                 </Box>
