@@ -3,6 +3,7 @@ import {Chip, Container, Avatar, Grid, Grow, Stack} from "@mui/material";
 import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
+import TotalHours from "../Components/TotalHours";
 
 export default function Profile() {
 
@@ -71,11 +72,11 @@ export default function Profile() {
                     </Grow>
                 </Grid>
 
-                <Grid item xs={5}>
-                    <Grow
+                <Grid item xs={6}>
+                    {/* <Grow
                         in={true}
                         style={{transformOrigin: '0 0 0'}}
-                        timeout={1500}>
+                        timeout={1500}> */}
                         <Box sx={{
                             height: "400px",
                             bgcolor: 'background.paper',
@@ -86,8 +87,9 @@ export default function Profile() {
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 שעות עבודה
                             </Typography>
+                            <TotalHours />
                         </Box>
-                    </Grow>
+                    {/* </Grow> */}
                 </Grid>
 
                 <Grid item xs={6}>

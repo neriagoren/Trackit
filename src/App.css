@@ -25,3 +25,8 @@ html {
 #end:disabled {
   color: lightgray;
 }
+
+.value {
+  font-size: 40px;
+  font-weight: bold;
+}
