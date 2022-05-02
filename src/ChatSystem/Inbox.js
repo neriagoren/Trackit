@@ -14,7 +14,6 @@ import {
     TextField
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import ScrollableFeed from 'react-scrollable-feed'
 import ChatBubble from "./ChatBubble";
 
 
@@ -133,12 +132,10 @@ export default function Inbox() {
                                     השיחה שלך ושל {msg[selectedIndex].author}
                                 </ListSubheader>
                                 <Box sx={{height: "400px", overflowY: "auto"}}>
-                                    <ScrollableFeed>
                                         <ChatBubble who={true} text={"שלום בוקר טוב"}/>
                                         <ChatBubble who={false} text={"היי מה קורה נריה?"}/>
                                         <ChatBubble  who={true} text={"אני צריך שתשלח לי את הדוחות הרבעוניים של 2021 לפני ארוחת צהריים, אגב איך האישה והילדים?"}/>
                                         <ChatBubble who={false} text={"אין בעיה בוס! האישה והילדים בסדר כרגיל..."}/>
-                                    </ScrollableFeed>
                                 </Box>
                                 <Box sx={{p: 1}}>
                                     <TextField placeholder={"שלח הודעה..."} sx={{width: "100%"}}/>
