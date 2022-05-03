@@ -213,6 +213,10 @@ export default function Create() {
             </Grow>
             </Grid>
             <Grid item xs={5}>
+            <Grow
+                in={true}
+                style={{transformOrigin: '0 0 0'}}
+                timeout={1000}>
             
                         <Box sx={{bgcolor: 'background.paper' , borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
                         
@@ -221,8 +225,11 @@ export default function Create() {
                             {
                            
                                 date !== null ?
+                               
 
                                  <Day date={date} setDate={setDate}/>
+
+
 
                         :
                                 <Box sx={{p:2}}>
@@ -233,7 +240,7 @@ export default function Create() {
                                 
                             }
                         </Box>
-            
+                    </Grow>
             </Grid>
             </Grid>
         </Container>

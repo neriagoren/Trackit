@@ -6,53 +6,25 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import Fade from '@mui/material/Fade';
 
-import { useHistory } from "react-router-dom";
+export default function Signup() {
 
-export default function Login(props) {
-
-
-
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [response, setResponse] = useState("");
     const [isValid, setIsValid] = useState(null);
- 
 
-    const history = useHistory();
-  
-    const routeChange = () =>{ 
-      let path = `signup`; 
-      history.push(path);
+    const handleFirstNameChange = (e) => {
+        let firstName = e.target.value;
+        setFirstName(() => firstName);
+        setResponse(() => "");
     }
 
-    const create = () => {
-        axios.post("http://localhost:8989/users", {username: username, password:password}).then(
-            (res) => {
-                setResponse(() => res.data);
-            }
-        )
-    }
-
-    const Login = () => {
-        axios.get("http://localhost:8989/login", {
-            params : {
-                username:username,
-                password:password
-            }
-        }).then(res => {
-            if(res.data !== "") {
-                const cookies = new Cookies();
-                cookies.set("trackit_COOKIE", res.data)
-                props.setL(() => true);
-            }
-            else {
-                setResponse(()=> "המשתמש לא קיים!")
-            }
-        })
-    }
-
-    const forgot = () => {
-        setResponse(() => "צור קשר עם תמיכה טכנית")
+    const handleLastNameChange = (e) => {
+        let lastName = e.target.value;
+        setFirstName(() => lastName);
+        setResponse(() => "");
     }
 
     const handleUsernameChange = (e) => {
@@ -67,7 +39,8 @@ export default function Login(props) {
         setPassword(() => password);
     }
 
-    const hasRequiredDetails = username === "" || password === ""
+    const hasRequiredDetails = username === "" || password === "" || firstName === "" || lastName === ""
+
 
     return (
         <Fade in={true}>
@@ -95,14 +68,14 @@ export default function Login(props) {
                     <h3> מערכת תגבורים - המכללה האקדמית אשקלון </h3>
                 </Box>
 
-                <h3> התחברות למערכת </h3>
+                <h3> יצירת חשבון לסטודנט </h3>
 
                 <Box>
+                    <TextField onChange={handleFirstNameChange} placeholder={"שם פרטי"} sx={{width: "100%", m: 1}}/>
+                    <TextField onChange={handleLastNameChange} placeholder={"שם משפחה"} sx={{width: "100%", m: 1}}/>
                     <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{width: "100%", m: 1}}/>
                     <TextField onChange={handlePasswordChange} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
-                    <Button disabled={hasRequiredDetails} sx={{width: "100%"}} onClick={Login}> התחבר/י </Button>
-                    <Button  onClick = {forgot} sx={{width: "100%"}}> שכחתי סיסמא </Button>
-                    <Button  onClick = {routeChange} sx={{width: "100%"}}>  צור חשבון</Button>
+                    <Button  sx={{width: "100%"}}> צור חשבון </Button>
                 
                     <Typography color={"red"} textAlign={"center"}>
                         {response}

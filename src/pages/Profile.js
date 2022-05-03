@@ -54,7 +54,7 @@ export default function Profile() {
                 </Grid>
 
                 <Grid item xs={5}>
-                    <Grow
+                <Grow
                         in={true}
                         style={{transformOrigin: '0 0 0'}}
                         timeout={1000}>
@@ -66,46 +66,9 @@ export default function Profile() {
                         }}>
 
                             <Typography color={"gray"} fontSize={"small"} p={1}>
-                                תזכורות
-                            </Typography>
-                        </Box>
-                    </Grow>
-                </Grid>
-
-                <Grid item xs={6}>
-                    {/* <Grow
-                        in={true}
-                        style={{transformOrigin: '0 0 0'}}
-                        timeout={1500}> */}
-                        <Box sx={{
-                            height: "400px",
-                            bgcolor: 'background.paper',
-                            borderRadius: "10px",
-                            boxShadow: "0px 0px 2px gray"
-                        }}>
-
-                            <Typography color={"gray"} fontSize={"small"} p={1}>
                                 שעות עבודה
                             </Typography>
                             <TotalHours />
-                        </Box>
-                    {/* </Grow> */}
-                </Grid>
-
-                <Grid item xs={6}>
-                    <Grow
-                        in={true}
-                        style={{transformOrigin: '0 0 0'}}
-                        timeout={2000}>
-                        <Box sx={{
-                            height: "400px",
-                            bgcolor: 'background.paper',
-                            borderRadius: "10px",
-                            boxShadow: "0px 0px 2px gray"
-                        }}>
-                            <Typography color={"gray"} fontSize={"small"} p={1}>
-                                נתונים
-                            </Typography>
                         </Box>
                     </Grow>
                 </Grid>

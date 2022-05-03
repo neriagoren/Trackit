@@ -19,6 +19,7 @@ import Cookies from "universal-cookie";
 import useIsMounted from './hooks/useIsMounted';
 import {theme, SidebarData} from './Resources/constants';
 import {ThemeProvider} from '@mui/material/styles';
+import Signup from './pages/Signup';
 
 
 
@@ -67,12 +68,15 @@ export default function App() {
                                     <Route path={"/profile"} component={Profile} exact={true}/>
                                     <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
                                     <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
+
                                 </Box>
                             </Box>
                             :
                             <Box sx={{}}>
                                 <Redirect to={"/"}/>
                                 <Route path={"/"} render={props => <Login  {...props} setL={setLogin}/>} exact={true}/>
+                                <Route path={"/signup"} render={props => <Signup  {...props} />} exact={true}/>
+
                             </Box>
                     }
                 </div>
