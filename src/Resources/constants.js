@@ -33,7 +33,21 @@ const abbDays = ["א", "ב", "ג", "ד", "ה", "ו", "ש"];
 });
 
 
-const SidebarData = [
+const adminSidebarData = [
+    {
+        id: "reports",
+        title: "דוחות",
+        path: "/admin/reports",
+        icon: <AssessmentIcon />,
+    },
+    {
+        id: "create",
+        title: "צור משתמש",
+        path: "/admin/create-user",
+        icon: <EventAvailableIcon />,
+    }
+]
+const tutorSidebarData = [
     {
         id: "overview",
         title: "מבט כללי",
@@ -97,6 +111,19 @@ const SidebarData = [
     }
 ]
 
+const studentSidebarData = [
+    {
+        id: "overview",
+        title: "מבט כללי",
+        path: "/overview",
+        icon: <AssessmentIcon />,
+    },
+    {
+        id: "create",
+        title: "צור אירוע",
+        path: "/createevent",
+        icon: <EventAvailableIcon />,
+    },
+]
 
-
- export {hours, minutes, theme, SidebarData, hoursAgenda, days, months, abbDays};
+ export {hours, minutes, theme, adminSidebarData,tutorSidebarData, studentSidebarData,hoursAgenda, days, months, abbDays};

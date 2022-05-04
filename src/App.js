@@ -17,7 +17,7 @@ import Setting from "./pages/Setting";
 import Login from "./pages/Login";
 import Cookies from "universal-cookie";
 import useIsMounted from './hooks/useIsMounted';
-import {theme, SidebarData} from './Resources/constants';
+import {theme, adminSidebarData, tutorSidebarData, studentSidebarData} from './Resources/constants';
 import {ThemeProvider} from '@mui/material/styles';
 import Signup from './pages/Signup';
 
@@ -27,6 +27,7 @@ export default function App() {
 
     const [isLogged, setLogin] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [userType, setUserType] = useState("");
     const [token, setToken] = useState("");
 
     const isMounted = useIsMounted();
@@ -46,6 +47,7 @@ export default function App() {
         }
     }, [isMounted]);
 
+ 
 
     return (
         <BrowserRouter>
@@ -54,29 +56,61 @@ export default function App() {
                     <CssBaseline/>
                     {
                         isLogged ?
+                            userType === "admin" ?
                             <Box sx={{display: 'flex', overflowY: "auto", height: "100vh"}}>
                                 <MyAppBar setL={setLogin}/>
-                                <ClippedDrawer SidebarData={SidebarData} selectedIndex={selectedIndex}
+                                <ClippedDrawer SidebarData={adminSidebarData} selectedIndex={selectedIndex}
                                                handleListItemClick={handleListItemClick}/>
                                 <Box width={"100%"}>
-
                                     <Toolbar/>
-                                    <Redirect to={"/overview"}/>
-                                    <Route path={"/overview"} component={Overview} exact={true}/>
-                                    <Route path={"/createevent"} component={Create} exact={true}/>
-                                    <Route path={"/reports"} component={Reports} exact={true}/>
-                                    <Route path={"/profile"} component={Profile} exact={true}/>
-                                    <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
-                                    <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
+                                    <Redirect to={"/admin/reports"}/>
+                                    <Route path={"/admin/reports"} render={props => <Reports  {...props} />} exact={true}/>
+                                    <Route path={"/admin/create-user"} render={props => <Create  {...props} />} exact={true}/>
 
                                 </Box>
                             </Box>
                             :
+                            userType === "tutor" ?
+                                <Box sx={{display: 'flex', overflowY: "auto", height: "100vh"}}>
+                                    <MyAppBar setL={setLogin}/>
+                                    <ClippedDrawer SidebarData={tutorSidebarData} selectedIndex={selectedIndex}
+                                                handleListItemClick={handleListItemClick}/>
+                                    <Box width={"100%"}>
+
+                                        <Toolbar/>
+                                        <Redirect to={"/overview"}/>
+                                        <Route path={"/overview"} component={Overview} exact={true}/>
+                                        <Route path={"/createevent"} component={Create} exact={true}/>
+                                        <Route path={"/reports"} component={Reports} exact={true}/>
+                                        <Route path={"/profile"} component={Profile} exact={true}/>
+                                        <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
+                                        <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
+
+                                    </Box>
+                                </Box>
+                            :
+                            <Box sx={{display: 'flex', overflowY: "auto", height: "100vh"}}>
+                            <MyAppBar setL={setLogin}/>
+                            <ClippedDrawer SidebarData={studentSidebarData} selectedIndex={selectedIndex}
+                                        handleListItemClick={handleListItemClick}/>
+                            <Box width={"100%"}>
+
+                                <Toolbar/>
+                                <Redirect to={"/overview"}/>
+                                <Route path={"/overview"} component={Overview} exact={true}/>
+                                <Route path={"/createevent"} component={Create} exact={true}/>
+                                <Route path={"/reports"} component={Reports} exact={true}/>
+                                <Route path={"/profile"} component={Profile} exact={true}/>
+                                <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
+                                <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
+
+                            </Box>
+                            </Box>
+                            :
                             <Box sx={{}}>
                                 <Redirect to={"/"}/>
-                                <Route path={"/"} render={props => <Login  {...props} setL={setLogin}/>} exact={true}/>
+                                <Route path={"/"} render={props => <Login  {...props} setL={setLogin} setType={setUserType}/>} exact={true}/>
                                 <Route path={"/signup"} render={props => <Signup  {...props} />} exact={true}/>
-
                             </Box>
                     }
                 </div>

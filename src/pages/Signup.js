@@ -6,6 +6,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import Fade from '@mui/material/Fade';
 import { Redirect } from "react-router-dom";
+import { Alert } from "@mui/material";
 
 export default function Signup() {
 
@@ -88,7 +89,7 @@ export default function Signup() {
                     <Button disabled={hasRequiredDetails} onClick={signup} sx={{width: "100%"}}> צור חשבון </Button>
                     {
                         success && 
-                        <Redirect to ={"/"} />
+                        <Redirect to ={"/"}  />
                     }
                 </Box>
                 

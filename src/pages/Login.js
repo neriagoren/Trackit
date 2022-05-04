@@ -36,9 +36,17 @@ export default function Login(props) {
             }
         }).then(res => {
             if(res.data !== "") {
-                const cookies = new Cookies();
-                cookies.set("trackit_COOKIE", res.data)
-                props.setL(() => true);
+                axios.get("http://localhost:8989/login/type", {
+                params: {
+                    token:res.data
+                }
+                }).then(type => {
+                    props.setType(() => type.data)
+                    console.log(type.data)
+                    const cookies = new Cookies();
+                    cookies.set("trackit_COOKIE", res.data)
+                    props.setL(() => true);
+                })
             }
             else {
                 setResponse(()=> "המשתמש לא קיים!")
