@@ -25,7 +25,7 @@ import Signup from './pages/Signup';
 
 export default function App() {
 
-    const [isLogged, setLogin] = useState(true);
+    const [isLogged, setLogin] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [token, setToken] = useState("");
 
@@ -35,16 +35,16 @@ export default function App() {
         setSelectedIndex(index);
     };
 
-    // useEffect(() => {
-    //     if (isMounted) {
-    //         console.log("checking for cookies")
-    //         const cookies = new Cookies();
-    //         if (cookies.get("trackit_COOKIE")) {
-    //             setLogin(() => true);
-    //             setToken(() => cookies.get("trackit_COOKIE"));
-    //         }
-    //     }
-    // }, [isMounted]);
+    useEffect(() => {
+        if (isMounted) {
+            console.log("checking for cookies")
+            const cookies = new Cookies();
+            if (cookies.get("trackit_COOKIE")) {
+                setLogin(() => true);
+                setToken(() => cookies.get("trackit_COOKIE"));
+            }
+        }
+    }, [isMounted]);
 
 
     return (

@@ -23,15 +23,10 @@ export default function Login(props) {
     const routeChange = () =>{ 
       let path = `signup`; 
       history.push(path);
+      
     }
 
-    const create = () => {
-        axios.post("http://localhost:8989/users", {username: username, password:password}).then(
-            (res) => {
-                setResponse(() => res.data);
-            }
-        )
-    }
+    
 
     const Login = () => {
         axios.get("http://localhost:8989/login", {

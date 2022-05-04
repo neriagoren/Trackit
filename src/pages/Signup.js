@@ -5,6 +5,7 @@ import {Button, TextField, Typography, Toolbar} from "@mui/material";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import Fade from '@mui/material/Fade';
+import { Redirect } from "react-router-dom";
 
 export default function Signup() {
 
@@ -14,6 +15,7 @@ export default function Signup() {
     const [password, setPassword] = useState("");
     const [response, setResponse] = useState("");
     const [isValid, setIsValid] = useState(null);
+    const [success, setSuccess] = useState(false);
 
     const handleFirstNameChange = (e) => {
         let firstName = e.target.value;
@@ -23,7 +25,7 @@ export default function Signup() {
 
     const handleLastNameChange = (e) => {
         let lastName = e.target.value;
-        setFirstName(() => lastName);
+        setLastName(() => lastName);
         setResponse(() => "");
     }
 
@@ -41,6 +43,14 @@ export default function Signup() {
 
     const hasRequiredDetails = username === "" || password === "" || firstName === "" || lastName === ""
 
+
+    const signup = () => {
+        axios.post("http://localhost:8989/users", { username, password, firstName, lastName}).then(
+            (res) => {
+                setSuccess(() => res.data);
+            }
+        )
+    }
 
     return (
         <Fade in={true}>
@@ -75,11 +85,11 @@ export default function Signup() {
                     <TextField onChange={handleLastNameChange} placeholder={"שם משפחה"} sx={{width: "100%", m: 1}}/>
                     <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{width: "100%", m: 1}}/>
                     <TextField onChange={handlePasswordChange} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
-                    <Button  sx={{width: "100%"}}> צור חשבון </Button>
-                
-                    <Typography color={"red"} textAlign={"center"}>
-                        {response}
-                    </Typography>
+                    <Button disabled={hasRequiredDetails} onClick={signup} sx={{width: "100%"}}> צור חשבון </Button>
+                    {
+                        success && 
+                        <Redirect to ={"/"} />
+                    }
                 </Box>
                 
             </Box>
