@@ -25,31 +25,7 @@ export default function Setting() {
                     </Grow>
                 </Grid>
 
-                <Grid item xs={5} >
-                    <Grow
-                        in={true}
-                        style={{transformOrigin: '0 0 0'}}
-                        timeout={1000}>
-                    <Box sx={{ height:"400px", bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
-                        <Typography color={"gray"} fontSize={"small"} p={1}>
-                            נהל הרשאות
-                        </Typography>
-                    </Box>
-                    </Grow>
-                </Grid>
 
-                <Grid item xs={5} >
-                    <Grow
-                        in={true}
-                        style={{transformOrigin: '0 0 0'}}
-                        timeout={1500}>
-                    <Box sx={{ height:"400px", bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
-                        <Typography color={"gray"} fontSize={"small"} p={1}>
-                            דיווח על תקלה
-                        </Typography>
-                    </Box>
-                    </Grow>
-                </Grid>
 
                 <Grid item xs={6} >
                     <Grow

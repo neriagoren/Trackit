@@ -18,7 +18,7 @@ export default function Create() {
 
     // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours
 
-    const [courses, setCourses] = useState(["אלגברה לינארית", "חשבון דיפרנציאלי ואינטגרלי", "מתמטיקה בדידה", "מבוא למדעי המחשב"]);
+    const [courses, setCourses] = useState([]);
     const [course, setCourse] = useState(-1);
     const [startHour, setStartHour] = useState(-1);
     const [startMinute, setStartMinute] = useState(-1);
@@ -69,11 +69,11 @@ export default function Create() {
     };
 
 
-    // useEffect(() => {
-    //     axios.get("http://localhost:8989/courses").then(response => {
-    //         setCourses(() => response.data)
-    //     })
-    // }, [])
+    useEffect(() => {
+        axios.get("http://localhost:8989/courses").then(response => {
+            setCourses(() => response.data)
+        })
+    }, [])
 
     
     const handleDate = (event) => {
@@ -124,7 +124,7 @@ export default function Create() {
                                 <option disabled={"true"} value="desc">בחר קורס</option>
                                 {
                                     courses.map((course) => (
-                                        <option onClick={handleCourse}  value={/* course.name*/ course }> {/*course.name*/ course} </option>
+                                        <option onClick={handleCourse}  value={course.name }> {course.name} </option>
                                     ))
                                 }
                             </select>
