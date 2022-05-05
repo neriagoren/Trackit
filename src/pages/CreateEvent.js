@@ -14,7 +14,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 dayjs.extend(customParseFormat)
 
 
-export default function Create() {
+export default function CreateEvent() {
 
     // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours
 

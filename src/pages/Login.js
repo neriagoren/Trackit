@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import {Button, TextField, Typography, Toolbar} from "@mui/material";
@@ -7,6 +7,7 @@ import Cookies from "universal-cookie";
 import Fade from '@mui/material/Fade';
 
 import { useHistory } from "react-router-dom";
+import { WifiProtectedSetupSharp } from "@mui/icons-material";
 
 export default function Login(props) {
 
@@ -26,7 +27,9 @@ export default function Login(props) {
       
     }
 
-    
+    useEffect(() => {
+        props.setIndex(() => -1);
+    }, [])
 
     const Login = () => {
         axios.get("http://localhost:8989/login", {

@@ -43,7 +43,7 @@ const adminSidebarData = [
     {
         id: "create",
         title: "צור משתמש",
-        path: "/admin/create-user",
+        path: "/admin/create-tutor",
         icon: <EventAvailableIcon />,
     }
 ]

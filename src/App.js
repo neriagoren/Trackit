@@ -9,7 +9,7 @@ import MyAppBar from "./Components/MyAppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Overview from "./pages/Overview";
-import Create from "./pages/Create";
+import Create from "./pages/CreateEvent";
 import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
 import Inbox from "./ChatSystem/Inbox";
@@ -20,13 +20,15 @@ import useIsMounted from './hooks/useIsMounted';
 import {theme, adminSidebarData, tutorSidebarData, studentSidebarData} from './Resources/constants';
 import {ThemeProvider} from '@mui/material/styles';
 import Signup from './pages/Signup';
+import CreateEvent from './pages/CreateEvent';
+import CreateTutor from './Components/CreateTutor';
 
 
 
 export default function App() {
 
     const [isLogged, setLogin] = useState(false);
-    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [selectedIndex, setSelectedIndex] = useState(-1);
     const [userType, setUserType] = useState("");
     const [token, setToken] = useState("");
 
@@ -65,7 +67,7 @@ export default function App() {
                                     <Toolbar/>
                                     <Redirect to={"/admin/reports"}/>
                                     <Route path={"/admin/reports"} render={props => <Reports  {...props} />} exact={true}/>
-                                    <Route path={"/admin/create-user"} render={props => <Create  {...props} />} exact={true}/>
+                                    <Route path={"/admin/create-tutor"} render={props => <CreateTutor  {...props} />} exact={true}/>
 
                                 </Box>
                             </Box>
@@ -80,7 +82,7 @@ export default function App() {
                                         <Toolbar/>
                                         <Redirect to={"/overview"}/>
                                         <Route path={"/overview"} component={Overview} exact={true}/>
-                                        <Route path={"/createevent"} component={Create} exact={true}/>
+                                        <Route path={"/createevent"} render={props => <CreateEvent  {...props} />} exact={true}/>
                                         <Route path={"/reports"} component={Reports} exact={true}/>
                                         <Route path={"/profile"} component={Profile} exact={true}/>
                                         <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
@@ -109,7 +111,7 @@ export default function App() {
                             :
                             <Box sx={{}}>
                                 <Redirect to={"/"}/>
-                                <Route path={"/"} render={props => <Login  {...props} setL={setLogin} setType={setUserType}/>} exact={true}/>
+                                <Route path={"/"} render={props => <Login  {...props} setIndex={setSelectedIndex} setL={setLogin} setType={setUserType}/>} exact={true}/>
                                 <Route path={"/signup"} render={props => <Signup  {...props} />} exact={true}/>
                             </Box>
                     }
