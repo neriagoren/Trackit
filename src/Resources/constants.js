@@ -51,63 +51,38 @@ const tutorSidebarData = [
     {
         id: "overview",
         title: "מבט כללי",
-        path: "/overview",
+        path: "/tutor/overview",
         icon: <AssessmentIcon />,
     },
     {
         id: "create",
         title: "צור אירוע",
-        path: "/createevent",
+        path: "/tutor/createevent",
         icon: <EventAvailableIcon />,
     },
     {
         id: "reports",
         title: "דוחות",
-        path: "/reports",
+        path: "/tutor/reports",
         icon: <SummarizeIcon />,
-        subNav: [
-            {
-                title: "מסד נתונים",
-                path: "/reports/databases",
-            }
-        ]
     },
     {
         id: "messages",
         title: "הודעות",
-        path: "/inbox",
+        path: "/tutor/inbox",
         icon: <ChatIcon />,
     },
     {
         id: "profile",
         title: "פרופיל",
-        path: "/profile",
+        path: "/tutor/profile",
         icon: <AssignmentIndIcon />,
-        subNav: [
-            {
-                title: "משימות שלי",
-                path: "/profile/tasks",
-
-            }
-        ]
     },
     {
         id:"setting",
         title: "הגדרות",
-        path: "/setting",
+        path: "/tutor/setting",
         icon: <SettingsIcon />,
-        subNav: [
-            {
-                title: "ערוך פרופיל",
-                path: "/setting/edit",
-
-            },
-            {
-                title: "תמיכה טכנית",
-                path: "/setting/support",
-
-            }
-        ]
     }
 ]
 
@@ -115,14 +90,14 @@ const studentSidebarData = [
     {
         id: "overview",
         title: "מבט כללי",
-        path: "/overview",
+        path: "/student/overview",
         icon: <AssessmentIcon />,
     },
     {
-        id: "create",
-        title: "צור אירוע",
-        path: "/createevent",
-        icon: <EventAvailableIcon />,
+        id: "messages",
+        title: "הודעות",
+        path: "/student/inbox",
+        icon: <ChatIcon />,
     },
 ]
 

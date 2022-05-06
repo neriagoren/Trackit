@@ -5,16 +5,21 @@ import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import LogoutIcon from '@mui/icons-material/Logout';
 import Cookies from "universal-cookie";
+import { useHistory } from "react-router-dom";
 
 
 export default function MyAppBar(props) {
 
 
+    const history = useHistory();
+
     const logout = () => {
         const cookies = new Cookies();
-        cookies.remove("trackit_COOKIE");
+        cookies.remove("trackit_COOKIE" , {domain:"localhost", path:"/"});
         props.setL(() => false);
+        props.setT(() => "");
     }
+
 
     return (
         <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: "#2596be"}}>

@@ -7,7 +7,6 @@ import Cookies from "universal-cookie";
 import Fade from '@mui/material/Fade';
 
 import { useHistory } from "react-router-dom";
-import { WifiProtectedSetupSharp } from "@mui/icons-material";
 
 export default function Login(props) {
 
@@ -23,7 +22,6 @@ export default function Login(props) {
   
     const routeChange = () =>{ 
       let path = `signup`; 
-      history.push(path);
       
     }
 
@@ -44,10 +42,10 @@ export default function Login(props) {
                     token:res.data
                 }
                 }).then(type => {
-                    props.setType(() => type.data)
-                    console.log(type.data)
+                    props.setType(() => type.data);
+                    console.log(type.data);
                     const cookies = new Cookies();
-                    cookies.set("trackit_COOKIE", res.data)
+                    cookies.set("trackit_COOKIE", res.data, {domain:"localhost", path:"/"});
                     props.setL(() => true);
                 })
             }

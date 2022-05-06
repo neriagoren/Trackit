@@ -23,8 +23,7 @@ import Signup from './pages/Signup';
 import CreateEvent from './pages/CreateEvent';
 import CreateTutor from './Components/CreateTutor';
 
-
-
+import axios from 'axios';
 export default function App() {
 
     const [isLogged, setLogin] = useState(false);
@@ -43,13 +42,20 @@ export default function App() {
             console.log("checking for cookies")
             const cookies = new Cookies();
             if (cookies.get("trackit_COOKIE")) {
-                setLogin(() => true);
-                setToken(() => cookies.get("trackit_COOKIE"));
+                axios.get("http://localhost:8989/login/type", {
+                params: {
+                    token:cookies.get("trackit_COOKIE")
+                }
+                }).then(type => {
+                    setUserType(() => type.data)
+                    console.log(type.data)
+                    setLogin(() => true);
+                })
             }
         }
     }, [isMounted]);
 
- 
+
 
     return (
         <BrowserRouter>
@@ -60,9 +66,9 @@ export default function App() {
                         isLogged ?
                             userType === "admin" ?
                             <Box sx={{display: 'flex', overflowY: "auto", height: "100vh"}}>
-                                <MyAppBar setL={setLogin}/>
+                                <MyAppBar setL={setLogin} setT={setUserType}/>
                                 <ClippedDrawer SidebarData={adminSidebarData} selectedIndex={selectedIndex}
-                                               handleListItemClick={handleListItemClick}/>
+                                            handleListItemClick={handleListItemClick}/>
                                 <Box width={"100%"}>
                                     <Toolbar/>
                                     <Redirect to={"/admin/reports"}/>
@@ -80,17 +86,18 @@ export default function App() {
                                     <Box width={"100%"}>
 
                                         <Toolbar/>
-                                        <Redirect to={"/overview"}/>
-                                        <Route path={"/overview"} component={Overview} exact={true}/>
-                                        <Route path={"/createevent"} render={props => <CreateEvent  {...props} />} exact={true}/>
-                                        <Route path={"/reports"} component={Reports} exact={true}/>
-                                        <Route path={"/profile"} component={Profile} exact={true}/>
-                                        <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
-                                        <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
+                                        <Redirect to={"/tutor/overview"}/>
+                                        <Route path={"/tutor/overview"} render={props => <Overview  {...props} />} exact={true}/>
+                                        <Route path={"/tutor/createevent"} render={props => <CreateEvent  {...props} />} exact={true}/>
+                                        <Route path={"/tutor/reports"} component={Reports} exact={true}/>
+                                        <Route path={"/tutor/profile"} component={Profile} exact={true}/>
+                                        <Route path={"/tutor/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
+                                        <Route path={"/tutor/setting"} render={props => <Setting  {...props} />} exact={true}/>
 
                                     </Box>
                                 </Box>
                             :
+                            userType === "student" ?
                             <Box sx={{display: 'flex', overflowY: "auto", height: "100vh"}}>
                             <MyAppBar setL={setLogin}/>
                             <ClippedDrawer SidebarData={studentSidebarData} selectedIndex={selectedIndex}
@@ -98,15 +105,18 @@ export default function App() {
                             <Box width={"100%"}>
 
                                 <Toolbar/>
-                                <Redirect to={"/overview"}/>
-                                <Route path={"/overview"} component={Overview} exact={true}/>
-                                <Route path={"/createevent"} component={Create} exact={true}/>
-                                <Route path={"/reports"} component={Reports} exact={true}/>
-                                <Route path={"/profile"} component={Profile} exact={true}/>
-                                <Route path={"/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
-                                <Route path={"/setting"} render={props => <Setting  {...props} />} exact={true}/>
+                                <Redirect to={"/student/overview"}/>
+                                <Route path={"/student/overview"} render={props => <Overview  {...props} />} exact={true}/>
+                                <Route path={"/student/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
+                                
 
                             </Box>
+                            </Box>
+                            :
+                            <Box sx={{}}>
+                            <Redirect to={"/"}/>
+                            <Route path={"/"} render={props => <Login  {...props} setIndex={setSelectedIndex} setL={setLogin} setType={setUserType}/>} exact={true}/>
+                            <Route path={"/signup"} render={props => <Signup  {...props} />} exact={true}/>
                             </Box>
                             :
                             <Box sx={{}}>
