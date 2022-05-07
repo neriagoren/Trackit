@@ -3,8 +3,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import React, {useState,  useEffect } from "react";
 import axios from 'axios';
-import Day from "../Calendars/Day";
-import {hours, minutes} from '../Resources/constants';
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
 import Chip from '@mui/material/Chip';
