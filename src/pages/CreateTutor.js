@@ -1,4 +1,4 @@
-import {Button, Container, Grow, TextField} from "@mui/material";
+import {Badge, Button, Container, Grow, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import React, {useState,  useEffect } from "react";
@@ -7,8 +7,12 @@ import Day from "../Calendars/Day";
 import {hours, minutes} from '../Resources/constants';
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
-
+import Chip from '@mui/material/Chip';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 
 
 dayjs.extend(customParseFormat)
@@ -19,10 +23,12 @@ export default function CreateTutor() {
     // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours
     const [courses, setCourses] = useState([])
     const [course, setCourse] = useState("");
+    const [selectedCourses, setSelectedCourses] = useState([]);
     
 
     const handleCourse = (event) => {
-        setCourse(event.target.value);
+        setCourse(()=>event.target.value )
+        setSelectedCourses(old => [ ...old,  event.target.value]);
     };
 
 
@@ -33,7 +39,15 @@ export default function CreateTutor() {
     }, [])
 
 
+    const removeSelected = (e) => {
 
+        let newArray = selectedCourses.filter((value) => {
+            return (
+                value !== e
+            )
+        });
+        setSelectedCourses(() => newArray);
+    };
     
 
     return (
@@ -66,8 +80,42 @@ export default function CreateTutor() {
                         </Box>
                        
                        
+                        <Box sx={{direction:"ltr"}} >
+                            {
+                                selectedCourses.map((selected, index) => {
+                                    return (
+                                         <Chip onDelete={() => removeSelected(selected)}  label={selected} sx={{m:1}}/>
+                                        
+                                    )
+                                })
+                            }
 
+                        </Box>
                           
+                        <Box >
+
+                        <FormControl  sx={{direction:"ltr", width:"50%"}}>
+                        <InputLabel   id="demo-simple-select-label">בחר קורסים</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={course}
+                        label="בחר קורסים"
+                        onChange={handleCourse}
+                        >
+
+                        {
+                            courses.map(course => {
+                                return (
+                                    <MenuItem  sx={{direction:"rtl"}} value={course.name } disabled={selectedCourses.includes(course.name)}> {course.name}</MenuItem>
+                                )
+                            })
+                        }
+
+                        </Select>
+                    </FormControl>
+
+                        </Box>
 
 
                         <Box sx={{p:2}}>

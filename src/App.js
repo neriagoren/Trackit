@@ -68,7 +68,7 @@ export default function App() {
                     <CssBaseline/>
                     {
                         isLogged ?
-                            <Box sx={{display: 'flex', overflowY: "auto", height: "100vh"}}>
+                            <Box sx={{display: 'flex', overflowY: "auto", height: "100vh", direction:"rtl"}}>
                                 <MyAppBar setL={setLogin} setT={setUserType}/>
                                 <ClippedDrawer SidebarData={userType === "admin" ? adminSidebarData : userType === "tutor" ?  tutorSidebarData : studentSidebarData } selectedIndex={selectedIndex} handleListItemClick={handleListItemClick}/>
                                 <Box width={"100%"}>
