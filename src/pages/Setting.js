@@ -31,7 +31,7 @@ export default function Setting() {
                     <Grow
                         in={true}
                         style={{transformOrigin: '0 0 0'}}
-                        timeout={2000}>
+                        timeout={1000}>
                     <Box sx={{ height:"400px", bgcolor: 'background.paper', borderRadius:"10px", boxShadow:"0px 0px 2px gray"}}>
                         <Typography color={"gray"} fontSize={"small"} p={1}>
                             פנייה לצוות תמיכה טכנית

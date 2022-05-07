@@ -16,7 +16,7 @@ dayjs.extend(customParseFormat)
 
 export default function CreateEvent() {
 
-    // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours
+    // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours using API
 
     const [courses, setCourses] = useState([]);
     const [course, setCourse] = useState(-1);
@@ -24,7 +24,7 @@ export default function CreateEvent() {
     const [startMinute, setStartMinute] = useState(-1);
     const [endHour, setEndHour] = useState(-1);
     const [endMinute, setEndMinute] = useState(-1);
-    const [students, setStudents] = useState([]);
+    const [students, setStudents] = useState(["יוסף אמיתי", "ברוך בן ברוך", "מירב ציון", "רונטל צבי", "אסתי לוי", "מיכאל דנן"]);
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [date, setDate] = useState(null);
     const [location, setLocation] = useState("");
@@ -68,6 +68,9 @@ export default function CreateEvent() {
         setCourse(event.target.value);
     };
 
+    const handleStudent = (event) => {
+        setSelectedStudents(oldArray => [...oldArray, event.target.value])
+    }
 
     useEffect(() => {
         axios.get("http://localhost:8989/courses").then(response => {
@@ -130,6 +133,16 @@ export default function CreateEvent() {
                             </select>
                         </Box>
                         <Box>
+                        <select name="students" id="students" required defaultValue={"desc"} className="select">
+                                <option disabled={"true"} value="desc">בחר משתתפים בתגבור</option>
+                                {
+                                    students.map((student) => (
+                                        <option onClick={handleStudent}  value={student }> {student}  </option>
+                                    ))
+                                }
+                            </select>
+                        </Box>
+                        <Box>
                             <input value={dateParsed} onChange={handleDate} type={"date"} min={today} className="select"/>
                         </Box>
                         <Box>
@@ -138,7 +151,7 @@ export default function CreateEvent() {
                                 <option disabled={"true"} value={-1}> בחר דקות</option>
                                 {
                                     minutes.map(minute => (
-                                        <option onClick={onMinuteChange} id="start" value={(minute)}> {minute} </option>
+                                        <option onClick={onMinuteChange} id="start" value={(minute)}> {minute === 0 ? "00" : minute} </option>
                                     ))
                                 }
                             </select>
@@ -164,7 +177,7 @@ export default function CreateEvent() {
                                             onClick={onMinuteChange}
                                             id="end"
                                             disabled={startHour === endHour && (minute) <= startMinute}
-                                            value={minute}> {minute} </option>
+                                            value={minute}> {minute === 0 ? "00" : minute} </option>
                                     ))
                                 }
                             </select>
@@ -195,9 +208,9 @@ export default function CreateEvent() {
                             </Button>
                         </Box>
                         <Box dir={"ltr"}>
-                            {startHour + ":" + ( startMinute === 0 ?  "00" : startMinute)}
+                            {startHour + ":" + ( startMinute === 0 ?  "00" : startMinute.toString())}
                             <br/>
-                            {endHour + ":" + ( endMinute === 0 ?  "00" : endMinute)}
+                            {endHour + ":" + ( endMinute === 0 ?  "00" : endMinute.toString())}
                             <br/>
                             {
                                 date != null &&

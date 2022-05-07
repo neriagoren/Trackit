@@ -6,6 +6,7 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import SettingsIcon from "@mui/icons-material/Settings";
 import {createTheme} from '@mui/material/styles';
 import {blueGrey} from "@mui/material/colors";
+import SearchIcon from '@mui/icons-material/Search';
 
 const hoursAgenda = ["08:00","09:00","10:00","11:00","12:00","13:00",
     "14:00","15:00","16:00","17:00","18:00","19:00",
@@ -103,8 +104,20 @@ const studentSidebarData = [
         id: "searchtutor",
         title: "חפש מתגבר/ת",
         path: "/student/search-tutor",
-        icon: <ChatIcon />,
+        icon: <SearchIcon />,
     },
+    {
+        id: "profile",
+        title: "פרופיל",
+        path: "/student/profile",
+        icon: <AssignmentIndIcon />,
+    },
+    {
+        id:"setting",
+        title: "הגדרות",
+        path: "/student/setting",
+        icon: <SettingsIcon />,
+    }
 ]
 
  export {hours, minutes, theme, adminSidebarData,tutorSidebarData, studentSidebarData,hoursAgenda, days, months, abbDays};
