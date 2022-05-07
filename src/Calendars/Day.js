@@ -33,7 +33,7 @@ const eventsArray = {
             "date":[2022,4,23],
             "start":14,
             "end":22,
-            "title":"מבוא למדעי המחשב 1",
+            "title":"תגבור במבוא למדעי המחשב 1",
             "location":"אולם הגפן"
         },
 };
@@ -81,13 +81,13 @@ export default function Day(props) {
         
     }, [props.date])
 
-    // useEffect(() => {
-    //     {
-    //         axios.get("http://worldtimeapi.org/api/timezone/Asia/Jerusalem").then((response) => {
-    //             console.log(response.data.utc_offset === "+03:00")
-    //         })
-    //     }
-    // }, [])
+    useEffect(() => {
+        {
+            axios.get("http://worldtimeapi.org/api/timezone/Asia/Jerusalem").then((response) => {
+                console.log(response.data.utc_offset)
+            })
+        }
+    }, [])
 
     const onClickNext = () => {
         let d = day.add(1, 'days')

@@ -45,7 +45,7 @@ export default function Login(props) {
                     props.setType(() => type.data);
                     console.log(type.data);
                     const cookies = new Cookies();
-                    cookies.set("trackit_COOKIE", res.data, {domain:"localhost", path:"/"});
+                    cookies.set("trackit_COOKIE", res.data, {domain:"localhost", path:"/",  secure: true, sameSite: 'none'});
                     props.setL(() => true);
                 })
             }

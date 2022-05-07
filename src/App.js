@@ -81,7 +81,7 @@ export default function App() {
                             :
                             userType === "tutor" ?
                                 <Box sx={{display: 'flex', overflowY: "auto", height: "100vh"}}>
-                                    <MyAppBar setL={setLogin}/>
+                                    <MyAppBar setL={setLogin} setT={setUserType}/>
                                     <ClippedDrawer SidebarData={tutorSidebarData} selectedIndex={selectedIndex}
                                                 handleListItemClick={handleListItemClick}/>
                                     <Box width={"100%"}>
@@ -100,7 +100,7 @@ export default function App() {
                             :
                             userType === "student" ?
                             <Box sx={{display: 'flex', overflowY: "auto", height: "100vh"}}>
-                            <MyAppBar setL={setLogin}/>
+                            <MyAppBar setL={setLogin} setT={setUserType}/>
                             <ClippedDrawer SidebarData={studentSidebarData} selectedIndex={selectedIndex}
                                         handleListItemClick={handleListItemClick}/>
                             <Box width={"100%"}>
