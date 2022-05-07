@@ -21,9 +21,10 @@ import {theme, adminSidebarData, tutorSidebarData, studentSidebarData} from './R
 import {ThemeProvider} from '@mui/material/styles';
 import Signup from './pages/Signup';
 import CreateEvent from './pages/CreateEvent';
-import CreateTutor from './Components/CreateTutor';
+import CreateTutor from './pages/CreateTutor';
 
 import axios from 'axios';
+import SearchTutor from './pages/SearchTutor';
 export default function App() {
 
     const [isLogged, setLogin] = useState(false);
@@ -108,6 +109,7 @@ export default function App() {
                                 <Redirect to={"/student/overview"}/>
                                 <Route path={"/student/overview"} render={props => <Overview  {...props} />} exact={true}/>
                                 <Route path={"/student/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
+                                <Route path={"/student/search-tutor"} render={props => <SearchTutor  {...props} />} exact={true}/>
                                 
 
                             </Box>

@@ -25,7 +25,7 @@ export default function Overview() {
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 יומן יומי
                             </Typography>
-                            <Day date = {date} setDate={setDate}/>
+                            <Day date = {date} setDate={setDate} from={"overview"}/>
 
                         </Box>
                     </Grow>

@@ -99,6 +99,12 @@ const studentSidebarData = [
         path: "/student/inbox",
         icon: <ChatIcon />,
     },
+    {
+        id: "searchtutor",
+        title: "חפש מתגבר/ת",
+        path: "/student/search-tutor",
+        icon: <ChatIcon />,
+    },
 ]
 
  export {hours, minutes, theme, adminSidebarData,tutorSidebarData, studentSidebarData,hoursAgenda, days, months, abbDays};

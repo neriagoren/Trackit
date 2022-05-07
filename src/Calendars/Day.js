@@ -102,7 +102,7 @@ export default function Day(props) {
     return (
         <Box>
             <Box sx={{display: "flex", direction: "row", alignItems: "center", justifyContent: "center"}}>
-                <Button onClick={onClickBefore}>
+                <Button onClick={onClickBefore} disabled={props.from === "create" && day.isBefore(dayjs())}>
                     {"<"}
                 </Button>
                 <Button>

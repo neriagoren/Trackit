@@ -227,7 +227,7 @@ export default function CreateEvent() {
                                 date !== null ?
                                
 
-                                 <Day date={date} setDate={setDate}/>
+                                 <Day date={date} setDate={setDate} from={"create"} />
 
 
 
