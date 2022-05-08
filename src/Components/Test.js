@@ -19,82 +19,68 @@ const hours = ["08:00","09:00","10:00","11:00","12:00","13:00",
     "14:00","15:00","16:00","17:00","18:00","19:00",
     "20:00","21:00","22:00","23:00","00:00"];
 
+const range = (start, end) => {
+        return Array(parseInt(end) - parseInt(start) + 1).fill().map((_, idx) => parseInt(start) + idx)
+}
+
+// indexes of hours splitted to 4 units e.g - 08:00, 08:15, 08:30, 08:45
+const indexes = [...range(0,64)];
+    
 
 export default function Test() {
 
     return (
-        <Box sx={{height: "495px",  overflowY: "auto"}}>
+        <Box >
             <Box sx={{display: "flex", direction: "row", alignItems: "center", justifyContent: "center"}}>
                 <Button>
                     {"<"}
                 </Button>
                 <Button>
-                    5 april tuesday
+                   יום ראשון 8 מאי
                 </Button>
                 <Button >
                     {">"}
                 </Button>
             </Box>
-    <Grid container>
-         <Grid item xs={4}>
+            <Box sx={{height: "460px", overflowY: "auto", pr: 3, pl: 3, display: "flex", direction: "row"}}>
 
-        <Stack>
-            {hours.map((hour, index) => (
-                
-                        <Box sx={{
-                            height:"80px"
-                        }}>
-                            <Typography textAlign={"center"}>
-                                {hour}
-                            </Typography>
-                        </Box>
-                
-            ))}
-        </Stack>
-        </Grid>
-        <Grid item xs={8} >
-
-                   
-                    {/* <Stack sx={{mt:"10px"}}>
-                        {
-                            hours.map((hour, index) => (
-                            <Box sx={{height:"80px", backgroundColor: index===3 ? "blue": "transparent"}}>
-                            </Box> 
-                            ))
-                        }
-                    
-                
-                    
-                    </Stack> */}
-             
-                    
-           
+            <Grid container>
+                <Grid item xs={3}>
+                    <Stack>
+                        {hours.map((hour, index) => (
+                            <Box sx={{height:"100px"}}>
+                                <Typography textAlign={"center"}>
+                                    {hour}
+                                </Typography>
+                            </Box>   
+                        ))}
+                    </Stack>
+                </Grid>
+                <Grid item xs={9} >
                     <Stack sx={{mt:"10px"}}>
                         {
-                            hours.map((hour, index) => (
-                                <Box sx={{height:"80px"}}>
+                            indexes.map((index) => (
+                                <Box sx={{height:"25px"}}>
                                     <Divider />
                                     {
-                                        (index === 3 || index === 8) &&
-                                        <Box sx={{borderRadius:"10px", height:"140px", backgroundColor: (index===3 || index===8) && "#2596be"}}>
+                                        // if event occur here - render the box
+                                        // calculate the size of box - 25px per 15min
+                                        (index === 6) &&
+                                        <Box sx={{borderRadius:"10px", height:"125px", backgroundColor: "#2596be", opacity:0.7}}>
                                             <Typography color={"white"} textAlign={"right"} fontWeight={"bold"} mr={1}>
                                                 תגבור במבני נתונים
                                             </Typography>
-                                    
                                             <Typography color={"white"} textAlign={"right"}  mr={1}>
                                                 מיקום אולם הגפן
                                             </Typography>
                                         </Box>
                                     }
-                                </Box> 
-                                ))
-                        }
+                                </Box>))
+                        }     
                     </Stack>
-       
-        
-        </Grid>
-        </Grid>
+                </Grid>
+            </Grid>
+            </Box>
         </Box>
-
     )
 }
