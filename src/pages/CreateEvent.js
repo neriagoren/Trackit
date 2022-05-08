@@ -7,6 +7,10 @@ import Day from "../Calendars/Day";
 import {hours, minutes} from '../Resources/constants';
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 
@@ -19,7 +23,7 @@ export default function CreateEvent() {
     // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours using API
 
     const [courses, setCourses] = useState([]);
-    const [course, setCourse] = useState(-1);
+    const [course, setCourse] = useState("");
     const [startHour, setStartHour] = useState(-1);
     const [startMinute, setStartMinute] = useState(-1);
     const [endHour, setEndHour] = useState(-1);
@@ -122,15 +126,31 @@ export default function CreateEvent() {
                         צור אירוע
                     </Typography>
                     <Box sx={{overflowY :"auto" , height:"600px"}}>
-                        <Box>
-                            <select name="courses" id="courses" required defaultValue={"desc"} className="select">
-                                <option disabled={"true"} value="desc">בחר קורס</option>
-                                {
-                                    courses.map((course) => (
-                                        <option onClick={handleCourse}  value={course.name }> {course.name} </option>
-                                    ))
-                                }
-                            </select>
+                        <Box sx={{p:1}}>
+
+                        <FormControl  sx={{direction:"ltr", width:"50%"}}>
+                        <InputLabel   id="demo-simple-select-label">בחר קורס</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={course}
+                        label="בחר קורס"
+                        onChange={handleCourse}
+                        >
+
+                        {
+                            courses.map(c => {
+                                return (
+                                    <MenuItem  sx={{direction:"rtl"}} value={c.name } disabled={course === c.name}> {c.name}</MenuItem>
+                                )
+                            })
+                        }
+
+                        </Select>
+                    </FormControl>
+
+
+                           
                         </Box>
                         <Box>
                         <select name="students" id="students" required defaultValue={"desc"} className="select">

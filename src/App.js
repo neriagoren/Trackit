@@ -87,12 +87,10 @@ export default function App() {
                                     <Route path={"/student/search-tutor"} render={props => <SearchTutor  {...props} />} exact={true}/>
                                     <Route path={"/student/setting"} render={props => <Setting  {...props} />} exact={true}/>
                                     <Route path={"/student/profile"} render={props => <Profile  {...props} />} exact={true}/>
-
-
                                 </Box>
                             </Box>
                             :
-                            <Box>
+                            <Box sx={{direction:"rtl"}}>
                                 <Redirect to={"/"}/>
                                 <Route path={"/"} render={props => <Login  {...props} setIndex={setSelectedIndex} setL={setLogin} setType={setUserType}/>} exact={true}/>
                                 <Route path={"/signup"} render={props => <Signup  {...props} />} exact={true}/>

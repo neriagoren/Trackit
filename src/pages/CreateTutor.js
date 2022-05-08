@@ -6,11 +6,11 @@ import axios from 'axios';
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
 import Chip from '@mui/material/Chip';
-import Select from '@mui/material/Select';
-import FormControl from '@mui/material/FormControl';
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 dayjs.extend(customParseFormat)
@@ -65,35 +65,15 @@ export default function CreateTutor() {
                     <Typography color={"gray"} fontSize={"small"} p={1}>
                         צור מתגבר
                     </Typography>
-                    <Box sx={{overflowY :"auto" , height:"600px"}}>
-                        <Box>
-                            <select name="courses" id="courses" required defaultValue={"desc"} className="select">
-                                <option disabled={"true"} value="desc">בחר קורס</option>
-                                {
-                                    courses.map((course) => (
-                                        <option onClick={handleCourse}  value={course.name }> {course.name} </option>
-                                    ))
-                                }
-                            </select>
-                        </Box>
+                    <Box sx={{overflowY :"auto" , height:"600px", p:1}}>
                        
                        
-                        <Box sx={{direction:"ltr"}} >
-                            {
-                                selectedCourses.map((selected, index) => {
-                                    return (
-                                         <Chip onDelete={() => removeSelected(selected)}  label={selected} sx={{m:1}}/>
-                                        
-                                    )
-                                })
-                            }
-
-                        </Box>
+                    
                           
-                        <Box >
+                        <Box>
 
                         <FormControl  sx={{direction:"ltr", width:"50%"}}>
-                        <InputLabel   id="demo-simple-select-label">בחר קורסים</InputLabel>
+                        <InputLabel   id="demo-simple-selet-label">בחר קורסים</InputLabel>
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -114,7 +94,17 @@ export default function CreateTutor() {
                     </FormControl>
 
                         </Box>
+                        <Box sx={{direction:"ltr"}} >
+                            {
+                                selectedCourses.map((selected, index) => {
+                                    return (
+                                         <Chip onDelete={() => removeSelected(selected)}  label={selected} sx={{m:1}}/>
+                                        
+                                    )
+                                })
+                            }
 
+                        </Box>
 
                         <Box sx={{p:2}}>
                             <Button sx={{fontSize:"18px", color:"white" , backgroundColor:"#2596be", '&:hover': {
