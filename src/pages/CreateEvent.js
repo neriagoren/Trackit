@@ -136,6 +136,10 @@ export default function CreateEvent() {
                         value={course}
                         label="בחר קורס"
                         onChange={handleCourse}
+                        MenuProps= {{style: {
+                            maxHeight: 400,
+                               },
+                         }}
                         >
 
                         {
