@@ -7,7 +7,7 @@ import Month from "../Calendars/Month";
 import GlobalBoard from "../Components/GlobalBoard";
 import UnreadMessages from "../Components/UnreadMessages";
 import dayjs from "dayjs";
-import Test from "../Components/Test";
+
 
 export default function Overview() {
 
@@ -25,8 +25,8 @@ export default function Overview() {
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 יומן יומי
                             </Typography>
-                            {/* <Day date = {date} setDate={setDate} from={"overview"}/> */}
-                                <Test />
+                             <Day date = {date} setDate={setDate} from={"overview"}/> 
+                              
                         </Box>
                     </Grow>
                 </Grid>

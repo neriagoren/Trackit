@@ -2,7 +2,7 @@ import './App.css';
 import * as React from "react";
 import {useState, useEffect} from "react";
 import {BrowserRouter, Route} from "react-router-dom";
-import {Redirect, Switch} from "react-router";
+import {Redirect} from "react-router";
 import axios from 'axios';
 import Cookies from "universal-cookie";
 
@@ -73,7 +73,7 @@ export default function App() {
                                 <ClippedDrawer SidebarData={userType === "admin" ? adminSidebarData : userType === "tutor" ?  tutorSidebarData : studentSidebarData } selectedIndex={selectedIndex} handleListItemClick={handleListItemClick}/>
                                 <Box width={"100%"}>
                                     <Toolbar/>
-                                    <Switch>
+                                    <Redirect to={userType === "admin" ? "/admin/reports" : userType === "tutor"  ? "/tutor/overview" :  "/student/overview"   } />
                                     <Route path={"/admin/reports"} render={props => <Reports  {...props} />} exact={true}/>
                                     <Route path={"/admin/create-tutor"} render={props => <CreateTutor  {...props} />} exact={true}/>
                                     <Route path={"/tutor/overview"} render={props => <Overview  {...props} />} exact={true}/>
@@ -87,8 +87,6 @@ export default function App() {
                                     <Route path={"/student/search-tutor"} render={props => <SearchTutor  {...props} />} exact={true}/>
                                     <Route path={"/student/setting"} render={props => <Setting  {...props} />} exact={true}/>
                                     <Route path={"/student/profile"} render={props => <Profile  {...props} />} exact={true}/>
-                                    </Switch>
-                                
                                 </Box>
                             </Box>
                             :

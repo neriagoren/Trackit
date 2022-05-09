@@ -10,6 +10,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import axios from "axios";
 import {hoursAgenda, months, days} from  '../Resources/constants'
 
+import {Grid, Stack} from "@mui/material";
 
 dayjs.extend(arraySupport)
 dayjs.extend(customParseFormat)
@@ -43,7 +44,9 @@ const range = (start, end) => {
     return Array(parseInt(end) - parseInt(start) + 1).fill().map((_, idx) => parseInt(start) + idx)
 }
 // 0 and 66 indexes are out of selection
-const indexes = [...range(0,65)];
+
+const indexes = [...range(0,64)];
+
 
 const createAgenda = () => {
     let sortedEventsKeys = Object.keys(eventsArray).sort(function(a, b){return a - b});
@@ -115,60 +118,44 @@ export default function Day(props) {
                 </Button>
             </Box>
             <Box sx={{height: "460px", overflowY: "auto", pr: 3, pl: 3, display: "flex", direction: "row"}}>
-                <List sx={{width: "20%"}}>
-                    {hoursAgenda.map((hour, index) => (
-                        <>
-                            <ListItem key= {index} sx={{height: "100px", p: 0}}>
-                                <Box sx={{
-                                    width: "25%", height: "100%", display: "flex",
-                                    flexDirection: "column",
-                                    mr: 2,
-                                    justifyContent: "center"
-                                }}>
-                                    <Typography textAlign={"center"}>
-                                        {hour}
-                                    </Typography>
-                                </Box>
-                            </ListItem>
-                        </>
-                    ))}
-                </List>
+            <Grid container>
+                <Grid item xs={3}>
+                    <Stack>
+                        {hoursAgenda.map((hour, index) => (
+                            <Box sx={{height:"100px"}}>
+                                <Typography textAlign={"center"}>
+                                    {hour}
+                                </Typography>
+                            </Box>   
+                        ))}
+                    </Stack>
+                </Grid>
+                <Grid item xs={9} >
+                    <Stack sx={{mt:"10px"}}>
+                        {
+                            indexes.map((index) => (
+                                <Box sx={{height:"25px"}}>
+                                    <Divider />
+                                    {
+                                        // if event occur here - render the box
+                                        // calculate the size of box - 25px per 15min
+                                        (index === 6) &&
+                                        <Box sx={{borderRadius:"10px", height:"125px", backgroundColor: "#2596be", opacity:0.7}}>
+                                            <Typography color={"white"} textAlign={"right"} fontWeight={"bold"} mr={1}>
+                                                תגבור במבני נתונים
+                                            </Typography>
+                                            <Typography color={"white"} textAlign={"right"}  mr={1}>
+                                                מיקום אולם הגפן
+                                            </Typography>
+                                        </Box>
+                                    }
+                                </Box>))
+                        }     
+                    </Stack>
+                </Grid>
+            </Grid>
+ 
 
-                <List sx={{width: "80%"}}>
-                    {agenda.map((event) => (
-                        
-                        Object.keys(eventsArray).includes(event[0].toString())
-                        ?
-                        indexes.slice(event[0], event[1]).map((index) => (
-                            <ListItem key={index} sx={{height: "25px", p: 0}}>
-                                <Box sx={{
-                                    width: "100%", backgroundColor: "#2596be", height: "100%",
-                                    borderRadius: index === event[0] && index + 1 === event[1]
-                                        ? "10px 10px 10px 10px" : index === event[0]
-                                            ? "10px 10px 0px 0px" : index + 1 === event[1]
-                                                ? "0px 0px 10px 10px" : "0px 0px 0px 0px"
-                                }}>
-                                    {index === event[0] &&
-                                        <Typography color={"white"} textAlign={"right"} fontWeight={"bold"}
-                                                    mr={1}>
-                                            {eventsArray[event[0].toString()].title}
-                                        </Typography>}
-                                    
-                                    {index + 1=== event[1] &&
-                                        <Typography color={"white"} textAlign={"left"} ml={1}
-                                                    >
-                                            {"מיקום " + eventsArray[event[0].toString()].location}
-                                        </Typography>}
-                                </Box>
-                            </ListItem>))
-                        :
-                        indexes.slice(event[0], event[1]).map((index) => (
-                            <ListItem key={index} sx={{height: "25px", p: 0}}>
-                                <Box sx={{width: "100%", height: "100%"}}>
-                                    <Divider/>
-                                </Box>
-                            </ListItem>))))}
-                </List>
             </Box>
         </Box>
     )
