@@ -31,7 +31,7 @@ export default function Overview() {
                     </Grow>
                 </Grid>
 
-                <Grid item xs={/*6*/ 5}>
+                <Grid item xs={6}>
                     <Grow
                         in={true}
                         style={{transformOrigin: '0 0 0'}}
@@ -40,8 +40,7 @@ export default function Overview() {
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 יומן חודשי
                             </Typography>
-                            {/* <Month date={date} setDate={setDate}/> */}
-                            <Day date = {date} setDate={setDate} from={"overview"}/>
+                            <Month date={date} setDate={setDate}/> 
 
                         </Box>
                     </Grow>
