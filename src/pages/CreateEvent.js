@@ -125,7 +125,7 @@ export default function CreateEvent() {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
             <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
-            <Grid item xs={6}>
+            <Grid item xs={5}>
 
             <Grow
                 in={true}
@@ -140,10 +140,11 @@ export default function CreateEvent() {
                         צור אירוע
                     </Typography>
 
+                     {
+                        console.log(selectedStudents)
+                    }
+                    <Stack sx={{width:"80%", overflowY :"auto" , height:"600px", p:1, rowGap:2}}>
 
-                    <Stack sx={{overflowY :"auto" , height:"600px", p:1, rowGap:2}}>
-
-                        <FormControl  sx={{direction:"rtl", width:"60%"}}>
                         <Select
                         id="demo-simple-select"
                         displayEmpty
@@ -163,7 +164,7 @@ export default function CreateEvent() {
 
 
                           <MenuItem sx={{direction:"rtl"}} disabled value="">
-                            <> בחר קורס</>
+                            בחר קורס
                         </MenuItem>
                         
                         {
@@ -175,9 +176,7 @@ export default function CreateEvent() {
                         }
 
                         </Select>
-                        </FormControl>
 
-                        <FormControl  sx={{direction:"ltr", width:"60%"}}>
 
                         <Select
                         multiple
@@ -217,25 +216,22 @@ export default function CreateEvent() {
 
                         </Select>
 
-                        </FormControl>
 
                         
                         
-                        <Box sx={{width:"60%"}}>
                         <DesktopDatePicker
                             minDate={dayjs()}
-                            inputFormat="DD-MM-YYYY"
+                            inputFormat="DD/MM/YYYY"
                             value={date}
                             onChange={handleDate}
                             renderInput={(params) => <TextField {...params} />}
                             />
                         
                         
-                        </Box>
                         
                         <Box>
-                        <FormControl  sx={{ ml:1, direction:"ltr", width:"30%"}}>
                             <Select
+                            sx={{width:"40%", ml:1}}
                             disabled = {startHour == -1}
                             displayEmpty
                             id="start"
@@ -250,7 +246,7 @@ export default function CreateEvent() {
                                      selected == 0 ? "00" : selected
                                 )}} 
                             >
-                            <MenuItem sx={{direction:"rtl"}} disabled value="">
+                            <MenuItem sx={{direction:"rtl"}} disabled value={-1}>
                             בחר דקות
                             </MenuItem>
                             {
@@ -263,10 +259,10 @@ export default function CreateEvent() {
 
                             </Select>
 
-                            </FormControl>
-                        <FormControl  sx={{direction:"ltr", width:"30%"}}>
 
                             <Select
+                            sx={{width:"50%"}}
+
                             displayEmpty
                             id="start"
                             value={startHour}
@@ -286,7 +282,7 @@ export default function CreateEvent() {
                                 },
                             }}
                             >
-                            <MenuItem sx={{direction:"rtl"}} disabled value="">
+                            <MenuItem sx={{direction:"rtl"}} disabled value={-1}>
                                שעת התחלה
                             </MenuItem>
                             {
@@ -299,14 +295,14 @@ export default function CreateEvent() {
 
                             </Select>
 
-                            </FormControl>
                         
                         
                         </Box>
 
                         <Box>
-                        <FormControl  sx={{ ml:1, direction:"ltr", width:"30%"}}>
                             <Select
+                            sx={{width:"40%", ml:1}}
+
                             disabled = {endHour == -1}
                             displayEmpty
                             id="start"
@@ -321,23 +317,27 @@ export default function CreateEvent() {
                                      selected == 0 ? "00" : selected
                                 )}} 
                             >
-                            <MenuItem sx={{direction:"rtl"}} disabled value="">
+                            <MenuItem sx={{direction:"rtl"}} disabled value={-1}>
                             בחר דקות
                             </MenuItem>
                             {
                                 minutes.map(minute => {
                                     return (
-                                        <MenuItem  id={"start"} value={minute }> {minute === 0 ? "00" : minute}</MenuItem>
+                                        <MenuItem  
+                                        disabled={startHour === endHour && (minute) <= startMinute} 
+                                        id={"start"} 
+                                        value={minute }> {minute === 0 ? "00" : minute}
+                                        </MenuItem>
                                     )
                                 })
                             }
 
                             </Select>
 
-                            </FormControl>
-                        <FormControl  sx={{direction:"ltr", width:"30%"}}>
 
                             <Select
+                            sx={{width:"50%"}}
+
                             disabled ={startMinute == -1}
                             displayEmpty
                             id="start"
@@ -358,79 +358,42 @@ export default function CreateEvent() {
                                 },
                             }}
                             >
-                            <MenuItem sx={{direction:"rtl"}} disabled value="">
+                            <MenuItem sx={{direction:"rtl"}} disabled value={-1}>
                                שעת סיום
                             </MenuItem>
                             {
                                 hours.map(hour => {
                                     return (
-                                        <MenuItem  id={"end"} value={hour }> {hour}</MenuItem>
+                                        <MenuItem                                            
+                                         disabled={hour < startHour}
+                                        id={"end"}
+                                         value={hour }> {hour}
+                                         </MenuItem>
                                     )
                                 })
                             }
 
                             </Select>
 
-                            </FormControl>
                         
                         </Box>
 
-                            <TextField onChange={onLocationChange} placeholder={"מיקום האירוע"} sx={{width:"60%"}}/>
-
-
-
-                        <Box>
-                            <select required defaultValue={-1} className="select" disabled={endHour === -1} >
-                                <option selected={endMinute === -1} disabled={"true"} value={-1}> בחר דקות</option>
-                                {
-                                    minutes.map(minute => (
-                                        <option
-                                            id="end"
-                                            disabled={startHour === endHour && (minute) <= startMinute}
-                                            value={minute}> {minute === 0 ? "00" : minute} </option>
-                                    ))
-                                }
-                            </select>
-                            <select required defaultValue={-1} className="select" disabled={startMinute === -1}>
-                                <option selected={endHour === -1} disabled={"true"} value={-1}> בחר שעה</option>
-                                {
-                                    hours.map(hour => (
-                                        <option
-                                            id="end"
-                                            disabled={hour < startHour}
-                                            value={hour}> {hour} </option>
-                                    ))
-                                }
-
-                            </select>
-                        </Box>
+                        
+                        <TextField onChange={onLocationChange} placeholder={"מיקום האירוע"} />
 
                        
-                        <Box sx={{p:2}}>
+                        <Box sx={{}}>
                             <Button sx={{fontSize:"18px", color:"white" , backgroundColor:"#2596be", '&:hover': {
                                     color:"#2596be"
                                 }}}>
                                 צור אירוע
                             </Button>
                         </Box>
-                        <Box dir={"ltr"}>
-                            {startHour + ":" + ( startMinute === 0 ?  "00" : startMinute.toString())}
-                            <br/>
-                            {endHour + ":" + ( endMinute === 0 ?  "00" : endMinute.toString())}
-                            <br/>
-                            {
-                                date != null &&
-                                date.toString()
-                            }
-                            <br/>
-                            {location}
-                            <br/>
-                            {"אחרי הזנת תאריך ושעות לבצע בדיקה אם זה פנוי!"}
-                        </Box>
-
+                    
                     </Stack>
                 </Box>
 
+                   
             </Grow>
             </Grid>
             <Grid item xs={5}>
