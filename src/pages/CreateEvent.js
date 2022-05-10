@@ -5,15 +5,17 @@ import React, {useState,  useEffect } from "react";
 import axios from 'axios';
 import Day from "../Calendars/Day";
 import {hours, minutes} from '../Resources/constants';
-import dayjs from "dayjs";
-import { Grid } from "@mui/material";
+import dayjs, { Dayjs } from "dayjs";
+import { Grid, Stack , OutlinedInput, Chip} from "@mui/material";
 import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 dayjs.extend(customParseFormat)
 
@@ -73,7 +75,14 @@ export default function CreateEvent() {
     };
 
     const handleStudent = (event) => {
-        setSelectedStudents(oldArray => [...oldArray, event.target.value])
+        //setSelectedStudents(oldArray => [...oldArray, event.target.value])
+        const {
+            target: { value },
+          } = event;
+          setSelectedStudents(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+          );
     }
 
     useEffect(() => {
@@ -83,15 +92,10 @@ export default function CreateEvent() {
     }, [])
 
     
-    const handleDate = (event) => {
-        if (event.target.value == "") {
-            setDate(() => null)
-            setDateParsed(() => "")
-        }
-        else {
-            setDate(() => dayjs(event.target.value, "YYYY-MM-DD"))
-        }
-
+    const handleDate = (newValue) => {
+      
+            setDate(() => newValue)
+        
     }
 
     
@@ -109,6 +113,7 @@ export default function CreateEvent() {
     }, [startHour, startMinute])
 
     return (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
             <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
             <Grid item xs={6}>
@@ -120,28 +125,38 @@ export default function CreateEvent() {
                 <Box sx={{
                     bgcolor: 'background.paper',
                     borderRadius: "10px",
-                    boxShadow: "0px 0px 2px gray"
-                }}>
+                    boxShadow: "0px 0px 2px gray"}}>
+
                     <Typography color={"gray"} fontSize={"small"} p={1}>
                         צור אירוע
                     </Typography>
-                    <Box sx={{overflowY :"auto" , height:"600px"}}>
-                        <Box sx={{p:1}}>
+
+
+                    <Stack sx={{overflowY :"auto" , height:"600px", p:1, rowGap:2}}>
 
                         <FormControl  sx={{direction:"ltr", width:"50%"}}>
-                        <InputLabel   id="demo-simple-select-label">בחר קורס</InputLabel>
                         <Select
-                        labelId="demo-simple-select-label"
                         id="demo-simple-select"
+                        displayEmpty
                         value={course}
-                        label="בחר קורס"
                         onChange={handleCourse}
+                        renderValue={(selected) => {
+                            if (selected.length == 0) {
+                                return  "בחר קורס"
+                            }
+                            return selected;
+                        }}
                         MenuProps= {{style: {
                             maxHeight: 400,
                                },
                          }}
                         >
 
+
+                          <MenuItem sx={{direction:"rtl"}} disabled value="">
+                            <> בחר קורס</>
+                        </MenuItem>
+                        
                         {
                             courses.map(c => {
                                 return (
@@ -151,24 +166,63 @@ export default function CreateEvent() {
                         }
 
                         </Select>
-                    </FormControl>
+                        </FormControl>
 
+                        <FormControl  sx={{direction:"ltr", width:"50%"}}>
 
-                           
-                        </Box>
+                        <Select
+                        multiple
+                        displayEmpty
+                        id="demo-simple-select"
+                        value={selectedStudents}
+                        onChange={handleStudent}
+                        input={<OutlinedInput />}
+                        renderValue={(selected) => {
+                            if (selected.length == 0) {
+                                return  <>בחר סטודנטים</>;
+                            }
+                            return (
+                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                            {selected.map((value) => (
+                              <Chip key={value} label={value} />
+                            ))}
+                          </Box>
+                            )
+                          
+                        }}
+                        MenuProps= {{style: {
+                            maxHeight: 400,
+                               },
+                         }}
+                        >
+                          <MenuItem sx={{direction:"rtl"}} disabled value="">
+                            <> בחר סטודנטים</>
+                        </MenuItem>
+                        {
+                            students.map(student => {
+                                return (
+                                    <MenuItem  sx={{direction:"rtl"}} value={student }> {student}</MenuItem>
+                                )
+                            })
+                        }
+
+                        </Select>
+
+                        </FormControl>
+
+                        
+                        
                         <Box>
-                        <select name="students" id="students" required defaultValue={"desc"} className="select">
-                                <option disabled={"true"} value="desc">בחר משתתפים בתגבור</option>
-                                {
-                                    students.map((student) => (
-                                        <option onClick={handleStudent}  value={student }> {student}  </option>
-                                    ))
-                                }
-                            </select>
+                        <DesktopDatePicker
+                            minDate={dayjs()}
+                            inputFormat="DD-MM-YYYY"
+                            value={date}
+                            onChange={handleDate}
+                            renderInput={(params) => <TextField {...params} />}
+                            />
+                        
                         </Box>
-                        <Box>
-                            <input value={dateParsed} onChange={handleDate} type={"date"} min={today} className="select"/>
-                        </Box>
+                        
                         <Box>
                             <select required defaultValue={-1} className="select"
                                     disabled={startHour === -1}>
@@ -245,8 +299,10 @@ export default function CreateEvent() {
                             <br/>
                             {"אחרי הזנת תאריך ושעות לבצע בדיקה אם זה פנוי!"}
                         </Box>
-                    </Box>
+
+                    </Stack>
                 </Box>
+
             </Grow>
             </Grid>
             <Grid item xs={5}>
@@ -281,5 +337,6 @@ export default function CreateEvent() {
             </Grid>
             </Grid>
         </Container>
+        </LocalizationProvider>
     )
 }
