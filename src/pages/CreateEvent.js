@@ -54,13 +54,22 @@ export default function CreateEvent() {
         setLocation(() => event.target.value)
     }
 
-    const onHourChange = (event) => {
-        if (event.target.id === "start") {
-            setStartHour(() => event.target.value)
-        } else {
-            setEndHour(() => event.target.value)
-        }
-    };
+    const onStartHourChange = (event) => {
+        setStartHour(() => event.target.value)
+    }
+
+    const onStartMinuteChange = (event) => {
+        setStartMinute(() => event.target.value)
+    }
+
+    const onEndHourChange = (event) => {
+        setEndHour(() => event.target.value)
+    }
+
+    const onEndMinuteChange = (event) => {
+        setEndMinute(() => event.target.value)
+    }
+   
 
     const onMinuteChange = (event) => {
         if (event.target.id === "start") {
@@ -134,7 +143,7 @@ export default function CreateEvent() {
 
                     <Stack sx={{overflowY :"auto" , height:"600px", p:1, rowGap:2}}>
 
-                        <FormControl  sx={{direction:"ltr", width:"50%"}}>
+                        <FormControl  sx={{direction:"rtl", width:"60%"}}>
                         <Select
                         id="demo-simple-select"
                         displayEmpty
@@ -168,7 +177,7 @@ export default function CreateEvent() {
                         </Select>
                         </FormControl>
 
-                        <FormControl  sx={{direction:"ltr", width:"50%"}}>
+                        <FormControl  sx={{direction:"ltr", width:"60%"}}>
 
                         <Select
                         multiple
@@ -212,7 +221,7 @@ export default function CreateEvent() {
 
                         
                         
-                        <Box>
+                        <Box sx={{width:"60%"}}>
                         <DesktopDatePicker
                             minDate={dayjs()}
                             inputFormat="DD-MM-YYYY"
@@ -221,29 +230,153 @@ export default function CreateEvent() {
                             renderInput={(params) => <TextField {...params} />}
                             />
                         
+                        
                         </Box>
                         
                         <Box>
-                            <select required defaultValue={-1} className="select"
-                                    disabled={startHour === -1}>
-                                <option disabled={"true"} value={-1}> בחר דקות</option>
-                                {
-                                    minutes.map(minute => (
-                                        <option onClick={onMinuteChange} id="start" value={(minute)}> {minute === 0 ? "00" : minute} </option>
-                                    ))
+                        <FormControl  sx={{ ml:1, direction:"ltr", width:"30%"}}>
+                            <Select
+                            disabled = {startHour == -1}
+                            displayEmpty
+                            id="start"
+                            value={startMinute}
+                            onChange={onStartMinuteChange}
+                            input={<OutlinedInput />}
+                            renderValue={(selected) => {
+                                if (selected == -1) {
+                                    return  "בחר דקות"
                                 }
-                            </select>
+                                return (
+                                     selected == 0 ? "00" : selected
+                                )}} 
+                            >
+                            <MenuItem sx={{direction:"rtl"}} disabled value="">
+                            בחר דקות
+                            </MenuItem>
+                            {
+                                minutes.map(minute => {
+                                    return (
+                                        <MenuItem  id={"start"} value={minute }> {minute === 0 ? "00" : minute}</MenuItem>
+                                    )
+                                })
+                            }
 
-                            <select  required defaultValue={-1} className="select" >
-                                <option disabled={"true"} value={-1}> בחר שעה</option>
+                            </Select>
 
-                                {
-                                    hours.map(hour => (
-                                        <option onClick={onHourChange} id="start" value={hour}>{hour}</option>
-                                    ))
+                            </FormControl>
+                        <FormControl  sx={{direction:"ltr", width:"30%"}}>
+
+                            <Select
+                            displayEmpty
+                            id="start"
+                            value={startHour}
+                            onChange={onStartHourChange}
+                            input={<OutlinedInput />}
+                            renderValue={(selected) => {
+                                if (selected == -1) {
+                                    return  "שעת התחלה"
                                 }
-                            </select>
+                                return (
+                                    selected
+                                )}}
+        
+
+                            MenuProps= {{style: {
+                                maxHeight: 200,
+                                },
+                            }}
+                            >
+                            <MenuItem sx={{direction:"rtl"}} disabled value="">
+                               שעת התחלה
+                            </MenuItem>
+                            {
+                                hours.map(hour => {
+                                    return (
+                                        <MenuItem  id={"start"} value={hour }> {hour}</MenuItem>
+                                    )
+                                })
+                            }
+
+                            </Select>
+
+                            </FormControl>
+                        
+                        
                         </Box>
+
+                        <Box>
+                        <FormControl  sx={{ ml:1, direction:"ltr", width:"30%"}}>
+                            <Select
+                            disabled = {endHour == -1}
+                            displayEmpty
+                            id="start"
+                            value={endMinute}
+                            onChange={onEndMinuteChange}
+                            input={<OutlinedInput />}
+                            renderValue={(selected) => {
+                                if (selected == -1) {
+                                    return  "בחר דקות"
+                                }
+                                return (
+                                     selected == 0 ? "00" : selected
+                                )}} 
+                            >
+                            <MenuItem sx={{direction:"rtl"}} disabled value="">
+                            בחר דקות
+                            </MenuItem>
+                            {
+                                minutes.map(minute => {
+                                    return (
+                                        <MenuItem  id={"start"} value={minute }> {minute === 0 ? "00" : minute}</MenuItem>
+                                    )
+                                })
+                            }
+
+                            </Select>
+
+                            </FormControl>
+                        <FormControl  sx={{direction:"ltr", width:"30%"}}>
+
+                            <Select
+                            disabled ={startMinute == -1}
+                            displayEmpty
+                            id="start"
+                            value={endHour}
+                            onChange={onEndHourChange}
+                            input={<OutlinedInput />}
+                            renderValue={(selected) => {
+                                if (selected == -1) {
+                                    return  "שעת סיום"
+                                }
+                                return (
+                                    selected
+                                )}}
+        
+
+                            MenuProps= {{style: {
+                                maxHeight: 200,
+                                },
+                            }}
+                            >
+                            <MenuItem sx={{direction:"rtl"}} disabled value="">
+                               שעת סיום
+                            </MenuItem>
+                            {
+                                hours.map(hour => {
+                                    return (
+                                        <MenuItem  id={"end"} value={hour }> {hour}</MenuItem>
+                                    )
+                                })
+                            }
+
+                            </Select>
+
+                            </FormControl>
+                        
+                        </Box>
+
+                            <TextField onChange={onLocationChange} placeholder={"מיקום האירוע"} sx={{width:"60%"}}/>
+
 
 
                         <Box>
@@ -252,7 +385,6 @@ export default function CreateEvent() {
                                 {
                                     minutes.map(minute => (
                                         <option
-                                            onClick={onMinuteChange}
                                             id="end"
                                             disabled={startHour === endHour && (minute) <= startMinute}
                                             value={minute}> {minute === 0 ? "00" : minute} </option>
@@ -264,7 +396,6 @@ export default function CreateEvent() {
                                 {
                                     hours.map(hour => (
                                         <option
-                                            onClick={onHourChange}
                                             id="end"
                                             disabled={hour < startHour}
                                             value={hour}> {hour} </option>
@@ -274,10 +405,7 @@ export default function CreateEvent() {
                             </select>
                         </Box>
 
-                        <Box>
-                            <input type={"text"} onChange={onLocationChange} placeholder={"מיקום האירוע"} className={"select"} />
-                        </Box>
-
+                       
                         <Box sx={{p:2}}>
                             <Button sx={{fontSize:"18px", color:"white" , backgroundColor:"#2596be", '&:hover': {
                                     color:"#2596be"
