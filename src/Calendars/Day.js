@@ -1,10 +1,9 @@
 import * as React from "react";
-import {Button, Divider, ListItem} from "@mui/material";
+import {Button, Divider} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import List from "@mui/material/List";
 import dayjs from "dayjs";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import arraySupport from 'dayjs/plugin/arraySupport';
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import axios from "axios";
@@ -102,6 +101,8 @@ export default function Day(props) {
         props.setDate(() => d)
     }
 
+
+
     return (
         <Box>
             <Box sx={{display: "flex", direction: "row", alignItems: "center", justifyContent: "center"}}>
@@ -149,7 +150,8 @@ export default function Day(props) {
                                             </Typography>
                                         </Box>
                                     }
-                                </Box>))
+                                </Box>
+                                ))
                         }     
                     </Stack>
                 </Grid>

@@ -13,8 +13,10 @@ export default function Overview() {
 
     const [date, setDate] = useState(dayjs());
 
+
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
+
             <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
                 <Grid item xs={12} sm={5}>
                     <Grow
@@ -26,7 +28,7 @@ export default function Overview() {
                                 יומן יומי
                             </Typography>
                              <Day date = {date} setDate={setDate} from={"overview"}/> 
-                              
+                            
                         </Box>
                     </Grow>
                 </Grid>
