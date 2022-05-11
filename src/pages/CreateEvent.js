@@ -1,7 +1,7 @@
 import {Button, Container, Grow, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import Day from "../Calendars/Day";
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
@@ -25,11 +25,8 @@ export default function CreateEvent() {
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [date, setDate] = useState(null);
     const [location, setLocation] = useState("");
-    const handleDate = (newValue) => {
-        setDate(() => newValue)
-}
-
-
+    
+  
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
             <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
@@ -50,8 +47,7 @@ export default function CreateEvent() {
 
                         
                        
-                        <CreateEventForm setLocation ={setLocation} />
-                 
+                        <CreateEventForm date={date} setDate={setDate} setLocation={setLocation}/>
                         <Counter />
                         
                 </Box>

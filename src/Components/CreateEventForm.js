@@ -29,19 +29,18 @@ export default function CreateEventForm(props) {
     const [students, setStudents] = useState(["יוסף אמיתי", "ברוך בן ברוך", "מירב ציון", "רונטל צבי", "אסתי לוי", "מיכאל דנן"]);
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [date, setDate] = useState(null);
+
     const [location, setLocation] = useState("");
 
-    const [dateParsed, setDateParsed] = useState("");
 
-    const today = dayjs().get('year') + "-" + ((dayjs().get('month') + 1) < 10 ? "0" + (dayjs().get('month') + 1) : (dayjs().get('month') + 1) ) + "-" + ((dayjs().get('date') < 10) ? "0" + dayjs().get('date') : dayjs().get('date'));
+    
 
-
-    useEffect(()=> {
-        if (date !== null) {
-        setDateParsed(() => date.get('year') + "-" + ((date.get('month') + 1) < 10 ? "0" + (date.get('month') + 1) : (date.get('month') + 1) ) + "-" + ((date.get('date') < 10) ? "0" + date.get('date') : date.get('date')))
-            
+    const handleDate = (newValue) => {
+        if (newValue != null &&  !isNaN(newValue["$y"])) {
+            props.setDate(()=> newValue)  
         }
-    }, [date])
+        setDate(() => newValue)
+    }
 
     
 
@@ -85,10 +84,6 @@ export default function CreateEventForm(props) {
     }, [])
 
     
-    const handleDate = (newValue) => {
-            setDate(() => newValue)
-    }
-
     
 
     useEffect(() => {
@@ -104,7 +99,7 @@ export default function CreateEventForm(props) {
     }, [startHour, startMinute])
 
     const onLocationChange = (event) => {
-        setLocation(() => event.target.id)
+        setLocation(() => event.target.value)
     }
 
     const onCreate = () => {
@@ -199,7 +194,7 @@ export default function CreateEventForm(props) {
             inputFormat="DD/MM/YYYY"
             value={date}
             onChange={handleDate}
-            renderInput={(params) => <TextField {...params} />}
+            renderInput={(params) => <TextField   {...params}  />}
             PopperProps = {{
                popperOptions:{
                    placement:"left",
@@ -364,11 +359,10 @@ export default function CreateEventForm(props) {
         
         </Box>
 
-        <TextField onChange={onLocationChange} placeholder={"מיקום האירוע"} />
-        <Box sx={{}}>
+        <TextField onChange={onLocationChange} value={location} placeholder={"מיקום האירוע"} />
+        <Box>
             <Button onClick={onCreate} sx={{fontSize:"18px", color:"white" , backgroundColor:"#2596be", '&:hover': {
-                                    color:"#2596be"
-                                }}}>
+                                    color:"#2596be"}}}>
                                 צור אירוע
             </Button>
         </Box>
