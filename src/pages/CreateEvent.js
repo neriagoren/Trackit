@@ -1,11 +1,11 @@
 import {Button, Container, Grow, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import React, {useState,  useEffect } from "react";
+import React, {useState,  useEffect, useCallback, useRef } from "react";
 import axios from 'axios';
 import Day from "../Calendars/Day";
 import {hours, minutes} from '../Resources/constants';
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { Grid, Stack , OutlinedInput, Chip} from "@mui/material";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -16,6 +16,10 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+
+
+import {Counter} from "../hooks/Counter";
+import InputLocation from "../Components/InputLocation";
 
 dayjs.extend(customParseFormat)
 
@@ -33,8 +37,9 @@ export default function CreateEvent() {
     const [students, setStudents] = useState(["יוסף אמיתי", "ברוך בן ברוך", "מירב ציון", "רונטל צבי", "אסתי לוי", "מיכאל דנן"]);
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [date, setDate] = useState(null);
+    
     const [location, setLocation] = useState("");
-
+    
     const [dateParsed, setDateParsed] = useState("");
 
 
@@ -49,10 +54,7 @@ export default function CreateEvent() {
     }, [date])
 
     
-
-    const onLocationChange = (event) => {
-        setLocation(() => event.target.value)
-    }
+    
 
     const onStartHourChange = (event) => {
         setStartHour(() => event.target.value)
@@ -102,9 +104,7 @@ export default function CreateEvent() {
 
     
     const handleDate = (newValue) => {
-      
             setDate(() => newValue)
-        
     }
 
     
@@ -124,6 +124,7 @@ export default function CreateEvent() {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
+            <Counter />
             <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
             <Grid item xs={5}>
 
@@ -137,13 +138,10 @@ export default function CreateEvent() {
                     boxShadow: "0px 0px 2px gray"}}>
 
                     <Typography color={"gray"} fontSize={"small"} p={1}>
-                        צור אירוע
+                        צור תגבור
                     </Typography>
 
-                     {
-                        console.log(selectedStudents)
-                    }
-                    <Stack sx={{width:"80%", overflowY :"auto" , height:"600px", p:1, rowGap:2}}>
+                    <Stack sx={{width:"80%", height:"auto", p:2, rowGap:2}}>
 
                         <Select
                         id="demo-simple-select"
@@ -379,16 +377,8 @@ export default function CreateEvent() {
                         </Box>
 
                         
-                        <TextField onChange={onLocationChange} placeholder={"מיקום האירוע"} />
-
                        
-                        <Box sx={{}}>
-                            <Button sx={{fontSize:"18px", color:"white" , backgroundColor:"#2596be", '&:hover': {
-                                    color:"#2596be"
-                                }}}>
-                                צור אירוע
-                            </Button>
-                        </Box>
+                        <InputLocation setLocation ={setLocation} />
                     
                     </Stack>
                 </Box>

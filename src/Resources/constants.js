@@ -57,7 +57,7 @@ const tutorSidebarData = [
     },
     {
         id: "create",
-        title: "צור אירוע",
+        title: "צור תגבור",
         path: "/tutor/createevent",
         icon: <EventAvailableIcon />,
     },
