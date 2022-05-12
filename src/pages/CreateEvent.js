@@ -1,10 +1,12 @@
 import {Button, Container, Grow, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import React, {useEffect, useState } from "react";
+import React, {memo, useEffect, useState } from "react";
 import Day from "../Calendars/Day";
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
+
+import axios from 'axios';
 
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 
@@ -12,20 +14,35 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import {Counter} from "../hooks/Counter";
 import CreateEventForm from "../Components/CreateEventForm";
 
-dayjs.extend(customParseFormat)
 
 
-export default function CreateEvent() {
+function CreateEvent() {
 
     // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours using API
 
     const [course, setCourse] = useState("");
-    const [startTime, setStartTime] = useState("");
-    const [endTime, setEndTime] = useState(""); 
+    const [startTime, setStartTime] = useState({hour: null, minute: null});
+    const [endTime, setEndTime] = useState({hour:null, minute:null}); 
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [date, setDate] = useState(null);
     const [location, setLocation] = useState("");
+
+   
+   
+   //get time from database - TEST
+    const [time, setTime] = useState("");
+
+    useEffect(() => {
+        axios.get("http://localhost:8989/time").then((response) => {
+            setTime(()=> response.data)
+        })
+    })
+
     
+    // modify date and insert time into database
+    const modifyDate = () => {
+
+    }
   
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
@@ -46,7 +63,9 @@ export default function CreateEvent() {
                     </Typography>
 
                         
-                       
+                       { date != null && date.toISOString()}
+                       <br/>
+                       {time}
                         <CreateEventForm date={date} setDate={setDate} setLocation={setLocation}/>
                         <Counter />
                         
@@ -89,3 +108,5 @@ export default function CreateEvent() {
         </Container>
     )
 }
+
+export default memo(CreateEvent);

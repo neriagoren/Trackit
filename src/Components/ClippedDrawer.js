@@ -51,7 +51,7 @@ export default function ClippedDrawer(props) {
             </List>
             <Divider/>
             <Typography fontWeight={"bold"} color={"gray"} sx={{position: "absolute", bottom: 0, right: 10}}>
-                פיתוח האתר נריה גורן
+                פיתוח מערכת נריה גורן
             </Typography>
         </Drawer>
     );

@@ -47,29 +47,11 @@ const range = (start, end) => {
 const indexes = [...range(0,64)];
 
 
-const createAgenda = () => {
-    let sortedEventsKeys = Object.keys(eventsArray).sort(function(a, b){return a - b});
-    let events = []
-    sortedEventsKeys.map((key) => {
-        events.push([parseInt(key),eventsArray[key].end])
-    })
-    let agenda = [];
-    events.map((event,index)=> {
-            agenda.push(event)
-            index < events.length-1 && agenda.push([events[index][1],events[index+1][0]])
-
-    })
-    agenda.unshift([0,events[0][0]]);
-    agenda.push([events[events.length-1][1],66]);
-    return agenda;
-}
-
-const agenda = createAgenda();
 
 
 // Rendering a given date...
 
-export default function Day(props) {
+function Day(props) {
 
     // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours
 
@@ -83,13 +65,13 @@ export default function Day(props) {
         
     }, [props.date])
 
-    useEffect(() => {
-        {
-            axios.get("http://worldtimeapi.org/api/timezone/Asia/Jerusalem").then((response) => {
-                console.log(response.data.utc_offset)
-            })
-        }
-    }, [])
+    // useEffect(() => {
+    //     {
+    //         axios.get("http://worldtimeapi.org/api/timezone/Asia/Jerusalem").then((response) => {
+    //             console.log(response.data.utc_offset)
+    //         })
+    //     }
+    // }, [])
 
     const onClickNext = () => {
         let d = day.add(1, 'days')
@@ -141,12 +123,17 @@ export default function Day(props) {
                                         // if event occur here - render the box
                                         // calculate the size of box - 25px per 15min
                                         (index === 6) &&
-                                        <Box sx={{borderRadius:"10px", height:"125px", backgroundColor: "#2596be", opacity:0.7}}>
+                                        <Box  sx={{ '&:hover': {
+                                            backgroundColor:"#2596ff"
+                                         }, borderRadius:"10px", height:"125px", backgroundColor: "#2596be", opacity:0.7, overflowY:"auto"}}>
                                             <Typography color={"white"} textAlign={"right"} fontWeight={"bold"} mr={1}>
                                                 תגבור במבני נתונים
                                             </Typography>
                                             <Typography color={"white"} textAlign={"right"}  mr={1}>
                                                 מיקום אולם הגפן
+                                            </Typography>
+                                            <Typography color={"white"} sx={{direction:"ltr"}} textAlign={"right"}  mr={1}>
+                                                09:30 - 10:45
                                             </Typography>
                                         </Box>
                                     }
@@ -162,3 +149,5 @@ export default function Day(props) {
         </Box>
     )
 }
+
+export default React.memo(Day);

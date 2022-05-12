@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Badge, Button, Grid, Typography, Box} from "@mui/material";
+import {Button, Grid, Typography, Box} from "@mui/material";
 import dayjs from "dayjs";
 import arraySupport from 'dayjs/plugin/arraySupport';
 import {useState, useEffect} from "react";
@@ -12,7 +12,7 @@ dayjs.extend(arraySupport)
 
 // props.date for selected date...
 //  like Day - it renders a given date
-export default function Month(props) {
+function Month(props) {
 
     // TAKE CARE OF DAYJS add offset +03:00/ +02:00 hours
 
@@ -96,3 +96,5 @@ export default function Month(props) {
         </Box>
     )
 }
+
+export default React.memo(Month);

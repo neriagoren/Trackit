@@ -1,6 +1,6 @@
 
 import {  TextField, Button, Box, Stack, OutlinedInput, Chip} from "@mui/material";
-import {React, useState,  useEffect } from "react";
+import {React, useState,  useEffect, memo } from "react";
 import axios from 'axios';
 import dayjs from "dayjs";
 import MenuItem from '@mui/material/MenuItem';
@@ -18,7 +18,7 @@ import {hours, minutes} from '../Resources/constants';
 dayjs.extend(customParseFormat)
 
 
-export default function CreateEventForm(props) {
+function CreateEventForm(props) {
 
     const [courses, setCourses] = useState([]);
     const [course, setCourse] = useState("");
@@ -33,7 +33,9 @@ export default function CreateEventForm(props) {
     const [location, setLocation] = useState("");
 
 
-    
+    useEffect(() => {
+        setDate(() => props.date)
+    },[props.date])
 
     const handleDate = (newValue) => {
         if (newValue != null &&  !isNaN(newValue["$y"])) {
@@ -156,7 +158,7 @@ export default function CreateEventForm(props) {
         input={<OutlinedInput />}
         renderValue={(selected) => {
             if (selected.length == 0) {
-                return  <>בחר סטודנטים</>;
+                return  "בחר סטודנטים";
             }
             return (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -371,3 +373,5 @@ export default function CreateEventForm(props) {
         </LocalizationProvider>
     )
 }
+
+export default memo(CreateEventForm);
