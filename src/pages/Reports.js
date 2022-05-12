@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
+import ReportTable from "../Components/ReportTable";
 
 export default function Reports() {
 
@@ -12,11 +13,12 @@ export default function Reports() {
                 in={true}
                 style={{transformOrigin: '0 0 0'}}
                 timeout={500}>
-            <Box sx={{height:"600px", bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
-                <Typography color={"gray"} fontSize={"small"} p={1}>
-                    דוחות
-                </Typography>
-            </Box>
+              
+                <Box>
+                <ReportTable />
+
+                </Box>
+
             </Grow>
         </Container>
     )

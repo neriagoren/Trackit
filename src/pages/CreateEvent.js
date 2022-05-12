@@ -63,9 +63,9 @@ function CreateEvent() {
                     </Typography>
 
                         
-                       { date != null && date.toISOString()}
+                       {/* { date != null && date.toISOString()}
                        <br/>
-                       {time}
+                       {time} */}
                         <CreateEventForm date={date} setDate={setDate} setLocation={setLocation}/>
                         <Counter />
                         
