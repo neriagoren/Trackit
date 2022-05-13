@@ -22,7 +22,7 @@ dayjs.extend(customParseFormat)
 function CreateEventForm(props) {
 
     const [courses, setCourses] = useState([]);
-    const [course, setCourse] = useState(-1);
+    const [course, setCourse] = useState(null);
     const [startHour, setStartHour] = useState(-1);
     const [startMinute, setStartMinute] = useState(-1);
     const [endHour, setEndHour] = useState(-1);
@@ -132,7 +132,7 @@ function CreateEventForm(props) {
         <Select
         id="demo-simple-select"
         displayEmpty
-        value={course === -1 ? "" : course}
+        value={course === null ? "" : course}
         onChange={handleCourse}
         renderValue={(selected) => {
             if (selected === "") {
