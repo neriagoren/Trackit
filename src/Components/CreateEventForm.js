@@ -13,6 +13,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 import {hours, minutes} from '../Resources/constants';
+import { NoLuggageOutlined } from "@mui/icons-material";
 
 
 dayjs.extend(customParseFormat)
@@ -21,7 +22,7 @@ dayjs.extend(customParseFormat)
 function CreateEventForm(props) {
 
     const [courses, setCourses] = useState([]);
-    const [course, setCourse] = useState("");
+    const [course, setCourse] = useState(-1);
     const [startHour, setStartHour] = useState(-1);
     const [startMinute, setStartMinute] = useState(-1);
     const [endHour, setEndHour] = useState(-1);
@@ -35,6 +36,20 @@ function CreateEventForm(props) {
     // 3) startDate
     // 4) endDate
     // 5) location
+
+    //    //get time from database - TEST
+//     const [time, setTime] = useState("");
+
+//     useEffect(() => {
+//         axios.get("http://localhost:8989/time").then((response) => {
+//             setTime(()=> response.data)
+//         })
+//     })
+
+    // synthesize all inputs to data object - send by axios POST
+    const onCreate = () => {
+        
+    }
 
 
     useEffect(() => {
@@ -73,7 +88,6 @@ function CreateEventForm(props) {
     };
 
     const handleStudent = (event) => {
-        //setSelectedStudents(oldArray => [...oldArray, event.target.value])
         const {
             target: { value },
           } = event;
@@ -83,24 +97,20 @@ function CreateEventForm(props) {
           );
     }
 
+
+    // fetch data on first render - courses and students
     useEffect(() => {
         axios.get("http://localhost:8989/courses").then(response1 => {
             setCourses(() => response1.data)
         })
-    }, [])
-
-    useEffect(() => {
         axios.get("http://localhost:8989/users/students").then(response2 => {
                 setStudents(() => response2.data)
             })
-    },[])
+    }, [])
 
     
-
-
-
+    // ensure validity of event time
     useEffect(() => {
-
         if (startHour > endHour) {
             setEndHour(() => -1)
             setEndMinute(() => -1)
@@ -112,9 +122,7 @@ function CreateEventForm(props) {
     }, [startHour, startMinute])
 
     
-    const onCreate = () => {
-        //insert to database here
-    }
+    
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -124,13 +132,13 @@ function CreateEventForm(props) {
         <Select
         id="demo-simple-select"
         displayEmpty
-        value={course}
+        value={course === -1 ? "" : course}
         onChange={handleCourse}
         renderValue={(selected) => {
-            if (selected.length == 0) {
+            if (selected === "") {
                 return  "בחר קורס"
             }
-            return selected;
+            return selected.name;
         }}
         MenuProps= {{style: {
             maxHeight: 400,
@@ -141,20 +149,22 @@ function CreateEventForm(props) {
          }}
         >
 
-
-          <MenuItem sx={{direction:"rtl"}} disabled value="">
+          <MenuItem sx={{direction:"rtl"}} disabled value={""}>
             בחר קורס
-        </MenuItem>
+            </MenuItem>
         
         {
             courses.map((c, index) => {
                 return (
-                    <MenuItem key={index} sx={{direction:"rtl"}} value={c.name } disabled={course === c.name}> {c.name}</MenuItem>
+                    <MenuItem key={index} sx={{direction:"rtl"}} value={c} disabled={course === c}> {c.name}</MenuItem>
                 )
             })
         }
-
         </Select>
+
+
+        {console.log(selectedStudents)}
+
         <Select
         multiple
         displayEmpty
@@ -168,10 +178,10 @@ function CreateEventForm(props) {
             }
             return (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-            {selected.map((value) => (
-              <Chip key={value} label={value} />
-            ))}
-          </Box>
+                    {selected.map((student,index) => (
+                        <Chip key={index} label={student.first_name + " " + student.last_name} />
+                     ))}
+                </Box>
             )
           
         }}
@@ -186,7 +196,7 @@ function CreateEventForm(props) {
         {
             students.map((student, index) => {
                 return (
-                    <MenuItem  key={index} sx={{direction:"rtl"}} value={student.first_name + " " + student.last_name }> {student.first_name + " " + student.last_name}</MenuItem>
+                    <MenuItem  key={index} sx={{direction:"rtl"}} value={student}> {student.first_name + " " + student.last_name}</MenuItem>
                 )
             })
         }

@@ -23,21 +23,8 @@ function CreateEvent() {
     
     const [date, setDate] = useState(null);
 
-   
-   //get time from database - TEST
-    const [time, setTime] = useState("");
-
-    useEffect(() => {
-        axios.get("http://localhost:8989/time").then((response) => {
-            setTime(()=> response.data)
-        })
-    })
 
     
-    // modify date and insert time into database
-    const modifyDate = () => {
-
-    }
   
     return (
         <Container sx={{paddingBottom: 20, paddingTop: 2}}>
