@@ -31,7 +31,7 @@ import {theme, adminSidebarData, tutorSidebarData, studentSidebarData} from './R
 export default function App() {
 
     const [isLogged, setLogin] = useState(false);
-    const [selectedIndex, setSelectedIndex] = useState(-1);
+    const [selectedIndex, setSelectedIndex] = useState(0);
     const [userType, setUserType] = useState("");
     const [token, setToken] = useState("");
 
@@ -41,6 +41,12 @@ export default function App() {
         setSelectedIndex(index);
     };
 
+    useEffect(() => {
+        if (!isLogged){
+         setSelectedIndex(() => 0)
+        
+        }
+    }, [isLogged])
     useEffect(() => {
         if (isMounted) {
             console.log("checking for cookies")
@@ -90,9 +96,11 @@ export default function App() {
                                 </Box>
                             </Box>
                             :
+                            
+    
                             <Box sx={{direction:"rtl"}}>
                                 <Redirect to={"/"}/>
-                                <Route path={"/"} render={props => <Login  {...props} setIndex={setSelectedIndex} setL={setLogin} setType={setUserType}/>} exact={true}/>
+                                <Route path={"/"} render={props => <Login  {...props} setL={setLogin} setType={setUserType}/>} exact={true}/>
                                 <Route path={"/signup"} render={props => <Signup  {...props} />} exact={true}/>
                             </Box>
                     }

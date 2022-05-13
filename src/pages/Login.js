@@ -22,12 +22,9 @@ export default function Login(props) {
   
     const routeChange = () =>{ 
       let path = `signup`; 
-      
+      history.push(path);
     }
 
-    useEffect(() => {
-        props.setIndex(() => -1);
-    }, [])
 
     const Login = () => {
         axios.get("http://localhost:8989/login", {

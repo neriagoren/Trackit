@@ -26,11 +26,15 @@ function CreateEventForm(props) {
     const [startMinute, setStartMinute] = useState(-1);
     const [endHour, setEndHour] = useState(-1);
     const [endMinute, setEndMinute] = useState(-1);
-    const [students, setStudents] = useState(["יוסף אמיתי", "ברוך בן ברוך", "מירב ציון", "רונטל צבי", "אסתי לוי", "מיכאל דנן"]);
+    const [students, setStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [date, setDate] = useState(null);
 
-    const [location, setLocation] = useState("");
+    // 1) course_id
+    // 2) students id's
+    // 3) startDate
+    // 4) endDate
+    // 5) location
 
 
     useEffect(() => {
@@ -80,13 +84,20 @@ function CreateEventForm(props) {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8989/courses").then(response => {
-            setCourses(() => response.data)
+        axios.get("http://localhost:8989/courses").then(response1 => {
+            setCourses(() => response1.data)
         })
     }, [])
 
+    useEffect(() => {
+        axios.get("http://localhost:8989/users/students").then(response2 => {
+                setStudents(() => response2.data)
+            })
+    },[])
+
     
-    
+
+
 
     useEffect(() => {
 
@@ -100,12 +111,9 @@ function CreateEventForm(props) {
 
     }, [startHour, startMinute])
 
-    const onLocationChange = (event) => {
-        setLocation(() => event.target.value)
-    }
-
+    
     const onCreate = () => {
-        props.setLocation(()=> location)
+        //insert to database here
     }
 
     return (
@@ -139,16 +147,14 @@ function CreateEventForm(props) {
         </MenuItem>
         
         {
-            courses.map(c => {
+            courses.map((c, index) => {
                 return (
-                    <MenuItem  sx={{direction:"rtl"}} value={c.name } disabled={course === c.name}> {c.name}</MenuItem>
+                    <MenuItem key={index} sx={{direction:"rtl"}} value={c.name } disabled={course === c.name}> {c.name}</MenuItem>
                 )
             })
         }
 
         </Select>
-
-
         <Select
         multiple
         displayEmpty
@@ -178,9 +184,9 @@ function CreateEventForm(props) {
             <> בחר סטודנטים</>
         </MenuItem>
         {
-            students.map(student => {
+            students.map((student, index) => {
                 return (
-                    <MenuItem  sx={{direction:"rtl"}} value={student }> {student}</MenuItem>
+                    <MenuItem  key={index} sx={{direction:"rtl"}} value={student.first_name + " " + student.last_name }> {student.first_name + " " + student.last_name}</MenuItem>
                 )
             })
         }
@@ -361,7 +367,7 @@ function CreateEventForm(props) {
         
         </Box>
 
-        <TextField onChange={onLocationChange} value={location} placeholder={"מיקום האירוע"} />
+        <TextField onChange={props.setLocation}  placeholder={"מיקום האירוע"} />
         <Box>
             <Button onClick={onCreate} sx={{fontSize:"18px", color:"white" , backgroundColor:"#2596be", '&:hover': {
                                     color:"#2596be"}}}>
