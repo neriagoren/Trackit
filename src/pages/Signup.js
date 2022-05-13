@@ -44,6 +44,11 @@ export default function Signup() {
 
     const hasRequiredDetails = username === "" || password === "" || firstName === "" || lastName === ""
 
+    const onEnterKey = (event) => {
+        if (event.keyCode === 13 && !hasRequiredDetails) {
+            signup()
+        }
+    }
 
     const signup = () => {
         axios.post("http://localhost:8989/users", { username, password, firstName, lastName}).then(
@@ -85,7 +90,7 @@ export default function Signup() {
                     <TextField onChange={handleFirstNameChange} placeholder={"שם פרטי"} sx={{width: "100%", m: 1}}/>
                     <TextField onChange={handleLastNameChange} placeholder={"שם משפחה"} sx={{width: "100%", m: 1}}/>
                     <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{width: "100%", m: 1}}/>
-                    <TextField onChange={handlePasswordChange} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
+                    <TextField onChange={handlePasswordChange} onKeyDown={onEnterKey} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
                     <Button disabled={hasRequiredDetails} onClick={signup} sx={{width: "100%"}}> צור חשבון </Button>
                     {
                         success && 
