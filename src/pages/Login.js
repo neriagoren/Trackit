@@ -20,13 +20,16 @@ export default function Login(props) {
 
     const history = useHistory();
   
+    const hasRequiredDetails = username === "" || password === ""
+
+
     const routeChange = () =>{ 
       let path = `signup`; 
       history.push(path);
     }
 
 
-    const Login = () => {
+    const login = () => {
         axios.get("http://localhost:8989/login", {
             params : {
                 username:username,
@@ -68,7 +71,12 @@ export default function Login(props) {
         setPassword(() => password);
     }
 
-    const hasRequiredDetails = username === "" || password === ""
+    const onEnterKey = (event) => {
+        if (event.keyCode === 13 && !hasRequiredDetails) {
+            login()
+        }
+    }
+
 
     return (
         <Fade in={true}>
@@ -100,10 +108,10 @@ export default function Login(props) {
 
                 <Box>
                     <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{width: "100%", m: 1}}/>
-                    <TextField onChange={handlePasswordChange} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
-                    <Button disabled={hasRequiredDetails} sx={{width: "100%"}} onClick={Login}> התחבר/י </Button>
+                    <TextField onChange={handlePasswordChange} onKeyDown={onEnterKey} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
+                    <Button disabled={hasRequiredDetails} sx={{width: "100%"}} onClick={login}> התחבר/י </Button>
                     <Button  onClick = {forgot} sx={{width: "100%"}}> שכחתי סיסמא </Button>
-                    <Button  onClick = {routeChange} sx={{width: "100%"}}>  צור חשבון</Button>
+                    <Button  onClick = {routeChange}  sx={{width: "100%"}}>  צור חשבון</Button>
                 
                     <Typography color={"red"} textAlign={"center"}>
                         {response}
