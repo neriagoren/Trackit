@@ -1,3 +1,4 @@
+
 import React, {useEffect, useState} from "react";
 import {Button, Container, Grid, Grow} from "@mui/material";
 import Box from "@mui/material/Box";
@@ -8,55 +9,41 @@ import GlobalBoard from "../Components/GlobalBoard";
 import UnreadMessages from "../Components/UnreadMessages";
 import dayjs from "dayjs";
 
-import Agenda from "../Components/Agneda";
+export default function Agenda() {
 
-
-export default function Overview() {
-  
+    const [date, setDate] = useState(dayjs());
 
     return (
-        <Container sx={{paddingBottom: 20, paddingTop: 2}}>
-
-            <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
-                
-                {/* 
-                    in Agenda Component, we have 2 components - Day, Month
-                    they share same state - date object
-                    thats why i excluded them from overview so that
-                    whenever date changes it wont re-render the unrelated
-                    components - unread messages and global board
-                */}
-                <Agenda />
+        <>
+        <Grid item xs={12} sm={5}>
+                    <Grow
+                        in={true}
+                        style={{transformOrigin: '0 0 0'}}
+                        {...( {timeout: 500 })}>
+                        <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
+                            <Typography color={"gray"} fontSize={"small"} p={1}>
+                                יומן יומי
+                            </Typography>
+                             <Day date = {date} setDate={setDate} from={"overview"}/> 
+                            
+                        </Box>
+                    </Grow>
+                </Grid>
 
                 <Grid item xs={6}>
                     <Grow
                         in={true}
                         style={{transformOrigin: '0 0 0'}}
-                        {...( {timeout: 1500 })}>
+                        {...( {timeout: 1000 })}>
                         <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
                             <Typography color={"gray"} fontSize={"small"} p={1}>
-                                לוח עדכונים כללי
+                                יומן חודשי
                             </Typography>
-                            <GlobalBoard/>
-                        </Box>
-                    </Grow>
-                </Grid>
+                            <Month date={date} setDate={setDate}/> 
 
-                <Grid item xs={5}>
-                    <Grow
-                        in={true}
-                        style={{transformOrigin: '0 0 0'}}
-                        {...( {timeout: 2000 })}>
-                        <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
-                            <Typography color={"gray"} fontSize={"small"} p={1}>
-                                הודעות שלא נקראו
-                            </Typography>
-                            <UnreadMessages />
                         </Box>
                     </Grow>
                 </Grid>
-            </Grid>
-        </Container>
+        </>
     )
 }
-
