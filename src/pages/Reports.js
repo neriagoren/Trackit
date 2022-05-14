@@ -1,8 +1,11 @@
-import { Container, Grow, TextField } from "@mui/material";
+import { Container, Grow, TextField, Button, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import React from "react";
+import React, { useState } from "react";
 
 import ReportTable from "../Components/ReportTable";
+
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const columnsTutor = [
     { id: 'date', label: 'תאריך', align: "center", minWidth: 100 },
@@ -95,6 +98,29 @@ const rowsAdmin = [
 
 export default function Reports(props) {
 
+    const [clicked, setClicked] = useState(false)
+
+    const exportAsPDF = async () => {
+        await setClicked(() => true);
+        const input = document.getElementById('1');
+
+        html2canvas(input)
+            .then((canvas) => {
+                let imgWidth = 208;
+                let imgHeight = canvas.height * imgWidth / canvas.width;
+                const imgData = canvas.toDataURL('img/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                pdf.addImage(imgData, 'PNG', 0, 10, imgWidth, imgHeight);
+                // pdf.output('dataurlnewwindow');
+                window.open(URL.createObjectURL(pdf.output("blob")))
+
+            })
+            ;
+
+        setClicked(() => false);
+
+    }
+
     return (
         <Container sx={{ paddingBottom: 20, paddingTop: 2 }}>
             <Grow
@@ -108,17 +134,36 @@ export default function Reports(props) {
                             <>
                                 <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שם המתגבר"} />
                                 <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שם הקורס"} />
-                                <ReportTable columns={columnsAdmin} rows={rowsAdmin} />
+                                <div id={"1"}>
+                                    <ReportTable columns={columnsAdmin} rows={rowsAdmin} />
+                                </div>
+                                <Button onClick={exportAsPDF}> PDF </Button>
                             </>
 
                             :
-                            <ReportTable columns={columnsTutor} rows={rowsTutor} />
+                            <>
+                                <div id={"1"}>
+                                    {
+                                        clicked &&
+                                        <h1> דו''ח שעות תגבור לחודש מאי 2022 </h1>
+                                    }
+                                    <ReportTable columns={columnsTutor} rows={rowsTutor} />
+
+                                    {
+                                        clicked &&
+                                        <h3> סך הכל 13 שעות תגבור </h3>
+                                    }
+                                </div>
+                                <Button onClick={exportAsPDF}> PDF </Button>
+
+
+                            </>
 
                     }
 
                 </Box>
 
             </Grow>
-        </Container>
+        </Container >
     )
 }

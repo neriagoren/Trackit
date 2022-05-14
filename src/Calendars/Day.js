@@ -11,7 +11,6 @@ import { hoursAgenda, months, days } from '../Resources/constants'
 
 import { Grid, Stack } from "@mui/material";
 
-import { offset } from "./Time";
 
 import utc from 'dayjs/plugin/utc';
 

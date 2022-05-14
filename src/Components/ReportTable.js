@@ -24,9 +24,9 @@ export default function ReportTable(props) {
   };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
+    <Paper sx={{ width: '100%' }}>
+      <TableContainer sx={{ backgroundColor: "white" }}>
+        <Table>
           <TableHead>
             <TableRow>
               {props.columns.map((column) => (
@@ -61,6 +61,7 @@ export default function ReportTable(props) {
         </Table>
       </TableContainer>
       <TablePagination
+        sx={{ backgroundColor: "white" }}
         rowsPerPageOptions={[10, 25, 100]}
         labelRowsPerPage={props.rows.length + " תוצאות"}
         component="div"
