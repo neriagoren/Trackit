@@ -66,7 +66,7 @@ export default function Profile() {
                         }}>
 
                             <Typography color={"gray"} fontSize={"small"} p={1}>
-                                שעות עבודה
+                                מידע כללי
                             </Typography>
                             <TotalHours />
                         </Box>

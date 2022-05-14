@@ -8,57 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
-const columns = [
-  { id: 'date', label: 'תאריך', align: "center", minWidth: 100 },
-  { id: 'course', label: 'קורס', align: "center", minWidth: 150 },
-  {
-    id: 'time',
-    label: 'שעות',
-    minWidth: 170,
-    align: 'center',
-  },
-  {
-    id: 'duration',
-    label: 'משך התגבור',
-    minWidth: 170,
-    align: 'center',
-  },
-  {
-    id: 'num',
-    label: 'מספר סטודנטים',
-    minWidth: 50,
-    align: 'center',
-  },
-  {
-    id: 'names',
-    label: 'סטודנטים',
-    minWidth: 200,
-    align: 'center',
-  },
-];
 
-function createData(date, course, time, duration, num, names) {
-  return { date, course, time, duration, num, names };
-}
 
-const rows = [
-  createData('12-05-2022', 'חשבון דיפרנציאלי ואינטגרלי', "08:15 - 09:45", "שעתיים", 3, "עמיחי, אוראל"),
-  createData('12-05-2022', 'אלגברה לינארית', "08:15 - 09:45", "שעתיים", 5, "נתנאל, עמיחי, מנשה, אביב, חיים, נוגה"),
-  createData('12-05-2022', 'מבני נתונים', "08:15 - 09:45", "שעתיים", 1, "אורן אביתר"),
-  createData('12-05-2022', 'מבוא למדעי המחשב', "08:15 - 09:45", "שעתיים", 3, "עמיחי, אוראל"),
-  createData('12-05-2022', 'אלגברה לינארית', "08:15 - 09:45", "שעתיים", 5, "נתנאל, עמיחי, מנשה, אביב, חיים, נוגה"),
-  createData('12-05-2022', 'סמינריון בינה מלאכותית', "08:15 - 09:45", "שעתיים", 1, "אורן אביתר"),
-  createData('12-05-2022', 'אלגוריתמים', "08:15 - 09:45", "שעתיים", 2, "גילה בר, מיכה שטיין"),
-  createData('12-05-2022', 'חשבון דיפרנציאלי ואינטגרלי', "08:15 - 09:45", "שעתיים", 3, "עמיחי, אוראל"),
-  createData('12-05-2022', 'אלגברה לינארית', "08:15 - 09:45", "שעתיים", 5, "נתנאל, עמיחי, מנשה, אביב, חיים, נוגה"),
-  createData('12-05-2022', 'מבני נתונים', "08:15 - 09:45", "שעתיים", 1, "אורן אביתר"),
-  createData('12-05-2022', 'מבוא למדעי המחשב', "08:15 - 09:45", "שעתיים", 3, "עמיחי, אוראל"),
-  createData('12-05-2022', 'אלגברה לינארית', "08:15 - 09:45", "שעתיים", 5, "נתנאל, עמיחי, מנשה, אביב, חיים, נוגה"),
-  createData('12-05-2022', 'סמינריון בינה מלאכותית', "08:15 - 09:45", "שעתיים", 1, "אורן אביתר"),
-  createData('12-05-2022', 'אלגוריתמים', "08:15 - 09:45", "שעתיים", 2, "גילה בר, מיכה שטיין")
-];
-
-export default function ReportTable() {
+export default function ReportTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -77,7 +29,7 @@ export default function ReportTable() {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
+              {props.columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
@@ -89,12 +41,12 @@ export default function ReportTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {props.rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
+                    {props.columns.map((column) => {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
@@ -110,9 +62,9 @@ export default function ReportTable() {
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
-        labelRowsPerPage={rows.length + " תוצאות"}
+        labelRowsPerPage={props.rows.length + " תוצאות"}
         component="div"
-        count={rows.length}
+        count={props.rows.length}
         labelDisplayedRows={() => { }}
         rowsPerPage={rowsPerPage}
         page={page}

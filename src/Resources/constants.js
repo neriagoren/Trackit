@@ -7,6 +7,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { createTheme } from '@mui/material/styles';
 import { blueGrey } from "@mui/material/colors";
 import SearchIcon from '@mui/icons-material/Search';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 const hoursAgenda = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
     "14:00", "15:00", "16:00", "17:00", "18:00", "19:00",
@@ -42,10 +44,28 @@ const adminSidebarData = [
         icon: <AssessmentIcon />,
     },
     {
+        id: "messages",
+        title: "הודעות",
+        path: "/tutor/inbox",
+        icon: <ChatIcon />,
+    },
+    {
         id: "create",
         title: "צור משתמש",
         path: "/admin/create-tutor",
-        icon: <EventAvailableIcon />,
+        icon: <AddBoxIcon />,
+    },
+    {
+        id: "create",
+        title: "צור קורס",
+        path: "/admin/create-course",
+        icon: <AddBoxIcon />,
+    },
+    {
+        id: "note",
+        title: "צור עדכון",
+        path: "/admin/create-note",
+        icon: <AddBoxIcon />,
     }
 ]
 const tutorSidebarData = [

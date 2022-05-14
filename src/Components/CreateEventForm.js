@@ -13,7 +13,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 import { hours, minutes } from '../Resources/constants';
-import { NoLuggageOutlined } from "@mui/icons-material";
 
 
 dayjs.extend(customParseFormat)
@@ -30,6 +29,7 @@ function CreateEventForm(props) {
     const [students, setStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
     const [date, setDate] = useState(null);
+    const [location, setLocation] = useState("");
 
     // 1) course_id
     // 2) students id's
@@ -92,6 +92,9 @@ function CreateEventForm(props) {
         );
     }
 
+    const onLocationChange = (event) => {
+        setLocation(() => event.target.value)
+    }
 
     // fetch data on first render - courses and students
     useEffect(() => {
@@ -363,7 +366,7 @@ function CreateEventForm(props) {
 
                 </Box>
 
-                <TextField onChange={props.setLocation} placeholder={"מיקום האירוע"} />
+                <TextField value={location} onChange={onLocationChange} placeholder={"מיקום האירוע"} />
                 <Box>
                     <Button onClick={onCreate} sx={{
                         fontSize: "18px", color: "white", backgroundColor: "#2596be", '&:hover': {

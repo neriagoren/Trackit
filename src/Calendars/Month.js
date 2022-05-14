@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Grid, Typography, Box } from "@mui/material";
+import { Button, Grid, Typography, Box, Badge } from "@mui/material";
 import dayjs from "dayjs";
 import arraySupport from 'dayjs/plugin/arraySupport';
 import { useState, useEffect } from "react";
@@ -25,7 +25,6 @@ function Month(props) {
 
     // the number of day of first day of month (0-6)
     const [firstDay, setFirstDay] = useState(currentDay.date(1).day())
-
 
     const onClickNext = () => {
         let d = dayjs([props.date.get('year'), props.date.get('month') + 1, 1])
@@ -76,16 +75,26 @@ function Month(props) {
                                 <Box
                                     onClick={() => handleDayClick(index - firstDay + 1)}
                                     sx={{
+                                        '&:hover': {
+                                            backgroundColor: "yellow",
+                                        },
                                         backgroundColor: ((index - firstDay + 1) === currentDay.get('date') && props.date.get('month') === currentDay.get('month')) ? "lightblue" : index - firstDay + 1 === props.date.get('date') ? "yellow" : "#f5f5f5",
                                         height: "50px",
                                         borderRadius: "10px",
                                         display: "flex",
                                         flexDirection: "column",
                                         justifyContent: "center",
-                                        border: (datesOfEvents.includes(index - firstDay + 1) && dayjs().get('month') === props.date.get('month')) && "2px solid #2596be"
-                                    }}>
 
-                                    <Typography textAlign={"center"} color={((index - firstDay + 1) === currentDay.get('date') && props.date.get('month') === currentDay.get('month')) && "white"} fontWeight={((index - firstDay + 1) === currentDay.get('date') && props.date.get('month') === currentDay.get('month') || index - firstDay + 1 === props.date.get('date')) ? "bold" : ""}>
+                                    }}>
+                                    {
+                                        (datesOfEvents.includes(index - firstDay + 1) && dayjs().get('month') === props.date.get('month')) &&
+                                        <Badge color="primary" overlap="circular" variant="dot" />
+                                    }
+
+                                    <Typography
+                                        textAlign={"center"}
+                                        color={((index - firstDay + 1) === currentDay.get('date') && props.date.get('month') === currentDay.get('month')) && "white" || ((index + 1) % 7 === 0) && "red"}
+                                        fontWeight={((index - firstDay + 1) === currentDay.get('date') && props.date.get('month') === currentDay.get('month') || index - firstDay + 1 === props.date.get('date')) ? "bold" : ""}>
                                         {index - firstDay + 1}
                                     </Typography>
                                 </Box>

@@ -1,12 +1,12 @@
 import './App.css';
 import * as React from "react";
-import {useState, useEffect} from "react";
-import {BrowserRouter, Route} from "react-router-dom";
-import {Redirect} from "react-router";
+import { useState, useEffect } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import { Redirect } from "react-router";
 import axios from 'axios';
 import Cookies from "universal-cookie";
 
-import {ThemeProvider} from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -24,7 +24,8 @@ import Profile from "./pages/Profile";
 import Inbox from "./ChatSystem/Inbox";
 import Setting from "./pages/Setting";
 import Login from "./pages/Login";
-import {theme, adminSidebarData, tutorSidebarData, studentSidebarData} from './Resources/constants';
+import { theme, adminSidebarData, tutorSidebarData, studentSidebarData } from './Resources/constants';
+import { unstable_deprecatedPropType } from '@mui/utils';
 
 
 
@@ -42,9 +43,9 @@ export default function App() {
     };
 
     useEffect(() => {
-        if (!isLogged){
-         setSelectedIndex(() => 0)
-        
+        if (!isLogged) {
+            setSelectedIndex(() => 0)
+
         }
     }, [isLogged])
     useEffect(() => {
@@ -53,9 +54,9 @@ export default function App() {
             const cookies = new Cookies();
             if (cookies.get("trackit_COOKIE")) {
                 axios.get("http://localhost:8989/login/type", {
-                params: {
-                    token:cookies.get("trackit_COOKIE")
-                }
+                    params: {
+                        token: cookies.get("trackit_COOKIE")
+                    }
                 }).then(type => {
                     setUserType(() => type.data)
                     console.log(type.data)
@@ -71,37 +72,37 @@ export default function App() {
         <BrowserRouter>
             <ThemeProvider theme={theme}>
                 <div className="App">
-                    <CssBaseline/>
+                    <CssBaseline />
                     {
                         isLogged ?
-                            <Box sx={{display: 'flex', overflowY: "auto", height: "100vh", direction:"rtl"}}>
-                                <MyAppBar setL={setLogin} setT={setUserType}/>
-                                <ClippedDrawer SidebarData={userType === "admin" ? adminSidebarData : userType === "tutor" ?  tutorSidebarData : studentSidebarData } selectedIndex={selectedIndex} handleListItemClick={handleListItemClick}/>
+                            <Box sx={{ display: 'flex', overflowY: "auto", height: "100vh", direction: "rtl" }}>
+                                <MyAppBar setL={setLogin} setT={setUserType} />
+                                <ClippedDrawer SidebarData={userType === "admin" ? adminSidebarData : userType === "tutor" ? tutorSidebarData : studentSidebarData} selectedIndex={selectedIndex} handleListItemClick={handleListItemClick} />
                                 <Box width={"100%"}>
-                                    <Toolbar/>
-                                    <Redirect to={userType === "admin" ? "/admin/reports" : userType === "tutor"  ? "/tutor/overview" :  "/student/overview"   } />
-                                    <Route path={"/admin/reports"} render={props => <Reports  {...props} />} exact={true}/>
-                                    <Route path={"/admin/create-tutor"} render={props => <CreateTutor  {...props} />} exact={true}/>
-                                    <Route path={"/tutor/overview"} render={props => <Overview  {...props} />} exact={true}/>
-                                    <Route path={"/tutor/createevent"} render={props => <CreateEvent  {...props} />} exact={true}/>
-                                    <Route path={"/tutor/reports"} render={props => <Reports  {...props} />} exact={true}/>
-                                    <Route path={"/tutor/profile"} render={props => <Profile  {...props} />} exact={true}/>
-                                    <Route path={"/tutor/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
-                                    <Route path={"/tutor/setting"} render={props => <Setting  {...props} />} exact={true}/>
-                                    <Route path={"/student/overview"} render={props => <Overview  {...props} />} exact={true}/>
-                                    <Route path={"/student/inbox"} render={props => <Inbox  {...props} />} exact={true}/>
-                                    <Route path={"/student/search-tutor"} render={props => <SearchTutor  {...props} />} exact={true}/>
-                                    <Route path={"/student/setting"} render={props => <Setting  {...props} />} exact={true}/>
-                                    <Route path={"/student/profile"} render={props => <Profile  {...props} />} exact={true}/>
+                                    <Toolbar />
+                                    <Redirect to={userType === "admin" ? "/admin/reports" : userType === "tutor" ? "/tutor/overview" : "/student/overview"} />
+                                    <Route path={"/admin/reports"} render={props => <Reports  {...props} type={userType} />} exact={true} />
+                                    <Route path={"/admin/create-tutor"} render={props => <CreateTutor  {...props} />} exact={true} />
+                                    <Route path={"/tutor/overview"} render={props => <Overview  {...props} />} exact={true} />
+                                    <Route path={"/tutor/createevent"} render={props => <CreateEvent  {...props} />} exact={true} />
+                                    <Route path={"/tutor/reports"} render={props => <Reports  {...props} type={userType} />} exact={true} />
+                                    <Route path={"/tutor/profile"} render={props => <Profile  {...props} />} exact={true} />
+                                    <Route path={"/tutor/inbox"} render={props => <Inbox  {...props} />} exact={true} />
+                                    <Route path={"/tutor/setting"} render={props => <Setting  {...props} />} exact={true} />
+                                    <Route path={"/student/overview"} render={props => <Overview  {...props} />} exact={true} />
+                                    <Route path={"/student/inbox"} render={props => <Inbox  {...props} />} exact={true} />
+                                    <Route path={"/student/search-tutor"} render={props => <SearchTutor  {...props} />} exact={true} />
+                                    <Route path={"/student/setting"} render={props => <Setting  {...props} />} exact={true} />
+                                    <Route path={"/student/profile"} render={props => <Profile  {...props} />} exact={true} />
                                 </Box>
                             </Box>
                             :
-                            
-    
-                            <Box sx={{direction:"rtl"}}>
-                                <Redirect to={"/"}/>
-                                <Route path={"/"} render={props => <Login  {...props} setL={setLogin} setType={setUserType}/>} exact={true}/>
-                                <Route path={"/signup"} render={props => <Signup  {...props} />} exact={true}/>
+
+
+                            <Box sx={{ direction: "rtl" }}>
+                                <Redirect to={"/"} />
+                                <Route path={"/"} render={props => <Login  {...props} setL={setLogin} setType={setUserType} />} exact={true} />
+                                <Route path={"/signup"} render={props => <Signup  {...props} />} exact={true} />
                             </Box>
                     }
                 </div>

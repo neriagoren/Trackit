@@ -42,11 +42,8 @@ function CreateEvent() {
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 צור תגבור
                             </Typography>
-                            {/* { date != null && date.toISOString()}
-                       <br/>
-                       {time} */}
                             <CreateEventForm date={date} setDate={setDate} />
-                            <Counter />
+                            {/* <Counter /> */}
                         </Box>
                     </Grow>
                 </Grid>
