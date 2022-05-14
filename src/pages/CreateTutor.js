@@ -1,7 +1,7 @@
-import {Badge, Button, Container, Grow, TextField} from "@mui/material";
+import { Badge, Button, Container, Grow, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import React, {useState,  useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
@@ -22,11 +22,11 @@ export default function CreateTutor() {
     const [courses, setCourses] = useState([])
     const [course, setCourse] = useState("");
     const [selectedCourses, setSelectedCourses] = useState([]);
-    
+
 
     const handleCourse = (event) => {
-        setCourse(()=>event.target.value )
-        setSelectedCourses(old => [ ...old,  event.target.value]);
+        setCourse(() => event.target.value)
+        setSelectedCourses(old => [...old, event.target.value]);
     };
 
 
@@ -46,79 +46,81 @@ export default function CreateTutor() {
         });
         setSelectedCourses(() => newArray);
     };
-    
+
 
     return (
-        <Container sx={{paddingBottom: 20, paddingTop: 2}}>
-            <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
-            <Grid item xs={6}>
+        <Container sx={{ paddingBottom: 20, paddingTop: 2 }}>
+            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid item xs={6}>
 
-            <Grow
-                in={true}
-                style={{transformOrigin: '0 0 0'}}
-                timeout={500}>
-                <Box sx={{
-                    bgcolor: 'background.paper',
-                    borderRadius: "10px",
-                    boxShadow: "0px 0px 2px gray"
-                }}>
-                    <Typography color={"gray"} fontSize={"small"} p={1}>
-                        צור מתגבר
-                    </Typography>
-                    <Box sx={{overflowY :"auto" , height:"600px", p:1}}>
-                       
-                       
-                    
-                          
-                        <Box>
-
-                        <FormControl  sx={{direction:"ltr", width:"50%"}}>
-                        <InputLabel   id="demo-simple-selet-label">בחר קורסים</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={course}
-                        label="בחר קורסים"
-                        onChange={handleCourse}
-                        >
-
-                        {
-                            courses.map(course => {
-                                return (
-                                    <MenuItem  sx={{direction:"rtl"}} value={course.name } disabled={selectedCourses.includes(course.name)}> {course.name}</MenuItem>
-                                )
-                            })
-                        }
-
-                        </Select>
-                    </FormControl>
-
-                        </Box>
-                        <Box sx={{direction:"ltr"}} >
-                            {
-                                selectedCourses.map((selected, index) => {
-                                    return (
-                                         <Chip onDelete={() => removeSelected(selected)}  label={selected} sx={{m:1}}/>
-                                        
-                                    )
-                                })
-                            }
-
-                        </Box>
-
-                        <Box sx={{p:2}}>
-                            <Button sx={{fontSize:"18px", color:"white" , backgroundColor:"#2596be", '&:hover': {
-                                    color:"#2596be"
-                                }}}>
+                    <Grow
+                        in={true}
+                        style={{ transformOrigin: '0 0 0' }}
+                        timeout={500}>
+                        <Box sx={{
+                            bgcolor: 'background.paper',
+                            borderRadius: "10px",
+                            boxShadow: "0px 0px 2px gray"
+                        }}>
+                            <Typography color={"gray"} fontSize={"small"} p={1}>
                                 צור מתגבר
-                            </Button>
+                            </Typography>
+                            <Box sx={{ overflowY: "auto", height: "600px", p: 1 }}>
+
+
+
+
+                                <Box>
+
+                                    <FormControl sx={{ direction: "ltr", width: "50%" }}>
+                                        <InputLabel id="demo-simple-selet-label">בחר קורסים</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={course}
+                                            label="בחר קורסים"
+                                            onChange={handleCourse}
+                                        >
+
+                                            {
+                                                courses.map(course => {
+                                                    return (
+                                                        <MenuItem sx={{ direction: "rtl" }} value={course.name} disabled={selectedCourses.includes(course.name)}> {course.name}</MenuItem>
+                                                    )
+                                                })
+                                            }
+
+                                        </Select>
+                                    </FormControl>
+
+                                </Box>
+                                <Box sx={{ direction: "ltr" }} >
+                                    {
+                                        selectedCourses.map((selected, index) => {
+                                            return (
+                                                <Chip onDelete={() => removeSelected(selected)} label={selected} sx={{ m: 1 }} />
+
+                                            )
+                                        })
+                                    }
+
+                                </Box>
+
+                                <Box sx={{ p: 2 }}>
+                                    <Button sx={{
+                                        fontSize: "18px", color: "white", backgroundColor: "#2596be", '&:hover': {
+                                            color: "#2596be"
+                                        }
+                                    }}>
+                                        צור מתגבר
+                                    </Button>
+                                </Box>
+
+                            </Box>
                         </Box>
-                       
-                    </Box>
-                </Box>
-            </Grow>
-            </Grid>
-                                   
+                    </Grow>
+                </Grid>
+
             </Grid>
         </Container>
     )

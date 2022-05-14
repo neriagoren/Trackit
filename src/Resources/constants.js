@@ -4,27 +4,27 @@ import SummarizeIcon from "@mui/icons-material/Summarize";
 import ChatIcon from "@mui/icons-material/Chat";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import SettingsIcon from "@mui/icons-material/Settings";
-import {createTheme} from '@mui/material/styles';
-import {blueGrey} from "@mui/material/colors";
+import { createTheme } from '@mui/material/styles';
+import { blueGrey } from "@mui/material/colors";
 import SearchIcon from '@mui/icons-material/Search';
 
-const hoursAgenda = ["08:00","09:00","10:00","11:00","12:00","13:00",
-    "14:00","15:00","16:00","17:00","18:00","19:00",
-    "20:00","21:00","22:00","23:00","00:00"];
+const hoursAgenda = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
+    "14:00", "15:00", "16:00", "17:00", "18:00", "19:00",
+    "20:00", "21:00", "22:00", "23:00", "00:00"];
 
 
-const months = ["ינואר", "פברואר", "מרץ", "אפריל","מאי","יוני",
-"יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"];
+const months = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני",
+    "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
 
-const days = ["יום ראשון", "יום שני", "יום שלישי", "יום רביעי" , "יום חמישי", "יום שישי" , "שבת"];
+const days = ["יום ראשון", "יום שני", "יום שלישי", "יום רביעי", "יום חמישי", "יום שישי", "שבת"];
 
 const abbDays = ["א", "ב", "ג", "ד", "ה", "ו", "ש"];
 
- const hours = [8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+const hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 
- const minutes = [0,15,30,45];
+const minutes = [0, 15, 30, 45];
 
- const theme = createTheme({
+const theme = createTheme({
     direction: 'rtl',
     palette: {
         primary: {
@@ -80,7 +80,7 @@ const tutorSidebarData = [
         icon: <AssignmentIndIcon />,
     },
     {
-        id:"setting",
+        id: "setting",
         title: "הגדרות",
         path: "/tutor/setting",
         icon: <SettingsIcon />,
@@ -113,11 +113,11 @@ const studentSidebarData = [
         icon: <AssignmentIndIcon />,
     },
     {
-        id:"setting",
+        id: "setting",
         title: "הגדרות",
         path: "/student/setting",
         icon: <SettingsIcon />,
     }
 ]
 
- export {hours, minutes, theme, adminSidebarData,tutorSidebarData, studentSidebarData,hoursAgenda, days, months, abbDays};
+export { hours, minutes, theme, adminSidebarData, tutorSidebarData, studentSidebarData, hoursAgenda, days, months, abbDays };

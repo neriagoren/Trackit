@@ -9,8 +9,8 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 const columns = [
-  { id: 'date', label: 'תאריך',align:"center", minWidth: 100 },
-  { id: 'course', label: 'קורס',align:"center", minWidth: 150 },
+  { id: 'date', label: 'תאריך', align: "center", minWidth: 100 },
+  { id: 'course', label: 'קורס', align: "center", minWidth: 150 },
   {
     id: 'time',
     label: 'שעות',
@@ -37,8 +37,8 @@ const columns = [
   },
 ];
 
-function createData(date, course,time, duration, num, names) {
-  return {  date, course,time, duration, num, names};
+function createData(date, course, time, duration, num, names) {
+  return { date, course, time, duration, num, names };
 }
 
 const rows = [
@@ -110,10 +110,10 @@ export default function ReportTable() {
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
-        labelRowsPerPage = {rows.length + " תוצאות"}
+        labelRowsPerPage={rows.length + " תוצאות"}
         component="div"
         count={rows.length}
-        labelDisplayedRows={() => {}}
+        labelDisplayedRows={() => { }}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

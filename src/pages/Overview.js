@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Button, Container, Grid, Grow} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Button, Container, Grid, Grow } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Day from "../Calendars/Day";
@@ -12,13 +12,13 @@ import Agenda from "../Components/Agneda";
 
 
 export default function Overview() {
-  
+
 
     return (
-        <Container sx={{paddingBottom: 20, paddingTop: 2}}>
+        <Container sx={{ paddingBottom: 20, paddingTop: 2 }}>
 
-            <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
-                
+            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+
                 {/* 
                     in Agenda Component, we have 2 components - Day, Month
                     they share same state - date object
@@ -31,13 +31,13 @@ export default function Overview() {
                 <Grid item xs={6}>
                     <Grow
                         in={true}
-                        style={{transformOrigin: '0 0 0'}}
-                        {...( {timeout: 1500 })}>
-                        <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
+                        style={{ transformOrigin: '0 0 0' }}
+                        {...({ timeout: 1500 })}>
+                        <Box sx={{ bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray" }}>
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 לוח עדכונים כללי
                             </Typography>
-                            <GlobalBoard/>
+                            <GlobalBoard />
                         </Box>
                     </Grow>
                 </Grid>
@@ -45,9 +45,9 @@ export default function Overview() {
                 <Grid item xs={5}>
                     <Grow
                         in={true}
-                        style={{transformOrigin: '0 0 0'}}
-                        {...( {timeout: 2000 })}>
-                        <Box sx={{bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray"}}>
+                        style={{ transformOrigin: '0 0 0' }}
+                        {...({ timeout: 2000 })}>
+                        <Box sx={{ bgcolor: 'background.paper', borderRadius: "10px", boxShadow: "0px 0px 2px gray" }}>
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 הודעות שלא נקראו
                             </Typography>

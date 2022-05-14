@@ -1,5 +1,5 @@
 import React from "react";
-import {Chip, Container, Avatar, Grid, Grow, Stack} from "@mui/material";
+import { Chip, Container, Avatar, Grid, Grow, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
@@ -8,12 +8,12 @@ import TotalHours from "../Components/TotalHours";
 export default function Profile() {
 
     return (
-        <Container sx={{paddingBottom: 20, paddingTop: 2}}>
-            <Grid container rowSpacing={2} columnSpacing={{xs: 1, sm: 2, md: 3}}>
+        <Container sx={{ paddingBottom: 20, paddingTop: 2 }}>
+            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={4}>
                     <Grow
                         in={true}
-                        style={{transformOrigin: '0 0 0'}}
+                        style={{ transformOrigin: '0 0 0' }}
                         timeout={500}>
                         <Box sx={{
                             height: "400px",
@@ -25,13 +25,13 @@ export default function Profile() {
                             <Typography color={"gray"} fontSize={"small"} p={1}>
                                 מידע אישי
                             </Typography>
-                            <Stack spacing={1} sx={{display: "flex", alignItems: "center"}}>
-                                <Avatar sx={{ width: 50, height: 50 , backgroundColor:"#2596be"}}> נ </Avatar>
-        
-                                <Chip label={"נריה גורן"} size={"medium"}/>
+                            <Stack spacing={1} sx={{ display: "flex", alignItems: "center" }}>
+                                <Avatar sx={{ width: 50, height: 50, backgroundColor: "#2596be" }}> נ </Avatar>
+
+                                <Chip label={"נריה גורן"} size={"medium"} />
                             </Stack>
-                            <Stack spacing={1} sx={{display: "flex", alignItems: "start", p: 2}}>
-                                <Box sx={{display: "flex", direction: "row"}}>
+                            <Stack spacing={1} sx={{ display: "flex", alignItems: "start", p: 2 }}>
+                                <Box sx={{ display: "flex", direction: "row" }}>
                                     <Typography fontWeight={"bold"} fontSize={"large"} ml={2}>
                                         משרה
                                     </Typography>
@@ -39,7 +39,7 @@ export default function Profile() {
                                         ארכיטקט תוכנה
                                     </Typography>
                                 </Box>
-                                <Box sx={{display: "flex", direction: "row"}}>
+                                <Box sx={{ display: "flex", direction: "row" }}>
                                     <Typography fontWeight={"bold"} fontSize={"large"} ml={2}>
                                         מחלקה
                                     </Typography>
@@ -54,9 +54,9 @@ export default function Profile() {
                 </Grid>
 
                 <Grid item xs={5}>
-                <Grow
+                    <Grow
                         in={true}
-                        style={{transformOrigin: '0 0 0'}}
+                        style={{ transformOrigin: '0 0 0' }}
                         timeout={1000}>
                         <Box sx={{
                             height: "400px",

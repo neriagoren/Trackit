@@ -1,7 +1,7 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {Button, TextField, Typography, Toolbar} from "@mui/material";
+import { Button, TextField, Typography, Toolbar } from "@mui/material";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import Fade from '@mui/material/Fade';
@@ -16,41 +16,41 @@ export default function Login(props) {
     const [password, setPassword] = useState("");
     const [response, setResponse] = useState("");
     const [isValid, setIsValid] = useState(null);
- 
+
 
     const history = useHistory();
-  
+
     const hasRequiredDetails = username === "" || password === ""
 
 
-    const routeChange = () =>{ 
-      let path = `signup`; 
-      history.push(path);
+    const routeChange = () => {
+        let path = `signup`;
+        history.push(path);
     }
 
 
     const login = () => {
         axios.get("http://localhost:8989/login", {
-            params : {
-                username:username,
-                password:password
+            params: {
+                username: username,
+                password: password
             }
         }).then(res => {
-            if(res.data !== "") {
+            if (res.data !== "") {
                 axios.get("http://localhost:8989/login/type", {
-                params: {
-                    token:res.data
-                }
+                    params: {
+                        token: res.data
+                    }
                 }).then(type => {
                     props.setType(() => type.data);
                     console.log(type.data);
                     const cookies = new Cookies();
-                    cookies.set("trackit_COOKIE", res.data, {domain:"localhost", path:"/",  secure: true, sameSite: 'none'});
+                    cookies.set("trackit_COOKIE", res.data, { domain: "localhost", path: "/", secure: true, sameSite: 'none' });
                     props.setL(() => true);
                 })
             }
             else {
-                setResponse(()=> "המשתמש לא קיים!")
+                setResponse(() => "המשתמש לא קיים!")
             }
         })
     }
@@ -80,46 +80,46 @@ export default function Login(props) {
 
     return (
         <Fade in={true}>
-        <Box sx={{
-            backgroundColor: "#f5f5f5", height: "100vh", display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-        }}>
-            <Toolbar/>
-
             <Box sx={{
-                maxWidth: "500px",
-                backgroundColor: "background.paper",
-                p: 3,
-                borderRadius: "10px",
-                boxShadow: "0px 0px 2px gray"
+                backgroundColor: "#f5f5f5", height: "100vh", display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
             }}>
+                <Toolbar />
+
                 <Box sx={{
-                    justifyContent: "center",
-                    display: "flex",
+                    maxWidth: "500px",
+                    backgroundColor: "background.paper",
+                    p: 3,
                     borderRadius: "10px",
-                    color: "white",
-                    backgroundColor: "#2596be"
+                    boxShadow: "0px 0px 2px gray"
                 }}>
-                    <h3> מערכת תגבורים - המכללה האקדמית אשקלון </h3>
-                </Box>
+                    <Box sx={{
+                        justifyContent: "center",
+                        display: "flex",
+                        borderRadius: "10px",
+                        color: "white",
+                        backgroundColor: "#2596be"
+                    }}>
+                        <h3> מערכת תגבורים - המכללה האקדמית אשקלון </h3>
+                    </Box>
 
-                <h3> התחברות למערכת </h3>
+                    <h3> התחברות למערכת </h3>
 
-                <Box>
-                    <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{width: "100%", m: 1}}/>
-                    <TextField onChange={handlePasswordChange} onKeyDown={onEnterKey} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
-                    <Button disabled={hasRequiredDetails} sx={{width: "100%"}} onClick={login}> התחבר/י </Button>
-                    <Button  onClick = {forgot} sx={{width: "100%"}}> שכחתי סיסמא </Button>
-                    <Button  onClick = {routeChange}  sx={{width: "100%"}}>  צור חשבון</Button>
-                
-                    <Typography color={"red"} textAlign={"center"}>
-                        {response}
-                    </Typography>
+                    <Box>
+                        <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{ width: "100%", m: 1 }} />
+                        <TextField onChange={handlePasswordChange} onKeyDown={onEnterKey} type={"password"} placeholder={"סיסמא"} sx={{ width: "100%", m: 1 }} />
+                        <Button disabled={hasRequiredDetails} sx={{ width: "100%" }} onClick={login}> התחבר/י </Button>
+                        <Button onClick={forgot} sx={{ width: "100%" }}> שכחתי סיסמא </Button>
+                        <Button onClick={routeChange} sx={{ width: "100%" }}>  צור חשבון</Button>
+
+                        <Typography color={"red"} textAlign={"center"}>
+                            {response}
+                        </Typography>
+                    </Box>
+
                 </Box>
-                
             </Box>
-        </Box>
         </Fade>
     )
 }

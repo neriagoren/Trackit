@@ -1,7 +1,7 @@
-import {useState} from "react";
+import { useState } from "react";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {Button, TextField, Typography, Toolbar} from "@mui/material";
+import { Button, TextField, Typography, Toolbar } from "@mui/material";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import Fade from '@mui/material/Fade';
@@ -51,7 +51,7 @@ export default function Signup() {
     }
 
     const signup = () => {
-        axios.post("http://localhost:8989/users", { username, password, firstName, lastName}).then(
+        axios.post("http://localhost:8989/users", { username, password, firstName, lastName }).then(
             (res) => {
                 setSuccess(() => res.data);
             }
@@ -60,46 +60,46 @@ export default function Signup() {
 
     return (
         <Fade in={true}>
-        <Box sx={{
-            backgroundColor: "#f5f5f5", height: "100vh", display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-        }}>
-            <Toolbar/>
-
             <Box sx={{
-                maxWidth: "500px",
-                backgroundColor: "background.paper",
-                p: 3,
-                borderRadius: "10px",
-                boxShadow: "0px 0px 2px gray"
+                backgroundColor: "#f5f5f5", height: "100vh", display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
             }}>
+                <Toolbar />
+
                 <Box sx={{
-                    justifyContent: "center",
-                    display: "flex",
+                    maxWidth: "500px",
+                    backgroundColor: "background.paper",
+                    p: 3,
                     borderRadius: "10px",
-                    color: "white",
-                    backgroundColor: "#2596be"
+                    boxShadow: "0px 0px 2px gray"
                 }}>
-                    <h3> מערכת תגבורים - המכללה האקדמית אשקלון </h3>
-                </Box>
+                    <Box sx={{
+                        justifyContent: "center",
+                        display: "flex",
+                        borderRadius: "10px",
+                        color: "white",
+                        backgroundColor: "#2596be"
+                    }}>
+                        <h3> מערכת תגבורים - המכללה האקדמית אשקלון </h3>
+                    </Box>
 
-                <h3> יצירת חשבון לסטודנט </h3>
+                    <h3> יצירת חשבון לסטודנט </h3>
 
-                <Box>
-                    <TextField onChange={handleFirstNameChange} placeholder={"שם פרטי"} sx={{width: "100%", m: 1}}/>
-                    <TextField onChange={handleLastNameChange} placeholder={"שם משפחה"} sx={{width: "100%", m: 1}}/>
-                    <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{width: "100%", m: 1}}/>
-                    <TextField onChange={handlePasswordChange} onKeyDown={onEnterKey} type={"password"} placeholder={"סיסמא"} sx={{width: "100%", m: 1}}/>
-                    <Button disabled={hasRequiredDetails} onClick={signup} sx={{width: "100%"}}> צור חשבון </Button>
-                    {
-                        success && 
-                        <Redirect to ={"/"}  />
-                    }
+                    <Box>
+                        <TextField onChange={handleFirstNameChange} placeholder={"שם פרטי"} sx={{ width: "100%", m: 1 }} />
+                        <TextField onChange={handleLastNameChange} placeholder={"שם משפחה"} sx={{ width: "100%", m: 1 }} />
+                        <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{ width: "100%", m: 1 }} />
+                        <TextField onChange={handlePasswordChange} onKeyDown={onEnterKey} type={"password"} placeholder={"סיסמא"} sx={{ width: "100%", m: 1 }} />
+                        <Button disabled={hasRequiredDetails} onClick={signup} sx={{ width: "100%" }}> צור חשבון </Button>
+                        {
+                            success &&
+                            <Redirect to={"/"} />
+                        }
+                    </Box>
+
                 </Box>
-                
             </Box>
-        </Box>
         </Fade>
     )
 }
