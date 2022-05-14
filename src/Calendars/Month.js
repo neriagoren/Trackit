@@ -43,7 +43,13 @@ function Month(props) {
         props.setDate(() => d);
     }
 
+    const isToday = (day) => {
+        return day === currentDay.get('date') && props.date.get('month') === currentDay.get('month') && props.date.get('year') === currentDay.get('year')
+    }
 
+    const isSelected = (day) => {
+        return day === props.date.get('date')
+    }
 
     return (
         <Box>
@@ -76,9 +82,9 @@ function Month(props) {
                                     onClick={() => handleDayClick(index - firstDay + 1)}
                                     sx={{
                                         '&:hover': {
-                                            backgroundColor: "yellow",
+                                            backgroundColor: !isToday(index - firstDay + 1) && "yellow",
                                         },
-                                        backgroundColor: ((index - firstDay + 1) === currentDay.get('date') && props.date.get('month') === currentDay.get('month')) ? "lightblue" : index - firstDay + 1 === props.date.get('date') ? "yellow" : "#f5f5f5",
+                                        backgroundColor: isToday(index - firstDay + 1) ? "lightblue" : isSelected(index - firstDay + 1) ? "yellow" : "#f0f0f0",
                                         height: "50px",
                                         borderRadius: "10px",
                                         display: "flex",
@@ -93,8 +99,8 @@ function Month(props) {
 
                                     <Typography
                                         textAlign={"center"}
-                                        color={((index - firstDay + 1) === currentDay.get('date') && props.date.get('month') === currentDay.get('month')) && "white" || ((index + 1) % 7 === 0) && "red"}
-                                        fontWeight={((index - firstDay + 1) === currentDay.get('date') && props.date.get('month') === currentDay.get('month') || index - firstDay + 1 === props.date.get('date')) ? "bold" : ""}>
+                                        color={isToday(index - firstDay + 1) && "white" || ((index + 1) % 7 === 0) && "red"}
+                                        fontWeight={isToday(index - firstDay + 1) || index - firstDay + 1 === props.date.get('date') ? "bold" : ""}>
                                         {index - firstDay + 1}
                                     </Typography>
                                 </Box>
@@ -103,7 +109,7 @@ function Month(props) {
                     }
                 </Grid>
             </Box>
-        </Box>
+        </Box >
     )
 }
 

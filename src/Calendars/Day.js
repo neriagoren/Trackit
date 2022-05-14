@@ -11,6 +11,12 @@ import { hoursAgenda, months, days } from '../Resources/constants'
 
 import { Grid, Stack } from "@mui/material";
 
+import { offset } from "./Time";
+
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+
 dayjs.extend(arraySupport)
 dayjs.extend(customParseFormat)
 
@@ -86,6 +92,8 @@ function Day(props) {
     return (
         <Box>
             <Box sx={{ display: "flex", direction: "row", alignItems: "center", justifyContent: "center" }}>
+
+                {props.date.utcOffset()}
                 <Button onClick={onClickBefore} disabled={props.from === "create" && day.isBefore(dayjs())}>
                     {"<"}
                 </Button>
