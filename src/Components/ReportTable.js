@@ -33,6 +33,7 @@ export default function ReportTable(props) {
                 <TableCell
                   key={column.id}
                   align={column.align}
+                  sx={{ fontWeight: "bold", fontSize: "large" }}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}

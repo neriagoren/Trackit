@@ -20,7 +20,7 @@ const columnsTutor = [
     { id: 'course', label: 'קורס', align: "center", minWidth: 150 },
     { id: 'time', label: 'שעות', minWidth: 170, align: 'center' },
     { id: 'duration', label: 'משך התגבור', minWidth: 170, align: 'center' },
-    { id: 'num', label: 'מספר סטודנטים', minWidth: 50, align: 'center' },
+    { id: 'num', label: 'מספר סטודנטים', minWidth: 60, align: 'center' },
     { id: 'names', label: 'סטודנטים', minWidth: 200, align: 'center' },
 ];
 
@@ -30,7 +30,7 @@ const columnsAdmin = [
     { id: 'course', label: 'קורס', align: "center", minWidth: 150 },
     { id: 'time', label: 'שעות', minWidth: 170, align: 'center' },
     { id: 'duration', label: 'משך התגבור', minWidth: 170, align: 'center', },
-    { id: 'num', label: 'מספר סטודנטים', minWidth: 50, align: 'center' },
+    { id: 'num', label: 'מספר סטודנטים', minWidth: 60, align: 'center' },
     { id: 'names', label: 'סטודנטים', minWidth: 200, align: 'center' },
 ];
 
@@ -209,7 +209,7 @@ export default function Reports(props) {
                                     <ReportTable columns={columnsAdmin} rows={filtered} />
 
                                 </div>
-                                <Button onClick={exportAsPDF}> PDF </Button>
+                                <Button onClick={exportAsPDF}> ייצא כ-PDF </Button>
                             </>
                             :
                             <>
@@ -217,7 +217,7 @@ export default function Reports(props) {
 
                                     <ReportTable columns={columnsTutor} rows={rowsTutor} />
                                 </div>
-                                <Button onClick={exportAsPDF}> PDF </Button>
+                                <Button onClick={exportAsPDF}> ייצא כ-PDF </Button>
                             </>
 
                     }
