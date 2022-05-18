@@ -36,6 +36,10 @@ const theme = createTheme({
 });
 
 
+const reverseString = (str) => {
+    return str.split("").reverse().join("");
+}
+
 const adminSidebarData = [
     {
         id: "reports",
@@ -46,12 +50,12 @@ const adminSidebarData = [
     {
         id: "messages",
         title: "הודעות",
-        path: "/tutor/inbox",
+        path: "/admin/inbox",
         icon: <ChatIcon />,
     },
     {
         id: "create",
-        title: "צור משתמש",
+        title: "צור מתגבר/ת",
         path: "/admin/create-tutor",
         icon: <AddBoxIcon />,
     },
@@ -140,4 +144,4 @@ const studentSidebarData = [
     }
 ]
 
-export { hours, minutes, theme, adminSidebarData, tutorSidebarData, studentSidebarData, hoursAgenda, days, months, abbDays };
+export { reverseString, hours, minutes, theme, adminSidebarData, tutorSidebarData, studentSidebarData, hoursAgenda, days, months, abbDays };

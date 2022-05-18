@@ -73,7 +73,7 @@ export default function CreateTutor() {
                             boxShadow: "0px 0px 2px gray"
                         }}>
                             <Typography color={"gray"} fontSize={"small"} p={1}>
-                                צור מתגבר
+                                צור מתגבר/ת
                             </Typography>
                             <Stack sx={{ width: "80%", height: "auto", p: 2, rowGap: 2 }}>
 
@@ -83,6 +83,7 @@ export default function CreateTutor() {
                                 <TextField value={password} onChange={onPasswordChange} placeholder={"סיסמא"} />
 
                                 <Select
+                                    sx={{ color: selectedCourses.length === 0 && "gray" }}
                                     multiple
                                     displayEmpty
                                     id="demo-simple-select"

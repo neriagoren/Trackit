@@ -19,13 +19,14 @@ import Signup from './pages/Signup';
 import CreateEvent from './pages/CreateEvent';
 import CreateTutor from './pages/CreateTutor';
 import Overview from "./pages/Overview";
-import Reports from "./pages/Reports";
+import AdminReports from "./pages/AdminReports";
+import TutorReports from "./pages/TutorReports";
+
 import Profile from "./pages/Profile";
 import Inbox from "./ChatSystem/Inbox";
 import Setting from "./pages/Setting";
 import Login from "./pages/Login";
 import { theme, adminSidebarData, tutorSidebarData, studentSidebarData } from './Resources/constants';
-import { unstable_deprecatedPropType } from '@mui/utils';
 
 
 
@@ -81,11 +82,12 @@ export default function App() {
                                 <Box width={"100%"}>
                                     <Toolbar />
                                     <Redirect to={userType === "admin" ? "/admin/reports" : userType === "tutor" ? "/tutor/overview" : "/student/overview"} />
-                                    <Route path={"/admin/reports"} render={props => <Reports  {...props} type={userType} />} exact={true} />
+                                    <Route path={"/admin/reports"} render={props => <AdminReports  {...props} />} exact={true} />
+                                    <Route path={"/admin/inbox"} render={props => <Inbox  {...props} type={userType} />} exact={true} />
                                     <Route path={"/admin/create-tutor"} render={props => <CreateTutor  {...props} />} exact={true} />
                                     <Route path={"/tutor/overview"} render={props => <Overview  {...props} />} exact={true} />
                                     <Route path={"/tutor/createevent"} render={props => <CreateEvent  {...props} />} exact={true} />
-                                    <Route path={"/tutor/reports"} render={props => <Reports  {...props} type={userType} />} exact={true} />
+                                    <Route path={"/tutor/reports"} render={props => <TutorReports  {...props} />} exact={true} />
                                     <Route path={"/tutor/profile"} render={props => <Profile  {...props} />} exact={true} />
                                     <Route path={"/tutor/inbox"} render={props => <Inbox  {...props} />} exact={true} />
                                     <Route path={"/tutor/setting"} render={props => <Setting  {...props} />} exact={true} />

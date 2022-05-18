@@ -23,6 +23,7 @@ export default function ReportTable(props) {
     setPage(0);
   };
 
+
   return (
     <Paper sx={{ width: '100%' }}>
       <TableContainer sx={{ backgroundColor: "white" }}>
@@ -50,7 +51,7 @@ export default function ReportTable(props) {
                     {props.columns.map((column) => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell key={column.id} align={column.align} sx={{ direction: "ltr" }}>
                           {value}
                         </TableCell>
                       );
