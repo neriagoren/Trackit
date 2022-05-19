@@ -13,6 +13,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 import { hours, minutes } from '../Resources/constants';
+import { StartTwoTone } from "@mui/icons-material";
 
 
 dayjs.extend(customParseFormat)
@@ -20,34 +21,67 @@ dayjs.extend(customParseFormat)
 
 function CreateEventForm(props) {
 
+    // hold array of course objects [{ID, NAME}]
     const [courses, setCourses] = useState([]);
+
+    // hold object of course {ID, NAME}
     const [course, setCourse] = useState(null);
+
+    // INTEGER VALUES
     const [startHour, setStartHour] = useState(-1);
     const [startMinute, setStartMinute] = useState(-1);
     const [endHour, setEndHour] = useState(-1);
     const [endMinute, setEndMinute] = useState(-1);
+
+    // hold array of student objects [{ID, NAME}]
+    // fix the get method to return only id and name!!! 
     const [students, setStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
+
     const [date, setDate] = useState(null);
     const [location, setLocation] = useState("");
 
-    // 1) course_id
-    // 2) students id's
-    // 3) startDate
-    // 4) endDate
-    // 5) location
 
-    //    //get time from database - TEST
-    //     const [time, setTime] = useState("");
-
-    //     useEffect(() => {
-    //         axios.get("http://localhost:8989/time").then((response) => {
-    //             setTime(()=> response.data)
-    //         })
-    //     })
-
-    // synthesize all inputs to data object - send by axios POST
+    // synthesize all inputs to data JSON object - send by axios POST
     const onCreate = () => {
+
+        // stringifying dates to MySql
+        let startDate = date.hour(startHour).minute(startMinute).format("YYYY-MM-DD hh:mm:ss");
+        let endDate = date.hour(endHour).minute(endMinute).format("YYYY-MM-DD hh:mm:ss");
+        let studentsIDS = [];
+        selectedStudents.map(student => {
+            studentsIDS.push(student.id)
+        })
+
+        // creating data JSON to send by axios POST
+        let data = {
+            course: course.id,
+            students: studentsIDS,
+            location: location,
+            start: startDate,
+            end: endDate
+        }
+
+        // CREATE EVENT! 
+        // need to get tutor id somehow!!!! - DO IT LATER!
+        // axios.post("http://localhost:8989/events/create-event", data).then(response => {
+        //     console.log(response.data)
+        // })
+
+
+
+        // TESTS - checking get/post datetime objects
+        // let newData = { time: startDate };
+        // axios.post("http://localhost:8989/time", newData).then(response => {
+        //     console.log(response.data)
+        // })
+
+
+        // axios.get("http://localhost:8989/time").then(response => {
+        //     let d = dayjs(response.data);
+        //     console.log(d.utcOffset() / 60)
+        // })
+
 
     }
 
@@ -98,11 +132,11 @@ function CreateEventForm(props) {
 
     // fetch data on first render - courses and students
     useEffect(() => {
-        axios.get("http://localhost:8989/courses").then(response1 => {
-            setCourses(() => response1.data)
+        axios.get("http://localhost:8989/courses").then(response => {
+            setCourses(() => response.data)
         })
-        axios.get("http://localhost:8989/users/students").then(response2 => {
-            setStudents(() => response2.data)
+        axios.get("http://localhost:8989/users/students").then(response => {
+            setStudents(() => response.data)
         })
     }, [])
 
@@ -160,7 +194,7 @@ function CreateEventForm(props) {
                     onChange={handleStudent}
                     input={<OutlinedInput />}
                     renderValue={(selected) => {
-                        if (selected.length == 0) {
+                        if (selected.length === 0) {
                             return "בחר סטודנטים";
                         }
                         return (
@@ -190,11 +224,6 @@ function CreateEventForm(props) {
                     }
 
                 </Select>
-
-
-
-
-
                 <DesktopDatePicker
                     minDate={dayjs()}
                     inputFormat="DD/MM/YYYY"
@@ -210,7 +239,6 @@ function CreateEventForm(props) {
                         sx: { direction: "rtl" }
                     }}
                 />
-
                 <Box>
                     <Select
                         sx={{ width: "40%", ml: 1 }}
@@ -239,10 +267,7 @@ function CreateEventForm(props) {
                                 )
                             })
                         }
-
                     </Select>
-
-
                     <Select
                         sx={{ width: "50%" }}
 
@@ -259,8 +284,6 @@ function CreateEventForm(props) {
                                 selected
                             )
                         }}
-
-
                         MenuProps={{
                             style: {
                                 maxHeight: 200,
@@ -279,15 +302,10 @@ function CreateEventForm(props) {
                         }
 
                     </Select>
-
-
-
                 </Box>
-
                 <Box>
                     <Select
                         sx={{ width: "40%", ml: 1 }}
-
                         disabled={endHour == -1}
                         displayEmpty
                         id="start"
@@ -317,10 +335,7 @@ function CreateEventForm(props) {
                                 )
                             })
                         }
-
                     </Select>
-
-
                     <Select
                         sx={{ width: "50%" }}
 
@@ -338,8 +353,6 @@ function CreateEventForm(props) {
                                 selected
                             )
                         }}
-
-
                         MenuProps={{
                             style: {
                                 maxHeight: 200,
@@ -360,12 +373,8 @@ function CreateEventForm(props) {
                                 )
                             })
                         }
-
                     </Select>
-
-
                 </Box>
-
                 <TextField value={location} onChange={onLocationChange} placeholder={"מיקום האירוע"} />
                 <Box>
                     <Button onClick={onCreate} sx={{
@@ -377,7 +386,6 @@ function CreateEventForm(props) {
                     </Button>
                 </Box>
             </Stack>
-
         </LocalizationProvider>
     )
 }

@@ -68,13 +68,7 @@ function Day(props) {
         setDay(() => props.date)
     }, [props.date])
 
-    // useEffect(() => {
-    //     {
-    //         axios.get("http://worldtimeapi.org/api/timezone/Asia/Jerusalem").then((response) => {
-    //             console.log(response.data.utc_offset)
-    //         })
-    //     }
-    // }, [])
+
 
     const onClickNext = () => {
         let d = day.add(1, 'days')
@@ -92,7 +86,6 @@ function Day(props) {
         <Box>
             <Box sx={{ display: "flex", direction: "row", alignItems: "center", justifyContent: "center" }}>
 
-                {props.date.utcOffset()}
                 <Button onClick={onClickBefore} disabled={props.from === "create" && day.isBefore(dayjs())}>
                     {"<"}
                 </Button>
