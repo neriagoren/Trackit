@@ -273,6 +273,7 @@ function CreateEventForm(props) {
                 />
                 <Box>
                     <Select
+                        error={startMinute === -1 && submitted}
                         sx={{ width: "40%", ml: 1, color: startMinute === -1 && "gray" }}
                         displayEmpty
                         id="start"
@@ -300,6 +301,7 @@ function CreateEventForm(props) {
                         }
                     </Select>
                     <Select
+                        error={startHour === -1 && submitted}
                         sx={{ width: "50%", color: startHour === -1 && "gray" }}
                         displayEmpty
                         id="start"
@@ -335,6 +337,7 @@ function CreateEventForm(props) {
                 </Box>
                 <Box>
                     <Select
+                        error={endMinute === -1 && submitted}
                         sx={{ width: "40%", ml: 1, color: endMinute === -1 && "gray" }}
                         displayEmpty
                         id="start"
@@ -366,6 +369,7 @@ function CreateEventForm(props) {
                         }
                     </Select>
                     <Select
+                        error={endHour === -1 && submitted}
                         sx={{ width: "50%", color: endHour === -1 && "gray" }}
                         displayEmpty
                         id="start"
@@ -402,7 +406,7 @@ function CreateEventForm(props) {
                         }
                     </Select>
                 </Box>
-                <TextField value={location} onChange={onLocationChange} placeholder={"מיקום האירוע"} />
+                <TextField error={location === "" && submitted} value={location} onChange={onLocationChange} placeholder={"מיקום האירוע"} />
                 <Stack>
                     <Button onClick={onCreate} sx={{
                         fontSize: "18px", color: "white", backgroundColor: "#2596be", '&:hover': {

@@ -16,6 +16,16 @@ const fontref = require('../Resources/Rubik-Regular-normal');
 
 
 
+const columnsDataGridAdmin = [
+    { field: 'date' },
+    { field: 'tutor' },
+    { field: 'course' },
+    { field: 'time' },
+    { field: 'duration' },
+    { field: 'num' },
+    { field: 'names' }
+];
+
 const columnsAdmin = [
     { id: 'date', label: 'תאריך', align: "center", minWidth: 100 },
     { id: 'tutor', label: 'מתגבר/ת', align: "center", minWidth: 100 },
@@ -27,9 +37,11 @@ const columnsAdmin = [
 ];
 
 
+
 function createDataAdmin(date, tutor, course, time, duration, num, names) {
     return { date, tutor, course, time, duration, num, names };
 }
+
 
 const rowsAdmin = [
     createDataAdmin('12-05-2022', 'נריה גורן', 'חשבון דיפרנציאלי ואינטגרלי', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
