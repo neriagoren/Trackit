@@ -1,5 +1,5 @@
 
-import { TextField, Button, Box, Stack, OutlinedInput, Chip } from "@mui/material";
+import { TextField, Button, Box, Stack, OutlinedInput, Chip, Typography } from "@mui/material";
 import { React, useState, useEffect, memo } from "react";
 import axios from 'axios';
 import dayjs from "dayjs";
@@ -20,6 +20,9 @@ dayjs.extend(customParseFormat)
 
 
 function CreateEventForm(props) {
+
+    const [submitted, setSubmitted] = useState(false);
+    const [response, setResponse] = useState("");
 
     // hold array of course objects [{ID, NAME}]
     const [courses, setCourses] = useState([]);
@@ -45,22 +48,45 @@ function CreateEventForm(props) {
     // synthesize all inputs to data JSON object - send by axios POST
     const onCreate = () => {
 
-        // stringifying dates to MySql
-        let startDate = date.hour(startHour).minute(startMinute).format("YYYY-MM-DD hh:mm:ss");
-        let endDate = date.hour(endHour).minute(endMinute).format("YYYY-MM-DD hh:mm:ss");
-        let studentsIDS = [];
-        selectedStudents.map(student => {
-            studentsIDS.push(student.id)
-        })
+        setSubmitted(() => true)
 
-        // creating data JSON to send by axios POST
-        let data = {
-            course: course.id,
-            students: studentsIDS,
-            location: location,
-            start: startDate,
-            end: endDate
+        // Checking if all inputs were filled
+        // otherwise alert "נא למלא את כל הפרטים החסרים"
+        if (course !== null &&
+            startHour !== -1 &&
+            startMinute !== -1 &&
+            endHour !== -1 &&
+            endMinute !== -1 &&
+            date !== null && date.toString() != "Invalid Date" &&
+            selectedStudents.length !== 0 &&
+            location !== "") {
+            // stringifying dates to MySql
+            let startDate = date.hour(startHour).minute(startMinute).format("YYYY-MM-DD hh:mm:ss");
+            let endDate = date.hour(endHour).minute(endMinute).format("YYYY-MM-DD hh:mm:ss");
+            let studentsIDS = [];
+            selectedStudents.map(student => {
+                studentsIDS.push(student.id)
+            })
+
+            // creating data JSON to send by axios POST
+            let data = {
+                course: course.id,
+                students: studentsIDS,
+                location: location,
+                start: startDate,
+                end: endDate
+            }
+
+            console.log(true)
+            setResponse(() => "התגבור נוצר בהצלחה!")
+
         }
+        else {
+            console.log(false)
+            setResponse(() => "נא למלא את כל הפרטים החסרים!")
+        }
+
+
 
         // CREATE EVENT! 
         // need to get tutor id somehow!!!! - DO IT LATER!
@@ -88,6 +114,7 @@ function CreateEventForm(props) {
     useEffect(() => {
         setDate(() => props.date)
     }, [props.date])
+
 
     const handleDate = (newValue) => {
         if (newValue != null && !isNaN(newValue["$y"])) {
@@ -156,6 +183,8 @@ function CreateEventForm(props) {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Stack sx={{ width: "80%", height: "auto", p: 2, rowGap: 2 }}>
                 <Select
+                    error={course === null && submitted}
+                    sx={{ color: course === null && "gray" }}
                     id="demo-simple-select"
                     displayEmpty
                     value={course === null ? "" : course}
@@ -187,6 +216,8 @@ function CreateEventForm(props) {
                 </Select>
 
                 <Select
+                    error={selectedStudents.length === 0 && submitted}
+                    sx={{ color: selectedStudents.length === 0 && "gray" }}
                     multiple
                     displayEmpty
                     id="demo-simple-select"
@@ -213,7 +244,7 @@ function CreateEventForm(props) {
                     }}
                 >
                     <MenuItem sx={{ direction: "rtl" }} disabled value="">
-                        <> בחר סטודנטים</>
+                        בחר סטודנטים
                     </MenuItem>
                     {
                         students.map((student, index) => {
@@ -224,12 +255,13 @@ function CreateEventForm(props) {
                     }
 
                 </Select>
+
                 <DesktopDatePicker
                     minDate={dayjs()}
                     inputFormat="DD/MM/YYYY"
                     value={date}
                     onChange={handleDate}
-                    renderInput={(params) => <TextField   {...params} />}
+                    renderInput={(params) => <TextField  {...params} sx={{ borderRadius: "5px", border: date === null && submitted && "1px solid red" }} />}
                     PopperProps={{
                         popperOptions: {
                             placement: "left",
@@ -241,8 +273,7 @@ function CreateEventForm(props) {
                 />
                 <Box>
                     <Select
-                        sx={{ width: "40%", ml: 1 }}
-                        disabled={startHour == -1}
+                        sx={{ width: "40%", ml: 1, color: startMinute === -1 && "gray" }}
                         displayEmpty
                         id="start"
                         value={startMinute}
@@ -269,8 +300,7 @@ function CreateEventForm(props) {
                         }
                     </Select>
                     <Select
-                        sx={{ width: "50%" }}
-
+                        sx={{ width: "50%", color: startHour === -1 && "gray" }}
                         displayEmpty
                         id="start"
                         value={startHour}
@@ -305,8 +335,7 @@ function CreateEventForm(props) {
                 </Box>
                 <Box>
                     <Select
-                        sx={{ width: "40%", ml: 1 }}
-                        disabled={endHour == -1}
+                        sx={{ width: "40%", ml: 1, color: endMinute === -1 && "gray" }}
                         displayEmpty
                         id="start"
                         value={endMinute}
@@ -337,9 +366,7 @@ function CreateEventForm(props) {
                         }
                     </Select>
                     <Select
-                        sx={{ width: "50%" }}
-
-                        disabled={startMinute == -1}
+                        sx={{ width: "50%", color: endHour === -1 && "gray" }}
                         displayEmpty
                         id="start"
                         value={endHour}
@@ -376,7 +403,7 @@ function CreateEventForm(props) {
                     </Select>
                 </Box>
                 <TextField value={location} onChange={onLocationChange} placeholder={"מיקום האירוע"} />
-                <Box>
+                <Stack>
                     <Button onClick={onCreate} sx={{
                         fontSize: "18px", color: "white", backgroundColor: "#2596be", '&:hover': {
                             color: "#2596be"
@@ -384,7 +411,11 @@ function CreateEventForm(props) {
                     }}>
                         צור אירוע
                     </Button>
-                </Box>
+
+                    <Typography color={"red"}>
+                        {response}
+                    </Typography>
+                </Stack>
             </Stack>
         </LocalizationProvider>
     )
