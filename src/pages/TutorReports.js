@@ -1,17 +1,19 @@
-import { Container, Grow, TextField, Button, Select, MenuItem, FormControl, Box, OutlinedInput } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import ReportTable from "../Components/ReportTable";
-import { months } from "../Resources/constants";
+import { Container, Grow, TextField, Button, Select, MenuItem, FormControl, Box, OutlinedInput } from "@mui/material";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { reverseString } from "../Resources/constants";
+import { months } from "../Resources/constants";
+import ReportTable from "../Components/ReportTable";
+import CircularProgress from '@mui/material/CircularProgress';
 
-import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 
 const fontref = require('../Resources/Rubik-Regular-normal');
-
 
 
 const columnsTutor = [
@@ -30,25 +32,17 @@ function createDataTutor(date, course, time, duration, num, names) {
 }
 
 
-const rowsTutor = [
-    createDataTutor('12-05-2022', 'חשבון דיפרנציאלי ואינטגרלי', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-    createDataTutor('12-05-2022', 'אלגברה לינארית', "08:15 - 09:45", "שעתיים", "5", "נתנאל, עמיחי, מנשה, אביב, חיים, נוגה"),
-    createDataTutor('12-05-2022', 'מבני נתונים', "08:15 - 09:45", "שעתיים", "1", "אורן אביתר"),
-    createDataTutor('12-05-2022', 'מבוא למדעי המחשב', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-    createDataTutor('12-05-2022', 'אלגברה לינארית', "08:15 - 09:45", "שעתיים", "5", "נתנאל, עמיחי, מנשה, אביב, חיים, נוגה"),
-    createDataTutor('12-05-2022', 'סמינריון בינה מלאכותית', "08:15 - 09:45", "שעתיים", "1", "אורן אביתר"),
-    createDataTutor('12-05-2022', 'אלגוריתמים', "08:15 - 09:45", "שעתיים", "2", "גילה בר, מיכה שטיין"),
-    createDataTutor('12-05-2022', 'חשבון דיפרנציאלי ואינטגרלי', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-    createDataTutor('12-05-2022', 'אלגברה לינארית', "08:15 - 09:45", "שעתיים", "5", "נתנאל, עמיחי, מנשה, אביב, חיים, נוגה"),
-    createDataTutor('12-05-2022', 'מבני נתונים', "08:15 - 09:45", "שעתיים", "1", "אורן אביתר"),
-    createDataTutor('12-05-2022', 'מבוא למדעי המחשב', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-    createDataTutor('12-05-2022', 'אלגברה לינארית', "08:15 - 09:45", "שעתיים", "5", "נתנאל, עמיחי, מנשה, אביב, חיים, נוגה"),
-    createDataTutor('12-05-2022', 'סמינריון בינה מלאכותית', "08:15 - 09:45", "שעתיים", "1", "אורן אביתר"),
-    createDataTutor('12-05-2022', 'אלגוריתמים', "08:15 - 09:45", "שעתיים", "2", "גילה בר, מיכה שטיין"),
-];
 
+// for the names of students table cell in report view
+const stringifyStudents = (students) => {
+    let names = "";
+    students.map((student) => {
+        names += student + ", "
+    })
 
-
+    names = names.slice(0, -2);
+    return names;
+};
 
 // reverse only english cells
 const reverseBody = (arr) => {
@@ -60,13 +54,76 @@ const reverseBody = (arr) => {
 }
 
 
+// parse data received from server
+const parseData = (data) => {
 
+    let rows = [];
+    // group events by event_id
+    let events = {}
+    data.map(row => {
+        (events[row.event_id] || (events[row.event_id] = [])).push(row)
+    })
+
+    // get names of students
+    Object.keys(events).map(async event_id => {
+        let names = [];
+        await events[event_id].map(async event => {
+            await axios.get(`http://localhost:8989/users/get-student-by-id`, {
+                params: {
+                    student_id: event.student_id
+                }
+            }).then(response => {
+                names.push(response.data.first_name + " " + response.data.last_name);
+            })
+        });
+
+        await axios.get("http://localhost:8989/get-course-by-id", {
+            params: {
+                id: events[event_id][0].course_id
+            }
+        }).then(response => {
+            let date = dayjs(events[event_id][0].start).format("DD-MM-YYYY").toString()
+            let start = dayjs(events[event_id][0].start).format("HH:mm").toString()
+            let end = dayjs(events[event_id][0].end).format("HH:mm").toString()
+            let time = start + "-" + end;
+            rows.push(createDataTutor(date, response.data, time, "שעתיים", names.length, stringifyStudents(names)));
+        })
+
+
+    })
+
+    return rows;
+}
+
+// ?${studentsIDS.map((n, index) => `studentsIDS[${index}]=${n}`).join('&')}
 export default function TutorReports() {
 
-    const [course, setCourse] = useState("")
+    const [data, setData] = useState([]);
+    const [course, setCourse] = useState("");
     const [month, setMonth] = useState(-1)
     const [year, setYear] = useState("");
     const [filtered, setFiltered] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const cookies = new Cookies();
+        axios.get("http://localhost:8989/users/get-id-by-token", {
+            params: {
+                token: cookies.get("trackit_COOKIE")
+            }
+        }).then(response1 => {
+            axios.get("http://localhost:8989/events/get-events-tutor", {
+                params: {
+                    tutor: response1.data
+                }
+            }).then(response2 => {
+
+                setData(() => parseData(response2.data))
+                console.log(parseData(response2.data))
+                setLoading(() => false)
+            })
+        })
+    }, [])
 
     const onYearChange = (event) => {
         setYear(() => event.target.value)
@@ -81,7 +138,16 @@ export default function TutorReports() {
     }
 
     useEffect(() => {
-        let arr = rowsTutor;
+
+        if (loading) {
+            setTimeout(() => {
+                setLoading(() => false)
+                setFiltered(() => data)
+            }, [1000])
+        }
+    })
+    const filter = () => {
+        let arr = data;
 
         if (course !== "") {
             arr = arr.filter(row => row.course.includes(course))
@@ -94,8 +160,26 @@ export default function TutorReports() {
         }
 
         setFiltered(() => arr);
+    }
+    // useEffect(() => {
 
-    }, [course, year, month])
+
+    //     let arr = data;
+
+    //     if (course !== "") {
+    //         arr = arr.filter(row => row.course.includes(course))
+    //     }
+    //     if (year !== "") {
+    //         arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('year') === parseInt(year))
+    //     }
+    //     if (month !== -1) {
+    //         arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('month') === month)
+    //     }
+
+    //     setFiltered(() => arr);
+
+
+    // }, [course, year, month])
 
     const exportAsPDF = async () => {
 
@@ -168,7 +252,12 @@ export default function TutorReports() {
                             }
                         </Select>
                     </FormControl>
+
                     <ReportTable columns={columnsTutor} rows={filtered} />
+
+
+
+
                     <Button onClick={exportAsPDF}> ייצא כ-PDF </Button>
                 </Box>
             </Grow>

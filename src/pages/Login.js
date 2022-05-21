@@ -28,6 +28,48 @@ export default function Login(props) {
         history.push(path);
     }
 
+    useEffect(() => {
+
+        // axios.get("http://localhost:8989/get-course-by-id", {
+        //     params: {
+        //         id: 1
+        //     }
+        // }).then(respone => {
+        //     console.log(respone.data)
+        // })
+
+        // axios.get("http://localhost:8989/users/get-id-by-token", {
+        //     params: {
+        //         token: "tutor_token"
+        //     }
+        // }).then(respone => {
+        //     console.log(respone.data)
+        // })
+
+        // axios.get("http://localhost:8989/users/students").then(respone => {
+        //     console.log(respone.data)
+        // })
+
+        // axios.get("http://localhost:8989/users/get-student-by-id", {
+        //     params: {
+        //         id: 1
+        //     }
+        // }).then(respone => {
+        //     console.log(respone.data)
+        // })
+
+        // axios.post("http://localhost:8989/users", {
+        //     username: "neria",
+        //     first_name: "neria",
+        //     last_name: "goren",
+        //     password: "pass",
+        // }).then(respone => {
+        //     console.log(respone.data)
+        // })
+
+
+
+    }, [])
 
     const login = () => {
         axios.get("http://localhost:8989/login", {
@@ -112,7 +154,6 @@ export default function Login(props) {
                         <Button disabled={hasRequiredDetails} sx={{ width: "100%" }} onClick={login}> התחבר/י </Button>
                         <Button onClick={forgot} sx={{ width: "100%" }}> שכחתי סיסמא </Button>
                         <Button onClick={routeChange} sx={{ width: "100%" }}>  צור חשבון</Button>
-
                         <Typography color={"red"} textAlign={"center"}>
                             {response}
                         </Typography>

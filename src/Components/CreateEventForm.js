@@ -5,6 +5,7 @@ import axios from 'axios';
 import dayjs from "dayjs";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Cookies from "universal-cookie";
 
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 
@@ -68,47 +69,35 @@ function CreateEventForm(props) {
                 studentsIDS.push(student.id)
             })
 
-            // creating data JSON to send by axios POST
-            let data = {
-                course: course.id,
-                students: studentsIDS,
-                location: location,
-                start: startDate,
-                end: endDate
-            }
+            const cookies = new Cookies();
 
-            console.log(true)
-            setResponse(() => "התגבור נוצר בהצלחה!")
+            axios.get("http://localhost:8989/users/get-id-by-token", {
+                params: {
+                    token: cookies.get("trackit_COOKIE")
+                }
+            }).then(response => {
+
+                let data = {
+                    tutor: response.data,
+                    course: course.id,
+                    students: studentsIDS,
+                    location: location,
+                    start: startDate,
+                    end: endDate
+                }
+
+                // CREATE EVENT! 
+                axios.post("http://localhost:8989/events/create-event", data).then(response => {
+                    console.log(response.data)
+                })
+                setResponse(() => "התגבור נוצר בהצלחה!")
+            })
 
         }
         else {
             console.log(false)
             setResponse(() => "נא למלא את כל הפרטים החסרים!")
         }
-
-
-
-        // CREATE EVENT! 
-        // need to get tutor id somehow!!!! - DO IT LATER!
-        // axios.post("http://localhost:8989/events/create-event", data).then(response => {
-        //     console.log(response.data)
-        // })
-
-
-
-        // TESTS - checking get/post datetime objects
-        // let newData = { time: startDate };
-        // axios.post("http://localhost:8989/time", newData).then(response => {
-        //     console.log(response.data)
-        // })
-
-
-        // axios.get("http://localhost:8989/time").then(response => {
-        //     let d = dayjs(response.data);
-        //     console.log(d.utcOffset() / 60)
-        // })
-
-
     }
 
     useEffect(() => {

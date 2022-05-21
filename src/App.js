@@ -43,30 +43,30 @@ export default function App() {
         setSelectedIndex(index);
     };
 
-    useEffect(() => {
-        if (!isLogged) {
-            setSelectedIndex(() => 0)
+    // useEffect(() => {
+    //     if (!isLogged) {
+    //         setSelectedIndex(() => 0)
 
-        }
-    }, [isLogged])
-    useEffect(() => {
-        if (isMounted) {
-            console.log("checking for cookies")
-            const cookies = new Cookies();
-            if (cookies.get("trackit_COOKIE")) {
-                axios.get("http://localhost:8989/login/type", {
-                    params: {
-                        token: cookies.get("trackit_COOKIE")
-                    }
-                }).then(type => {
-                    setUserType(() => type.data)
-                    console.log(type.data)
-                    setLogin(() => true);
-                    setToken(() => cookies.get("trackit_COOKIE"));
-                })
-            }
-        }
-    }, [isMounted]);
+    //     }
+    // }, [isLogged])
+    // useEffect(() => {
+    //     if (isMounted) {
+    //         console.log("checking for cookies")
+    //         const cookies = new Cookies();
+    //         if (cookies.get("trackit_COOKIE")) {
+    //             axios.get("http://localhost:8989/login/type", {
+    //                 params: {
+    //                     token: cookies.get("trackit_COOKIE")
+    //                 }
+    //             }).then(type => {
+    //                 setUserType(() => type.data)
+    //                 console.log(type.data)
+    //                 setLogin(() => true);
+    //                 setToken(() => cookies.get("trackit_COOKIE"));
+    //             })
+    //         }
+    //     }
+    // }, [isMounted]);
 
 
     return (

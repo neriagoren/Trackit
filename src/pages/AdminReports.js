@@ -14,18 +14,6 @@ dayjs.extend(customParseFormat);
 
 const fontref = require('../Resources/Rubik-Regular-normal');
 
-
-
-const columnsDataGridAdmin = [
-    { field: 'date' },
-    { field: 'tutor' },
-    { field: 'course' },
-    { field: 'time' },
-    { field: 'duration' },
-    { field: 'num' },
-    { field: 'names' }
-];
-
 const columnsAdmin = [
     { id: 'date', label: 'תאריך', align: "center", minWidth: 100 },
     { id: 'tutor', label: 'מתגבר/ת', align: "center", minWidth: 100 },
@@ -35,7 +23,6 @@ const columnsAdmin = [
     { id: 'num', label: 'מספר סטודנטים', minWidth: 60, align: 'center' },
     { id: 'names', label: 'סטודנטים', minWidth: 200, align: 'center' },
 ];
-
 
 
 function createDataAdmin(date, tutor, course, time, duration, num, names) {
@@ -74,6 +61,7 @@ export default function AdminReports() {
     const [month, setMonth] = useState(-1)
     const [year, setYear] = useState("");
     const [filtered, setFiltered] = useState([]);
+    const [rows, setRows] = useState([]);
 
     const onYearChange = (event) => {
         setYear(() => event.target.value)
