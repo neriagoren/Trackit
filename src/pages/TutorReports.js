@@ -39,7 +39,6 @@ const stringifyStudents = (students) => {
 // reverse only english cells
 const reverseBody = (arr) => {
     let newA = arr;
-    newA[1] = reverseString(arr[1]);
     newA[3] = reverseString(arr[3]);
     newA[5] = reverseString(arr[5]);
     return newA
@@ -173,7 +172,7 @@ export default function TutorReports(props) {
 
 
     const exportAsPDF = () => {
-
+        console.log(filtered)
         let arr = []
         filtered.map((item) => {
             let row = [item.names, item.num, item.duration, item.time, item.course, item.date]
