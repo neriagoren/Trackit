@@ -73,12 +73,11 @@ function CreateEventForm(props) {
 
             axios.get("http://localhost:8989/users/get-id-by-token", {
                 params: {
-                    token: cookies.get("trackit_COOKIE")
+                    token: cookies.get("ACC_COOKIE")
                 }
             }).then(response => {
-
                 let data = {
-                    tutor: response.data,
+                    tutor: response.data[0].id,
                     course: course.id,
                     students: studentsIDS,
                     location: location,
@@ -92,7 +91,6 @@ function CreateEventForm(props) {
                 })
                 setResponse(() => "התגבור נוצר בהצלחה!")
             })
-
         }
         else {
             console.log(false)

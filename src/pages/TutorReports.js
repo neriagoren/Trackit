@@ -51,6 +51,7 @@ const reverseBody = (arr) => {
 export default function TutorReports(props) {
 
     const [data, setData] = useState(null);
+    const [events, setEvents] = useState(null);
     const [course, setCourse] = useState("");
     const [month, setMonth] = useState(-1)
     const [year, setYear] = useState("");
@@ -67,6 +68,8 @@ export default function TutorReports(props) {
         { id: 'names', label: 'סטודנטים', minWidth: 200, align: 'center' },
     ];
 
+
+    // fetching data
     useEffect(() => {
 
         let mounted = true;
@@ -81,26 +84,48 @@ export default function TutorReports(props) {
                     tutor: response.data[0].id
                 }
             }).then((response) => {
-                let rows = [];
-                // group events by event_id
-                let events = {}
-                response.data.map(row => {
-                    (events[row.event_id] || (events[row.event_id] = [])).push(row)
-                })
-                // get names of students
-                Object.keys(events).map(event_id => {
-                    let names = [];
-                    events[event_id].map(async event => {
-                        // works!
-                        await axios.get(`http://localhost:8989/users/get-student-by-id`, {
-                            params: {
-                                id: event.student_id
-                            }
-                        }).then(response => {
-                            names.push(response.data[0].first_name + " " + response.data[0].last_name);
-                        })
-                    });
+                if (mounted) {
+                    setData(() => response.data)
 
+                }
+            })
+        })
+
+        return () => {
+            mounted = false
+        }
+
+    }, []);
+
+
+    useEffect(() => {
+        let mounted = true;
+        if (data !== null) {
+            let rows = [];
+            // group events by event_id
+            let events = {}
+            data.map(row => {
+                (events[row.event_id] || (events[row.event_id] = [])).push(row)
+            })
+
+            // get names of students
+            Object.keys(events).map(event_id => {
+                let names = [];
+                Promise.all(
+                    events[event_id].map(event => {
+                        return (
+                            axios.get(`http://localhost:8989/users/get-student-by-id`, {
+                                params: {
+                                    id: event.student_id
+                                }
+                            })
+                        )
+                    })
+                ).then(response => {
+                    response.map(res => {
+                        names.push(res.data[0].first_name + " " + res.data[0].last_name);
+                    })
+                }).then(() => {
                     axios.get("http://localhost:8989/get-course-by-id", {
                         params: {
                             id: events[event_id][0].course_id
@@ -113,26 +138,27 @@ export default function TutorReports(props) {
                         rows.push(createDataTutor(date, response.data[0].name, time, "שעתיים", names.length, stringifyStudents(names)));
                     })
                 })
-                if (mounted) {
-                    setData(() => rows)
-                }
             })
-        })
 
-        return () => {
-            mounted = false
+            if (mounted) {
+                setEvents(() => rows)
+            }
         }
+        return () => {
+            mounted = false;
+        }
+    }, [data])
 
-    }, []);
 
+    // important!
     useEffect(() => {
-        if (data !== null) {
+        if (events !== null) {
             setTimeout(() => {
                 setLoading(() => false)
 
             }, [100])
         }
-    }, [data])
+    }, [events])
 
 
     const onYearChange = (event) => {
@@ -149,13 +175,13 @@ export default function TutorReports(props) {
 
     useEffect(() => {
         if (!loading) {
-            setFiltered(() => data)
+            setFiltered(() => events)
         }
     }, [loading])
 
     useEffect(() => {
         if (data !== null) {
-            let arr = data;
+            let arr = events;
 
             if (course !== "") {
                 arr = arr.filter(row => row.course.includes(course))
