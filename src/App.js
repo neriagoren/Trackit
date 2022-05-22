@@ -32,41 +32,36 @@ import { theme, adminSidebarData, tutorSidebarData, studentSidebarData } from '.
 
 export default function App() {
 
-    const [isLogged, setLogin] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [userType, setUserType] = useState("");
     const [token, setToken] = useState("");
 
-    const isMounted = useIsMounted();
 
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
     };
 
-    // useEffect(() => {
-    //     if (!isLogged) {
-    //         setSelectedIndex(() => 0)
+    useEffect(() => {
+        if (token === "") {
+            setSelectedIndex(() => 0)
 
-    //     }
-    // }, [isLogged])
-    // useEffect(() => {
-    //     if (isMounted) {
-    //         console.log("checking for cookies")
-    //         const cookies = new Cookies();
-    //         if (cookies.get("trackit_COOKIE")) {
-    //             axios.get("http://localhost:8989/login/type", {
-    //                 params: {
-    //                     token: cookies.get("trackit_COOKIE")
-    //                 }
-    //             }).then(type => {
-    //                 setUserType(() => type.data)
-    //                 console.log(type.data)
-    //                 setLogin(() => true);
-    //                 setToken(() => cookies.get("trackit_COOKIE"));
-    //             })
-    //         }
-    //     }
-    // }, [isMounted]);
+        }
+    }, [token])
+
+    useEffect(() => {
+        const cookies = new Cookies();
+        if (cookies.get("ACC_COOKIE")) {
+            axios.get("http://localhost:8989/login/type", {
+                params: {
+                    token: cookies.get("ACC_COOKIE")
+                }
+            }).then(res => {
+                setToken(() => cookies.get("ACC_COOKIE"))
+                setUserType(() => res.data[0].type)
+            })
+        }
+
+    }, []);
 
 
     return (
@@ -75,19 +70,20 @@ export default function App() {
                 <div className="App">
                     <CssBaseline />
                     {
-                        isLogged ?
+                        token !== "" ?
                             <Box sx={{ display: 'flex', overflowY: "auto", height: "100vh", direction: "rtl" }}>
-                                <MyAppBar setL={setLogin} setT={setUserType} />
-                                <ClippedDrawer SidebarData={userType === "admin" ? adminSidebarData : userType === "tutor" ? tutorSidebarData : studentSidebarData} selectedIndex={selectedIndex} handleListItemClick={handleListItemClick} />
+                                <MyAppBar setToken={setToken} setUserType={setUserType} />
+                                <ClippedDrawer SidebarData={userType === "ADMIN" ? adminSidebarData : userType === "TUTOR" ? tutorSidebarData : studentSidebarData} selectedIndex={selectedIndex} handleListItemClick={handleListItemClick} />
                                 <Box width={"100%"}>
                                     <Toolbar />
-                                    <Redirect to={userType === "admin" ? "/admin/reports" : userType === "tutor" ? "/tutor/overview" : "/student/overview"} />
+                                    <Redirect to={userType === "ADMIN" ? "/admin/reports" : userType === "TUTOR" ? "/tutor/overview" : "/student/overview"} />
+
                                     <Route path={"/admin/reports"} render={props => <AdminReports  {...props} />} exact={true} />
-                                    <Route path={"/admin/inbox"} render={props => <Inbox  {...props} type={userType} />} exact={true} />
+                                    <Route path={"/admin/inbox"} render={props => <Inbox  {...props} />} exact={true} />
                                     <Route path={"/admin/create-tutor"} render={props => <CreateTutor  {...props} />} exact={true} />
                                     <Route path={"/tutor/overview"} render={props => <Overview  {...props} />} exact={true} />
                                     <Route path={"/tutor/createevent"} render={props => <CreateEvent  {...props} />} exact={true} />
-                                    <Route path={"/tutor/reports"} render={props => <TutorReports  {...props} />} exact={true} />
+                                    <Route path={"/tutor/reports"} render={props => <TutorReports  {...props} token={token} />} exact={true} />
                                     <Route path={"/tutor/profile"} render={props => <Profile  {...props} />} exact={true} />
                                     <Route path={"/tutor/inbox"} render={props => <Inbox  {...props} />} exact={true} />
                                     <Route path={"/tutor/setting"} render={props => <Setting  {...props} />} exact={true} />
@@ -103,7 +99,7 @@ export default function App() {
 
                             <Box sx={{ direction: "rtl" }}>
                                 <Redirect to={"/"} />
-                                <Route path={"/"} render={props => <Login  {...props} setL={setLogin} setType={setUserType} />} exact={true} />
+                                <Route path={"/"} render={props => <Login  {...props} setToken={setToken} setUserType={setUserType} />} exact={true} />
                                 <Route path={"/signup"} render={props => <Signup  {...props} />} exact={true} />
                             </Box>
                     }

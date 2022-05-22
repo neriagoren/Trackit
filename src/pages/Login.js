@@ -58,19 +58,11 @@ export default function Login(props) {
         //     console.log(respone.data)
         // })
 
-        // axios.post("http://localhost:8989/users", {
-        //     username: "neria",
-        //     first_name: "neria",
-        //     last_name: "goren",
-        //     password: "pass",
-        // }).then(respone => {
-        //     console.log(respone.data)
-        // })
-
 
 
     }, [])
 
+    // DONE
     const login = () => {
         axios.get("http://localhost:8989/login", {
             params: {
@@ -78,18 +70,11 @@ export default function Login(props) {
                 password: password
             }
         }).then(res => {
-            if (res.data !== "") {
-                axios.get("http://localhost:8989/login/type", {
-                    params: {
-                        token: res.data
-                    }
-                }).then(type => {
-                    props.setType(() => type.data);
-                    console.log(type.data);
-                    const cookies = new Cookies();
-                    cookies.set("trackit_COOKIE", res.data, { domain: "localhost", path: "/", secure: true, sameSite: 'none' });
-                    props.setL(() => true);
-                })
+            if (res.data.length !== 0) {
+                const cookies = new Cookies();
+                cookies.set("ACC_COOKIE", res.data[0].token, { domain: "localhost", path: "/", secure: true, sameSite: 'none' });
+                props.setUserType(() => res.data[0].type);
+                props.setToken(() => res.data[0].token);
             }
             else {
                 setResponse(() => "המשתמש לא קיים!")

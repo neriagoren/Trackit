@@ -1,17 +1,15 @@
 import { useState } from "react";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { Button, TextField, Typography, Toolbar } from "@mui/material";
+import { Button, TextField, Toolbar } from "@mui/material";
 import axios from "axios";
-import Cookies from "universal-cookie";
 import Fade from '@mui/material/Fade';
 import { Redirect } from "react-router-dom";
-import { Alert } from "@mui/material";
 
 export default function Signup() {
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [first_name, setFirstName] = useState("");
+    const [last_name, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [response, setResponse] = useState("");
@@ -19,14 +17,14 @@ export default function Signup() {
     const [success, setSuccess] = useState(false);
 
     const handleFirstNameChange = (e) => {
-        let firstName = e.target.value;
-        setFirstName(() => firstName);
+        let first_name = e.target.value;
+        setFirstName(() => first_name);
         setResponse(() => "");
     }
 
     const handleLastNameChange = (e) => {
-        let lastName = e.target.value;
-        setLastName(() => lastName);
+        let last_name = e.target.value;
+        setLastName(() => last_name);
         setResponse(() => "");
     }
 
@@ -42,7 +40,7 @@ export default function Signup() {
         setPassword(() => password);
     }
 
-    const hasRequiredDetails = username === "" || password === "" || firstName === "" || lastName === ""
+    const hasRequiredDetails = username === "" || password === "" || first_name === "" || last_name === ""
 
     const onEnterKey = (event) => {
         if (event.keyCode === 13 && !hasRequiredDetails) {
@@ -50,10 +48,13 @@ export default function Signup() {
         }
     }
 
+
+    // DONE
     const signup = () => {
-        axios.post("http://localhost:8989/users", { username, password, firstName, lastName }).then(
+        axios.post("http://localhost:8989/users", { username, password, first_name, last_name }).then(
             (res) => {
-                setSuccess(() => res.data);
+                setSuccess(() => res.status === 200);
+
             }
         )
     }

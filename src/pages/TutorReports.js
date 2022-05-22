@@ -9,21 +9,13 @@ import autoTable from "jspdf-autotable";
 import { reverseString } from "../Resources/constants";
 import { months } from "../Resources/constants";
 import ReportTable from "../Components/ReportTable";
-import CircularProgress from '@mui/material/CircularProgress';
+import Skeleton from '@mui/material/Skeleton';
+import { func } from "prop-types";
 
 dayjs.extend(customParseFormat);
 
 const fontref = require('../Resources/Rubik-Regular-normal');
 
-
-const columnsTutor = [
-    { id: 'date', label: 'תאריך', align: "center", minWidth: 100 },
-    { id: 'course', label: 'קורס', align: "center", minWidth: 150 },
-    { id: 'time', label: 'שעות', minWidth: 170, align: 'center' },
-    { id: 'duration', label: 'משך התגבור', minWidth: 170, align: 'center' },
-    { id: 'num', label: 'מספר סטודנטים', minWidth: 60, align: 'center' },
-    { id: 'names', label: 'סטודנטים', minWidth: 200, align: 'center' },
-];
 
 
 
@@ -55,75 +47,90 @@ const reverseBody = (arr) => {
 
 
 // parse data received from server
-const parseData = (data) => {
-
-    let rows = [];
-    // group events by event_id
-    let events = {}
-    data.map(row => {
-        (events[row.event_id] || (events[row.event_id] = [])).push(row)
-    })
-
-    // get names of students
-    Object.keys(events).map(async event_id => {
-        let names = [];
-        await events[event_id].map(async event => {
-            await axios.get(`http://localhost:8989/users/get-student-by-id`, {
-                params: {
-                    student_id: event.student_id
-                }
-            }).then(response => {
-                names.push(response.data.first_name + " " + response.data.last_name);
-            })
-        });
-
-        await axios.get("http://localhost:8989/get-course-by-id", {
-            params: {
-                id: events[event_id][0].course_id
-            }
-        }).then(response => {
-            let date = dayjs(events[event_id][0].start).format("DD-MM-YYYY").toString()
-            let start = dayjs(events[event_id][0].start).format("HH:mm").toString()
-            let end = dayjs(events[event_id][0].end).format("HH:mm").toString()
-            let time = start + "-" + end;
-            rows.push(createDataTutor(date, response.data, time, "שעתיים", names.length, stringifyStudents(names)));
-        })
-
-
-    })
-
-    return rows;
-}
 
 // ?${studentsIDS.map((n, index) => `studentsIDS[${index}]=${n}`).join('&')}
-export default function TutorReports() {
+export default function TutorReports(props) {
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
     const [course, setCourse] = useState("");
     const [month, setMonth] = useState(-1)
     const [year, setYear] = useState("");
     const [filtered, setFiltered] = useState([]);
     const [loading, setLoading] = useState(true);
 
+
+    const columnsTutor = [
+        { id: 'date', label: 'תאריך', align: "center", minWidth: 100 },
+        { id: 'course', label: 'קורס', align: "center", minWidth: 150 },
+        { id: 'time', label: 'שעות', minWidth: 170, align: 'center' },
+        { id: 'duration', label: 'משך התגבור', minWidth: 170, align: 'center' },
+        { id: 'num', label: 'מספר סטודנטים', minWidth: 60, align: 'center' },
+        { id: 'names', label: 'סטודנטים', minWidth: 200, align: 'center' },
+    ];
+
+
     useEffect(() => {
-        const cookies = new Cookies();
+
+
+
         axios.get("http://localhost:8989/users/get-id-by-token", {
             params: {
-                token: cookies.get("trackit_COOKIE")
+                token: props.token
             }
-        }).then(response1 => {
+        }).then((response) => {
             axios.get("http://localhost:8989/events/get-events-tutor", {
                 params: {
-                    tutor: response1.data
+                    tutor: response.data[0].id
                 }
-            }).then(response2 => {
+            }).then((response) => {
+                let rows = [];
+                // group events by event_id
+                let events = {}
+                response.data.map(row => {
+                    (events[row.event_id] || (events[row.event_id] = [])).push(row)
+                })
+                // get names of students
+                Object.keys(events).map(event_id => {
+                    let names = [];
+                    events[event_id].map(async event => {
+                        // works!
+                        await axios.get(`http://localhost:8989/users/get-student-by-id`, {
+                            params: {
+                                id: event.student_id
+                            }
+                        }).then(response => {
+                            names.push(response.data[0].first_name + " " + response.data[0].last_name);
+                        })
+                    });
 
-                setData(() => parseData(response2.data))
-                console.log(parseData(response2.data))
-                setLoading(() => false)
+                    axios.get("http://localhost:8989/get-course-by-id", {
+                        params: {
+                            id: events[event_id][0].course_id
+                        }
+                    }).then(response => {
+                        let date = dayjs(events[event_id][0].start).format("DD-MM-YYYY").toString()
+                        let start = dayjs(events[event_id][0].start).format("HH:mm").toString()
+                        let end = dayjs(events[event_id][0].end).format("HH:mm").toString()
+                        let time = start + "-" + end;
+                        rows.push(createDataTutor(date, response.data[0].name, time, "שעתיים", names.length, stringifyStudents(names)));
+                    })
+                })
+                setData(() => rows)
             })
         })
-    }, [])
+
+
+    }, []);
+
+    useEffect(() => {
+        if (data !== null) {
+            setTimeout(() => {
+                setLoading(() => false)
+
+            }, [100])
+        }
+    }, [data])
+
 
     const onYearChange = (event) => {
         setYear(() => event.target.value)
@@ -138,50 +145,30 @@ export default function TutorReports() {
     }
 
     useEffect(() => {
-
-        if (loading) {
-            setTimeout(() => {
-                setLoading(() => false)
-                setFiltered(() => data)
-            }, [1000])
+        if (!loading) {
+            setFiltered(() => data)
         }
-    })
-    const filter = () => {
-        let arr = data;
+    }, [loading])
 
-        if (course !== "") {
-            arr = arr.filter(row => row.course.includes(course))
+    useEffect(() => {
+        if (data !== null) {
+            let arr = data;
+
+            if (course !== "") {
+                arr = arr.filter(row => row.course.includes(course))
+            }
+            if (year !== "") {
+                arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('year') === parseInt(year))
+            }
+            if (month !== -1) {
+                arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('month') === month)
+            }
+            setFiltered(() => arr)
         }
-        if (year !== "") {
-            arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('year') === parseInt(year))
-        }
-        if (month !== -1) {
-            arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('month') === month)
-        }
-
-        setFiltered(() => arr);
-    }
-    // useEffect(() => {
+    }, [course, year, month]);
 
 
-    //     let arr = data;
-
-    //     if (course !== "") {
-    //         arr = arr.filter(row => row.course.includes(course))
-    //     }
-    //     if (year !== "") {
-    //         arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('year') === parseInt(year))
-    //     }
-    //     if (month !== -1) {
-    //         arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('month') === month)
-    //     }
-
-    //     setFiltered(() => arr);
-
-
-    // }, [course, year, month])
-
-    const exportAsPDF = async () => {
+    const exportAsPDF = () => {
 
         let arr = []
         filtered.map((item) => {
@@ -221,39 +208,57 @@ export default function TutorReports() {
                 style={{ transformOrigin: '0 0 0' }}
                 timeout={500}>
                 <Box>
-                    <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שם הקורס"} value={course} onChange={onCourseChange} />
-                    <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שנה"} value={year} onChange={onYearChange} />
-                    <FormControl>
-                        <Select
-                            sx={{ ml: 1, mb: 1, backgroundColor: "white", color: month === -1 && "gray" }}
-                            id="month-select"
-                            displayEmpty
-                            value={month}
-                            onChange={handleMonthChange}
-                            input={<OutlinedInput />}
-                            defaultValue={-1}
-                            renderValue={(selected) => {
-                                if (selected == -1) {
-                                    return "לפי חודש"
-                                }
-                                return (
-                                    months[selected]
-                                )
-                            }}
-                        >
-                            <MenuItem value={-1} sx={{ direction: "rtl" }} > ניקוי בחירה </MenuItem>
-                            {
-                                months.map((month, index) => {
+                    <Box sx={{ height: "auto", display: "flex", flexDirection: "row" }}>
+
+
+                        <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שם הקורס"} value={course} onChange={onCourseChange} />
+                        <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שנה"} value={year} onChange={onYearChange} />
+                        <FormControl>
+                            <Select
+                                sx={{ ml: 1, mb: 1, backgroundColor: "white", color: month === -1 && "gray" }}
+                                id="month-select"
+                                displayEmpty
+                                value={month}
+                                onChange={handleMonthChange}
+                                input={<OutlinedInput />}
+                                defaultValue={-1}
+                                renderValue={(selected) => {
+                                    if (selected == -1) {
+                                        return "לפי חודש"
+                                    }
                                     return (
-                                        <MenuItem sx={{ direction: "rtl" }} key={index} value={index}> {month}</MenuItem>
-
+                                        months[selected]
                                     )
-                                })
-                            }
-                        </Select>
-                    </FormControl>
+                                }}
+                            >
+                                <MenuItem value={-1} sx={{ direction: "rtl" }} > ניקוי בחירה </MenuItem>
+                                {
+                                    months.map((month, index) => {
+                                        return (
+                                            <MenuItem sx={{ direction: "rtl" }} key={index} value={index}> {month}</MenuItem>
 
-                    <ReportTable columns={columnsTutor} rows={filtered} />
+                                        )
+                                    })
+                                }
+                            </Select>
+                        </FormControl>
+
+
+                    </Box>
+
+
+                    {
+                        loading ?
+                            <>
+                                <h3> אנא המתן</h3>
+                                <Skeleton animation="wave" />
+                                <Skeleton animation="wave" />
+
+                            </>
+                            :
+                            <ReportTable columns={columnsTutor} rows={filtered} />
+
+                    }
 
 
 

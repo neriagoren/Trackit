@@ -13,11 +13,12 @@ export default function MyAppBar(props) {
 
     const history = useHistory();
 
+    // DONE 
     const logout = () => {
         const cookies = new Cookies();
-        cookies.remove("trackit_COOKIE", { domain: "localhost", path: "/" });
-        props.setL(() => false);
-        props.setT(() => "");
+        cookies.remove("ACC_COOKIE", { domain: "localhost", path: "/" });
+        props.setUserType(() => "");
+        props.setToken(() => "")
     }
 
 
