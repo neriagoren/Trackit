@@ -68,10 +68,9 @@ export default function TutorReports(props) {
         { id: 'names', label: 'סטודנטים', minWidth: 200, align: 'center' },
     ];
 
-
     useEffect(() => {
 
-
+        let mounted = true;
 
         axios.get("http://localhost:8989/users/get-id-by-token", {
             params: {
@@ -115,10 +114,15 @@ export default function TutorReports(props) {
                         rows.push(createDataTutor(date, response.data[0].name, time, "שעתיים", names.length, stringifyStudents(names)));
                     })
                 })
-                setData(() => rows)
+                if (mounted) {
+                    setData(() => rows)
+                }
             })
         })
 
+        return () => {
+            mounted = false
+        }
 
     }, []);
 
