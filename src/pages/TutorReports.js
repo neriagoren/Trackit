@@ -124,6 +124,10 @@ export default function TutorReports(props) {
                 rows.push(createDataTutor(dateStart.format("DD-MM-YYYY").toString(), events[id][0].course_name, time, (duration / 60).toString(), names.length, stringifyStudents(names)));
 
             })
+
+            // sorting by date in DESC order
+            rows.sort((a, b) => dayjs(b.date, 'DD-MM-YYYY') - dayjs(a.date, 'DD-MM-YYYY'))
+
             if (mounted) {
                 setEvents(() => rows)
             }

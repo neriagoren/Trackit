@@ -25,7 +25,6 @@ function CreateEvent() {
 
 
 
-
     return (
         <Container sx={{ paddingBottom: 20, paddingTop: 2 }}>
             <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -43,7 +42,9 @@ function CreateEvent() {
                                 צור תגבור
                             </Typography>
                             <CreateEventForm date={date} setDate={setDate} />
-                            {/* <Counter /> */}
+
+
+                            {/* counts the number of renders made <Counter /> */}
                         </Box>
                     </Grow>
                 </Grid>

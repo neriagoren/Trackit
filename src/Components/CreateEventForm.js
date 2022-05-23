@@ -72,7 +72,6 @@ function CreateEventForm(props) {
                     token: cookies.get("ACC_COOKIE")
                 }
             }).then(response => {
-                console.log(response.data[0])
                 let data = {
                     tutor_id: response.data[0].id,
                     tutor_name: response.data[0].first_name + " " + response.data[0].last_name,

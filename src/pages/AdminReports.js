@@ -1,5 +1,6 @@
 import { Container, Grow, TextField, Button, Select, MenuItem, FormControl, Box, OutlinedInput } from "@mui/material";
 import React, { useState, useEffect } from "react";
+import Skeleton from '@mui/material/Skeleton';
 
 import ReportTable from "../Components/ReportTable";
 import { months } from "../Resources/constants";
@@ -14,15 +15,7 @@ dayjs.extend(customParseFormat);
 
 const fontref = require('../Resources/Rubik-Regular-normal');
 
-const columnsAdmin = [
-    { id: 'date', label: 'תאריך', align: "center", minWidth: 100 },
-    { id: 'tutor', label: 'מתגבר/ת', align: "center", minWidth: 100 },
-    { id: 'course', label: 'קורס', align: "center", minWidth: 150 },
-    { id: 'time', label: 'שעות', minWidth: 170, align: 'center' },
-    { id: 'duration', label: 'משך התגבור', minWidth: 170, align: 'center', },
-    { id: 'num', label: 'מספר סטודנטים', minWidth: 60, align: 'center' },
-    { id: 'names', label: 'סטודנטים', minWidth: 200, align: 'center' },
-];
+
 
 
 function createDataAdmin(date, tutor, course, time, duration, num, names) {
@@ -30,29 +23,28 @@ function createDataAdmin(date, tutor, course, time, duration, num, names) {
 }
 
 
-const rowsAdmin = [
-    createDataAdmin('12-05-2022', 'נריה גורן', 'חשבון דיפרנציאלי ואינטגרלי', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-    createDataAdmin('12-05-2022', 'נריה גורן', 'חשבון דיפרנציאלי ואינטגרלי', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-    createDataAdmin('12-05-2022', 'נריה גורן', 'חשבון דיפרנציאלי ואינטגרלי', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-    createDataAdmin('12-05-2022', 'נריה גורן', 'אלגברה לינארית', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-    createDataAdmin('12-04-2022', 'נריה גורן', 'חשבון דיפרנציאלי ואינטגרלי', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-    createDataAdmin('12-05-2021', 'נריה גורן', 'מבוא למדעי המחשב', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-    createDataAdmin('12-05-2022', 'מוטי לוכים', 'חשבון דיפרנציאלי ואינטגרלי', "08:15 - 09:45", "שעתיים", "3", "עמיחי, אוראל"),
-];
-
 
 // reverse only english cells
 // 0- Date, 3- hours, 5- num of students
 // should add duration too!
 const reverseBody = (arr) => {
     let newA = arr;
-    newA[1] = reverseString(arr[1]);
+    newA[2] = reverseString(arr[2].toString());
     newA[3] = reverseString(arr[3]);
     newA[6] = reverseString(arr[6]);
     return newA
 }
 
+// for the names of students table cell in report view
+const stringifyStudents = (students) => {
+    let names = "";
+    students.map((student) => {
+        names += student + ", "
+    })
 
+    names = names.slice(0, -2);
+    return names;
+};
 
 export default function AdminReports() {
 
@@ -63,22 +55,83 @@ export default function AdminReports() {
     const [month, setMonth] = useState(-1)
     const [year, setYear] = useState("");
     const [filtered, setFiltered] = useState([]);
-    const [rows, setRows] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const columnsAdmin = [
+        { id: 'date', label: 'תאריך', align: "center", minWidth: 100 },
+        { id: 'tutor', label: 'מתגבר/ת', align: "center", minWidth: 100 },
+        { id: 'course', label: 'קורס', align: "center", minWidth: 150 },
+        { id: 'time', label: 'שעות', minWidth: 170, align: 'center' },
+        { id: 'duration', label: 'משך התגבור', minWidth: 170, align: 'center', },
+        { id: 'num', label: 'מספר סטודנטים', minWidth: 60, align: 'center' },
+        { id: 'names', label: 'סטודנטים', minWidth: 200, align: 'center' },
+    ];
 
     //fetching data
     useEffect(() => {
         let mounted = true;
         axios.get("http://localhost:8989/events").then((response) => {
-            console.log(response.data)
             if (mounted) {
                 setData(() => response.data)
             }
         })
-
         return () => {
             mounted = false
         }
     }, []);
+
+    // parse data to events here
+    useEffect(() => {
+        let mounted = true;
+        if (data !== null) {
+            let rows = [];
+            // group events by event_id
+            let events = {}
+            data.map(row => {
+                (events[row.event_id] || (events[row.event_id] = [])).push(row)
+            })
+
+            // get names of students - (maybe students names should appear on event table instead of just id?)
+            // alter this!
+
+            Object.keys(events).map(id => {
+                let names = [];
+                events[id].map(event => {
+                    names.push(event.student_name)
+                })
+
+                let dateStart = dayjs(events[id][0].start)
+                let dateEnd = dayjs(events[id][0].end)
+                let start = dateStart.format("HH:mm").toString();
+                let end = dateEnd.format("HH:mm").toString();
+                let time = start + "-" + end;
+                let duration = dayjs(events[id][0].end).diff(dayjs(events[id][0].start), 'minute')
+                rows.push(createDataAdmin(dateStart.format("DD-MM-YYYY").toString(), events[id][0].tutor_name, events[id][0].course_name, time, (duration / 60).toString(), names.length, stringifyStudents(names)));
+
+            })
+
+            // sorting by date in DESC order
+            rows.sort((a, b) => dayjs(b.date, 'DD-MM-YYYY') - dayjs(a.date, 'DD-MM-YYYY'))
+
+            if (mounted) {
+                setEvents(() => rows)
+            }
+
+        }
+        return () => {
+            mounted = false;
+        }
+    }, [data])
+
+    // important!
+    useEffect(() => {
+        if (events !== null) {
+            setTimeout(() => {
+                setLoading(() => false)
+
+            }, [100])
+        }
+    }, [events])
 
     const onYearChange = (event) => {
         setYear(() => event.target.value)
@@ -97,21 +150,29 @@ export default function AdminReports() {
     }
 
     useEffect(() => {
-        let arr = rowsAdmin;
-        if (tutor !== "") {
-            arr = rowsAdmin.filter(row => row.tutor.includes(tutor))
+        if (!loading) {
+            setFiltered(() => events)
         }
-        if (course !== "") {
-            arr = arr.filter(row => row.course.includes(course))
-        }
-        if (year !== "") {
-            arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('year') === parseInt(year))
-        }
-        if (month !== -1) {
-            arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('month') === month)
-        }
+    }, [loading])
 
-        setFiltered(() => arr);
+    useEffect(() => {
+        if (data !== null) {
+            let arr = events;
+            if (tutor !== "") {
+                arr = arr.filter(row => row.tutor.includes(tutor))
+            }
+            if (course !== "") {
+                arr = arr.filter(row => row.course.includes(course))
+            }
+            if (year !== "") {
+                arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('year') === parseInt(year))
+            }
+            if (month !== -1) {
+                arr = arr.filter(row => dayjs(row.date, "DD-MM-YYYY").get('month') === month)
+            }
+
+            setFiltered(() => arr);
+        }
 
     }, [tutor, course, year, month])
 
@@ -155,40 +216,59 @@ export default function AdminReports() {
                 style={{ transformOrigin: '0 0 0' }}
                 timeout={500}>
                 <Box>
-                    <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שם המתגבר/ת"} value={tutor} onChange={onTutorChange} />
-                    <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שם הקורס"} value={course} onChange={onCourseChange} />
-                    <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שנה"} value={year} onChange={onYearChange} />
-                    <FormControl>
-                        <Select
-                            sx={{ ml: 1, mb: 1, backgroundColor: "white", color: month === -1 && "gray" }}
-                            id="month-select"
-                            displayEmpty
-                            value={month}
-                            onChange={handleMonthChange}
-                            input={<OutlinedInput />}
-                            defaultValue={-1}
-                            renderValue={(selected) => {
-                                if (selected == -1) {
-                                    return "לפי חודש"
-                                }
-                                return (
-                                    months[selected]
-                                )
-                            }}
-                        >
-                            <MenuItem value={-1} sx={{ direction: "rtl" }} > ניקוי בחירה </MenuItem>
-                            {
-                                months.map((month, index) => {
-                                    return (
-                                        <MenuItem sx={{ direction: "rtl" }} key={index} value={index}> {month}</MenuItem>
+                    <Box sx={{ height: "auto", display: "flex", flexDirection: "row" }}>
 
+                        <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שם המתגבר/ת"} value={tutor} onChange={onTutorChange} />
+                        <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שם הקורס"} value={course} onChange={onCourseChange} />
+                        <TextField sx={{ ml: 1, mb: 1, backgroundColor: "white" }} placeholder={"חפש לפי שנה"} value={year} onChange={onYearChange} />
+                        <FormControl>
+                            <Select
+                                sx={{ ml: 1, mb: 1, backgroundColor: "white", color: month === -1 && "gray" }}
+                                id="month-select"
+                                displayEmpty
+                                value={month}
+                                onChange={handleMonthChange}
+                                input={<OutlinedInput />}
+                                defaultValue={-1}
+                                renderValue={(selected) => {
+                                    if (selected == -1) {
+                                        return "לפי חודש"
+                                    }
+                                    return (
+                                        months[selected]
                                     )
-                                })
-                            }
-                        </Select>
-                    </FormControl>
-                    <ReportTable columns={columnsAdmin} rows={filtered} />
-                    <Button onClick={exportAsPDF}> ייצא כ-PDF </Button>
+                                }}
+                            >
+                                <MenuItem value={-1} sx={{ direction: "rtl" }} > ניקוי בחירה </MenuItem>
+                                {
+                                    months.map((month, index) => {
+                                        return (
+                                            <MenuItem sx={{ direction: "rtl" }} key={index} value={index}> {month}</MenuItem>
+
+                                        )
+                                    })
+                                }
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    {
+                        loading ?
+                            <>
+                                <h3> אנא המתן</h3>
+                                <Skeleton animation="wave" />
+                                <Skeleton animation="wave" />
+
+                            </>
+                            :
+                            <>
+                                <ReportTable columns={columnsAdmin} rows={filtered} />
+
+                                <Button onClick={exportAsPDF}> ייצא כ-PDF </Button>
+
+                            </>
+
+                    }
+
                 </Box>
             </Grow>
         </Container >
