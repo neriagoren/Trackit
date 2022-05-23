@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import ReportTable from "../Components/ReportTable";
 import { months } from "../Resources/constants";
-
+import axios from "axios";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { reverseString } from "../Resources/constants";
@@ -56,12 +56,29 @@ const reverseBody = (arr) => {
 
 export default function AdminReports() {
 
+    const [data, setData] = useState(null);
+    const [events, setEvents] = useState(null);
     const [tutor, setTutor] = useState("")
     const [course, setCourse] = useState("")
     const [month, setMonth] = useState(-1)
     const [year, setYear] = useState("");
     const [filtered, setFiltered] = useState([]);
     const [rows, setRows] = useState([]);
+
+    //fetching data
+    useEffect(() => {
+        let mounted = true;
+        axios.get("http://localhost:8989/events").then((response) => {
+            console.log(response.data)
+            if (mounted) {
+                setData(() => response.data)
+            }
+        })
+
+        return () => {
+            mounted = false
+        }
+    }, []);
 
     const onYearChange = (event) => {
         setYear(() => event.target.value)

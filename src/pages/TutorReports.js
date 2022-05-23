@@ -12,6 +12,8 @@ import ReportTable from "../Components/ReportTable";
 import Skeleton from '@mui/material/Skeleton';
 import { func } from "prop-types";
 
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc)
 dayjs.extend(customParseFormat);
 
 const fontref = require('../Resources/Rubik-Regular-normal');
@@ -39,6 +41,7 @@ const stringifyStudents = (students) => {
 // reverse only english cells
 const reverseBody = (arr) => {
     let newA = arr;
+    newA[2] = reverseString(arr[2].toString())
     newA[3] = reverseString(arr[3]);
     newA[5] = reverseString(arr[5]);
     return newA
@@ -71,9 +74,7 @@ export default function TutorReports(props) {
 
     // fetching data
     useEffect(() => {
-
         let mounted = true;
-
         axios.get("http://localhost:8989/users/get-id-by-token", {
             params: {
                 token: props.token
@@ -86,15 +87,12 @@ export default function TutorReports(props) {
             }).then((response) => {
                 if (mounted) {
                     setData(() => response.data)
-
                 }
             })
         })
-
         return () => {
             mounted = false
         }
-
     }, []);
 
 
@@ -108,41 +106,28 @@ export default function TutorReports(props) {
                 (events[row.event_id] || (events[row.event_id] = [])).push(row)
             })
 
-            // get names of students
-            Object.keys(events).map(event_id => {
-                let names = [];
-                Promise.all(
-                    events[event_id].map(event => {
-                        return (
-                            axios.get(`http://localhost:8989/users/get-student-by-id`, {
-                                params: {
-                                    id: event.student_id
-                                }
-                            })
-                        )
-                    })
-                ).then(response => {
-                    response.map(res => {
-                        names.push(res.data[0].first_name + " " + res.data[0].last_name);
-                    })
-                }).then(() => {
-                    axios.get("http://localhost:8989/get-course-by-id", {
-                        params: {
-                            id: events[event_id][0].course_id
-                        }
-                    }).then(response => {
-                        let date = dayjs(events[event_id][0].start).format("DD-MM-YYYY").toString()
-                        let start = dayjs(events[event_id][0].start).format("HH:mm").toString()
-                        let end = dayjs(events[event_id][0].end).format("HH:mm").toString()
-                        let time = start + "-" + end;
-                        rows.push(createDataTutor(date, response.data[0].name, time, "שעתיים", names.length, stringifyStudents(names)));
-                    })
-                })
-            })
+            // get names of students - (maybe students names should appear on event table instead of just id?)
+            // alter this!
 
+            Object.keys(events).map(id => {
+                let names = [];
+                events[id].map(event => {
+                    names.push(event.student_name)
+                })
+
+                let dateStart = dayjs(events[id][0].start)
+                let dateEnd = dayjs(events[id][0].end)
+                let start = dateStart.format("HH:mm").toString();
+                let end = dateEnd.format("HH:mm").toString();
+                let time = start + "-" + end;
+                let duration = dayjs(events[id][0].end).diff(dayjs(events[id][0].start), 'minute')
+                rows.push(createDataTutor(dateStart.format("DD-MM-YYYY").toString(), events[id][0].course_name, time, (duration / 60).toString(), names.length, stringifyStudents(names)));
+
+            })
             if (mounted) {
                 setEvents(() => rows)
             }
+
         }
         return () => {
             mounted = false;
@@ -198,7 +183,6 @@ export default function TutorReports(props) {
 
 
     const exportAsPDF = () => {
-        console.log(filtered)
         let arr = []
         filtered.map((item) => {
             let row = [item.names, item.num, item.duration, item.time, item.course, item.date]
@@ -285,14 +269,18 @@ export default function TutorReports(props) {
 
                             </>
                             :
-                            <ReportTable columns={columnsTutor} rows={filtered} />
+                            <>
+                                <ReportTable columns={columnsTutor} rows={filtered} />
+
+                                <Button onClick={exportAsPDF}> ייצא כ-PDF </Button>
+
+                            </>
 
                     }
 
 
 
 
-                    <Button onClick={exportAsPDF}> ייצא כ-PDF </Button>
                 </Box>
             </Grow>
         </Container >

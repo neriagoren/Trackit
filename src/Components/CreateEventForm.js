@@ -14,7 +14,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 import { hours, minutes } from '../Resources/constants';
-import { StartTwoTone } from "@mui/icons-material";
 
 
 dayjs.extend(customParseFormat)
@@ -46,7 +45,7 @@ function CreateEventForm(props) {
     const [location, setLocation] = useState("");
 
 
-    // synthesize all inputs to data JSON object - send by axios POST
+    // DONE!
     const onCreate = () => {
 
         setSubmitted(() => true)
@@ -62,24 +61,23 @@ function CreateEventForm(props) {
             selectedStudents.length !== 0 &&
             location !== "") {
             // stringifying dates to MySql
-            let startDate = date.hour(startHour).minute(startMinute).format("YYYY-MM-DD hh:mm:ss");
-            let endDate = date.hour(endHour).minute(endMinute).format("YYYY-MM-DD hh:mm:ss");
-            let studentsIDS = [];
-            selectedStudents.map(student => {
-                studentsIDS.push(student.id)
-            })
+            let startDate = date.hour(startHour).minute(startMinute).format("YYYY-MM-DD HH:mm:ss");
+            let endDate = date.hour(endHour).minute(endMinute).format("YYYY-MM-DD HH:mm:ss");
+
 
             const cookies = new Cookies();
 
-            axios.get("http://localhost:8989/users/get-id-by-token", {
+            axios.get("http://localhost:8989/users/get-id-name-by-token", {
                 params: {
                     token: cookies.get("ACC_COOKIE")
                 }
             }).then(response => {
+                console.log(response.data[0])
                 let data = {
-                    tutor: response.data[0].id,
-                    course: course.id,
-                    students: studentsIDS,
+                    tutor_id: response.data[0].id,
+                    tutor_name: response.data[0].first_name + " " + response.data[0].last_name,
+                    course: course,
+                    students: selectedStudents,
                     location: location,
                     start: startDate,
                     end: endDate
@@ -87,7 +85,6 @@ function CreateEventForm(props) {
 
                 // CREATE EVENT! 
                 axios.post("http://localhost:8989/events/create-event", data).then(response => {
-                    console.log(response.data)
                 })
                 setResponse(() => "התגבור נוצר בהצלחה!")
             })
