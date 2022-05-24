@@ -64,22 +64,24 @@ export default function Login(props) {
 
     // DONE
     const login = () => {
-        axios.get("http://localhost:8989/login", {
-            params: {
-                username: username,
-                password: password
-            }
-        }).then(res => {
-            if (res.data.length !== 0) {
-                const cookies = new Cookies();
-                cookies.set("ACC_COOKIE", res.data[0].token, { domain: "localhost", path: "/", secure: true, sameSite: 'none' });
-                props.setUserType(() => res.data[0].type);
-                props.setToken(() => res.data[0].token);
-            }
-            else {
-                setResponse(() => "המשתמש לא קיים!")
-            }
-        })
+        if (!hasRequiredDetails) {
+            axios.get("http://localhost:8989/login", {
+                params: {
+                    username: username,
+                    password: password
+                }
+            }).then(res => {
+                if (res.data.length !== 0) {
+                    const cookies = new Cookies();
+                    cookies.set("ACC_COOKIE", res.data[0].token, { domain: "localhost", path: "/", secure: true, sameSite: 'none' });
+                    props.setUserType(() => res.data[0].type);
+                    props.setToken(() => res.data[0].token);
+                }
+                else {
+                    setResponse(() => "המשתמש לא קיים!")
+                }
+            })
+        }
     }
 
     const forgot = () => {
@@ -98,11 +100,7 @@ export default function Login(props) {
         setPassword(() => password);
     }
 
-    const onEnterKey = (event) => {
-        if (event.keyCode === 13 && !hasRequiredDetails) {
-            login()
-        }
-    }
+
 
 
     return (
@@ -135,7 +133,7 @@ export default function Login(props) {
 
                     <Box>
                         <TextField onChange={handleUsernameChange} placeholder={"שם משתמש"} sx={{ width: "100%", m: 1 }} />
-                        <TextField onChange={handlePasswordChange} onKeyDown={onEnterKey} type={"password"} placeholder={"סיסמא"} sx={{ width: "100%", m: 1 }} />
+                        <TextField onChange={handlePasswordChange} onKeyDown={(event) => { event.key === 'Enter' && signup() }} type={"password"} placeholder={"סיסמא"} sx={{ width: "100%", m: 1 }} />
                         <Button disabled={hasRequiredDetails} sx={{ width: "100%" }} onClick={login}> התחבר/י </Button>
                         <Button onClick={forgot} sx={{ width: "100%" }}> שכחתי סיסמא </Button>
                         <Button onClick={routeChange} sx={{ width: "100%" }}>  צור חשבון</Button>
